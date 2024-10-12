@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>lab_1</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script type="module">
+<title>lab_2</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script type="module">
   import mermaid from 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs';
   mermaid.initialize({ startOnLoad: true });
 </script>
@@ -13089,15 +13089,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=85f023a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-I">Lab I<a class="anchor-link" href="#Lab-I">¶</a></h2><p>2024/2025, winter semester</p>
+<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-II">Lab II<a class="anchor-link" href="#Lab-II">¶</a></h2><p>2024/2025, winter semester</p>
 <hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=c6333db3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Assessment">Assessment<a class="anchor-link" href="#Assessment">¶</a></h2><p>In-class written assessment, last class.</p>
 </div>
 </div>
 </div>
@@ -13113,538 +13106,432 @@ div#notebook {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=c3adff97"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=962da4c9"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Thonny-IDE">Thonny IDE<a class="anchor-link" href="#Thonny-IDE">¶</a></h2><p>Thonny is a beginner-friendly Integrated Development Environment (IDE) for Python. Its window is divided into three panes: the editor, the shell, and the debugger. The most important are the editor and the shell.</p>
-<h3 id="Editor">Editor<a class="anchor-link" href="#Editor">¶</a></h3><p>The editor is where you write your code. It has a number of features that help you write code, such as syntax highlighting, code completion, and error highlighting.</p>
-<p>The editor is the upper pane in the Thonny window.</p>
-<h3 id="Shell">Shell<a class="anchor-link" href="#Shell">¶</a></h3><p>The shell is where you can interact with the Python interpreter in the so-called Read-Eval-Print Loop (REPL) mode. REPL is a simple interactive programming environment that takes single user inputs, evaluates them, and returns the result to the user. The shell is useful for testing out small pieces of code or for experimenting with the Python language.</p>
-<p>The shell is the lower pane in the Thonny window.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=a6ceeb46"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Here's a simple example of using Python's REPL:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=b34f31c8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
-<span class="mi">4</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"Hello, World!"</span><span class="p">)</span>
-<span class="n">Hello</span><span class="p">,</span> <span class="n">World</span><span class="err">!</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">5</span>
-<span class="mi">50</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=18648639"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Each line beginning with <code>&gt;&gt;&gt;</code> represents user input. The line(s) following show the output of that input.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=4f0457ca"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Basic-arithmetic-operations">Basic arithmetic operations<a class="anchor-link" href="#Basic-arithmetic-operations">¶</a></h2><p>Python supports the following basic arithmetic operations:</p>
-<ul>
-<li>addition: <code>+</code></li>
-<li>subtraction: <code>-</code></li>
-<li>multiplication: <code>*</code></li>
-<li>division: <code>/</code></li>
-<li>integer division: <code>//</code></li>
-<li>remainder: <code>%</code></li>
-<li>exponentiation: <code>**</code></li>
-</ul>
-<p>The order of operations is the same as in mathematics. Round brackets can be used to change the order of operations.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=39741e3a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<div style="background-color: #90EE90; padding: 10px; border-radius: 5px;">
-### Exercise 1.1
-
-<p>Calculate the following expressions. Use the shell in Thonny.</p>
-<ul>
-<li>$2 + 2$</li>
-<li>$3 \times 4$</li>
-<li>$5^2$</li>
-<li>$7 \div 3$</li>
-<li>$7 \div 3$ (integer division)</li>
-<li>$7 \mod 3$</li></ul></div>
-
-
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=a254b964"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.2">Exercise 1.2<a class="anchor-link" href="#Exercise-1.2">¶</a></h3><p>More complex expressions:</p>
-<ul>
-<li>$2 + 3 \times 4$</li>
-<li>$(2 + 3) \times 4$</li>
-<li>$2^{10}$</li>
-<li>$2^{10} \mod 3$</li>
-</ul>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=417fcda1"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Variables,-assignment,-and-data-types">Variables, assignment, and data types<a class="anchor-link" href="#Variables,-assignment,-and-data-types">¶</a></h2><p>In Python, a variable is a name that refers to a value stored in memory.</p>
-<p>Variables are created directly through assignment, using the <code>=</code> operator, or indirectly through other operations that create objects.</p>
-<p>Examples of variable assignment:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
-<span class="mi">11</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">3.14</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">y</span>
-<span class="mf">6.28</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">z</span> <span class="o">=</span> <span class="s2">"Hello, World!"</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">z</span> <span class="o">+</span> <span class="s2">" "</span> <span class="o">+</span> <span class="n">z</span>
-<span class="s1">'Hello, World! Hello, World!'</span>
-</pre></div>
-<p>Variables can be reassigned to different values during the program execution or in the shell:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
-<span class="mi">20</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">"Hello, World!"</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
-<span class="s1">'Hello, World!'</span>
-</pre></div>
-<p>Every piece of data in Python is an object with a specific type. Variables do not have a type, but the values (objects) they refer to do. The type of an object determines what operations can be performed on it and how it behaves.</p>
-<p>You can check the type of an object using the <code>type()</code> function:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># type of object referred to by x, not the type of x</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">int</span><span class="s1">'&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="mf">3.14</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">float</span><span class="s1">'&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="s2">"Hello, World!"</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">'</span><span class="nc">str</span><span class="s1">'&gt;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=77ed90bf"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Numeric-types">Numeric types<a class="anchor-link" href="#Numeric-types">¶</a></h2><p>Python supports three built-in numeric types:</p>
-<ul>
-<li>integers (<code>int</code>)</li>
-<li>floating-point numbers (<code>float</code>)</li>
-<li>complex numbers (<code>complex</code>)</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=291621e8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.3">Exercise 1.3<a class="anchor-link" href="#Exercise-1.3">¶</a></h3><p>Integers in Python have interesting property: they can be arbitrarily large. Calculate the following expressions:</p>
-<ul>
-<li>$2^{1000}$</li>
-<li>$2^{10000}$</li>
-<li>$2^{2^{10}}$</li>
-</ul>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=518962e2"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.4">Exercise 1.4<a class="anchor-link" href="#Exercise-1.4">¶</a></h3><p>Type of an object returned by an operation may depend on the types of the operands. Experiment with the following operations in Python and determine the type of the result in each case:</p>
-<ul>
-<li><code>5 + 3</code></li>
-<li><code>5 + 3.0</code></li>
-<li><code>5 / 2</code></li>
-<li><code>5 // 2</code></li>
-<li><code>5 * 2</code></li>
-<li><code>5 * 2.0</code></li>
-<li><code>100 ** 0.5</code></li>
-<li><code>4 ** (-1/2)</code></li>
-</ul>
-<p>For each operation:</p>
-<ol>
-<li>Predict the result and its type before running the code.</li>
-<li>Use the Python interpreter to perform the operation.</li>
-<li>Use the <code>type()</code> function to check the actual type of the result.</li>
-<li>Explain why the result has that particular type.</li>
-</ol>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=db9ceae8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.5">Exercise 1.5<a class="anchor-link" href="#Exercise-1.5">¶</a></h3><p>Previously, we have seen that Python is able to compute as large powers of $2$ as $2^{10000}$. This is possible because Python uses arbitrary-precision integer arithmetic. However, the same is not true for floating-point numbers. What will happen if you try to compute <code>2.0**10000</code>? You'll notice that this calculation raises an exception <code>OverflowError</code>. The reason is that floating-point numbers in Python are represented using a fixed number of bits (64 by default), which limits the range of numbers that can be represented.</p>
-<ul>
-<li>What is the biggest integer power of <code>2.0</code> that you can compute without getting an <code>OverflowError</code>?</li>
-<li>What happens if you try to compute powers of <code>2.0</code> with large negative exponents, e.g., <code>2.0**(-10000)</code>?</li>
-<li>What happens if you try to divide very large numbers, e.g., <code>10**10000 / 10**9999</code> or <code>10**10000 / 10**1000</code>?</li>
-</ul>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=7577b399"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.6">Exercise 1.6<a class="anchor-link" href="#Exercise-1.6">¶</a></h3><p>Let $T$ be a triangle with sides of lengths $a=3$, $b=4$, and $c=5$. The area of $T$ can be calculated using Heron's formula:</p>
-<p>$$
-\text{area}(T) = \sqrt{p(p-a)(p-b)(p-c)},
-$$</p>
-<p>where $p$ is the semiperimeter of $T$:</p>
-<p>$$
-p = \frac{a + b + c}{2}.
-$$</p>
-<p>Calculate the area of $T$ using Python. Define variables <code>a</code>, <code>b</code>, and <code>c</code> with the given values, then define <code>p</code> and finally calculate the area of $T$ (answer: $6$).</p>
-<p>Do the same for a triangles with sides:</p>
-<ul>
-<li>$a=5$, $b=12$, $c=13$, (answer: $30$),</li>
-<li>$a=1$, $b=1$, $c=1$, (answer: $\sqrt{3}/4$).</li>
-</ul>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=278f58e7"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Booleans">Booleans<a class="anchor-link" href="#Booleans">¶</a></h2><p>Python has a built-in type for Boolean values: <code>bool</code>. There are two Boolean values: <code>True</code> and <code>False</code>.</p>
-<p>Boolean values are used to represent the truth values of logical expressions. Python supports the following logical operators:</p>
-<ul>
-<li><code>and</code></li>
-<li><code>or</code></li>
-<li><code>not</code></li>
-</ul>
-<p>The <code>and</code> operator returns <code>True</code> if both operands are <code>True</code>, otherwise it returns <code>False</code>. The <code>or</code> operator returns <code>True</code> if at least one of the operands is <code>True</code>, otherwise it returns <code>False</code>. The <code>not</code> operator returns <code>True</code> if the operand is <code>False</code>, and vice versa.</p>
-<p>Python supports the following comparison operators:</p>
-<ul>
-<li><code>==</code> (equal)</li>
-<li><code>!=</code> (not equal)</li>
-<li><code>&gt;</code> (greater than)</li>
-<li><code>&lt;</code> (less than)</li>
-<li><code>&gt;=</code> (greater than or equal)</li>
-<li><code>&lt;=</code> (less than or equal)</li>
-</ul>
-<p>Comparison operators return Boolean values.</p>
-<p>Boolean values can be combined with arithmetic and comparison operators to form complex logical expressions:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">30</span>
-<span class="kc">True</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="ow">or</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">30</span>
-<span class="kc">False</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span>
-<span class="kc">False</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=a2ef9aa3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.7">Exercise 1.7<a class="anchor-link" href="#Exercise-1.7">¶</a></h3><p>Determine the truth value of the following logical expressions:</p>
-<ul>
-<li><code>(2 + 2 == 4) and (3 * 4 == 12)</code></li>
-<li><code>(2 + 2 &gt; 4) or (3 * 4 &lt; 12)</code></li>
-<li><code>not (2 + 2 == 4)</code></li>
-<li><code>(2 + 2 == 4) and not (3 * 4 == 12)</code></li>
-<li><code>(2 + 2 == 4) and (3 * 4 == 12) and (5 ** 2 == 25)</code></li>
-<li><code>(2 + 2 == 4) and (3 * 4 == 12) or (5 ** 2 == 24)</code></li>
-<li><code>(2 + 2 == 4) and (3 * 4 == 12) or (5 ** 2 == 25)</code></li>
-</ul>
-<p>Try to predict the result before running the code.</p>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=81fe4552"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.8">Exercise 1.8<a class="anchor-link" href="#Exercise-1.8">¶</a></h3><p>Given two Boolean variables <code>p</code> and <code>q</code>:</p>
-<ul>
-<li>write the expression for the XOR operation (exclusive OR) using only <code>p</code>, <code>q</code>, and the logical operators <code>and</code>, <code>or</code>, and <code>not</code>. The XOR operation returns <code>True</code> if exactly one of the operands is <code>True</code>, otherwise it returns <code>False</code>.</li>
-<li>write the expression for the implication operation using only <code>p</code>, <code>q</code>, and the logical operators <code>and</code>, <code>or</code>, and <code>not</code>. The implication operation returns <code>False</code> if the first operand is <code>True</code> and the second operand is <code>False</code>, otherwise it returns <code>True</code>.</li>
-</ul>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=772f97c8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Ternary operator <code>if</code> is a conditional expression that evaluates an expression and returns one of two values, depending on the value of the expression:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="s2">"positive"</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">"non-positive"</span>
-<span class="s1">'positive'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="s2">"positive"</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">"non-positive"</span>
-<span class="s1">'non-positive'</span>
-</pre></div>
-<p>This is similar to the ternary operator in C, Java, and other languages.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=b7078450"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.9">Exercise 1.9<a class="anchor-link" href="#Exercise-1.9">¶</a></h3><p>Write a Python expression that returns the string <code>"even"</code> if a given integer <code>x</code> is even, and <code>"odd"</code> otherwise.</p>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=23ec0898"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Strings">Strings<a class="anchor-link" href="#Strings">¶</a></h2><p>Strings are sequences of characters. In Python, strings are represented using single quotes (<code>'</code>) or double quotes (<code>"</code>). Strings can be concatenated using the <code>+</code> operator:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span> <span class="o">=</span> <span class="s2">"Hello"</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s2</span> <span class="o">=</span> <span class="s2">"World"</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span> <span class="o">+</span> <span class="s2">", "</span> <span class="o">+</span> <span class="n">s2</span> <span class="o">+</span> <span class="s2">"!"</span>
-<span class="s1">'Hello, World!'</span>
-</pre></div>
-<p>Multiplication of a string by an integer results in multiple concatenations:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">"Hello"</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">*</span> <span class="mi">3</span>
-<span class="s1">'HelloHelloHello'</span>
-</pre></div>
-<p>If you want to write a string that spans multiple lines, you can use triple quotes (<code>'''</code> or <code>"""</code>):</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">"""This is a string</span>
-<span class="s2">... that spans multiple lines."""</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span>
-<span class="s1">'This is a string</span><span class="se">\n</span><span class="s1">that spans multiple lines.'</span>
-</pre></div>
-<p>Strings, as other sequences in Python, can be indexed and sliced. Indexing starts at <code>0</code> and may be positive or negative.</p>
-<p>For example, the string <code>"Python"</code> has length <code>6</code>, so the indices are <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, and <code>5</code> for positive indexing, and <code>-1</code>, <code>-2</code>, <code>-3</code>, <code>-4</code>, <code>-5</code>, and <code>-6</code> for negative indexing:</p>
-<pre><code> +---+---+---+---+---+---+
- | P | y | t | h | o | n |
- +---+---+---+---+---+---+
- 0   1   2   3   4   5   6
--6  -5  -4  -3  -2  -1
+<h2 id="Writing-programs">Writing programs<a class="anchor-link" href="#Writing-programs">¶</a></h2><p>In Thonny, you can write programs in the editor window. The program is saved in a file with the <code>.py</code> extension. You can run the program by clicking the <code>Run</code> button or by pressing <code>F5</code>. The program output is displayed in the shell window. You can also run the program in the shell window by typing</p>
+<pre><code>&gt;&gt;&gt; %Run program_name.py
 </code></pre>
-<p>Square brackets are used to access individual characters or slices of a string:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">"Python"</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="s1">'P'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="s1">'n'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
-<span class="s1">'yth'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
-<span class="s1">'Pyth'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
-<span class="s1">'on'</span>
-</pre></div>
-<p>Slices are specified by two indices separated by a colon. The first index is the start of the slice, and the second index is the end of the slice. The slice includes the start index but excludes the end index. If the start index is omitted, it defaults to <code>0</code>. If the end index is omitted, it defaults to the length of the sequence. You can also specify a step value, which is the third index in the slice specification:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">"Python"</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
-<span class="s1">'Pto'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="s1">'nohtyP'</span>
-</pre></div>
+<p>where <code>program_name.py</code> is the name of the file with the program. This is valid in the Thonny shell window only. In the system shell, you can run the program by typing</p>
+<pre><code>$ python3 program_name.py
+</code></pre>
+<p>where <code>program_name.py</code> is the name of the file with the program.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=21e026b2"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=7ef5c970"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.10">Exercise 1.10<a class="anchor-link" href="#Exercise-1.10">¶</a></h3><p>Given a string <code>s</code>, write a Python expression that returns the string consisting of the first and last characters of <code>s</code>. For example, if <code>s = "Python"</code>, the expression should return <code>"Pn"</code>.</p>
-<p>Assume that the string <code>s</code> has at least two characters. Then check your expression with the following strings:</p>
-<ul>
-<li><code>"Python"</code></li>
-<li><code>"Hello, World!"</code></li>
-<li><code>"1234567890"</code></li>
-</ul>
-<p>What happens if you try to use your expression with a string that has only one character or is empty?</p>
+<h2 id="Input-and-output">Input and output<a class="anchor-link" href="#Input-and-output">¶</a></h2><p>Python provides two built-in functions for writing a text to the standard output and reading a text from the standard input: <code>print()</code> and <code>input()</code>.</p>
+<p>The <code>print()</code> function takes zero or more positional arguments and writes them to the standard output. The type of the arguments can be any, they are converted to strings before being written.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s1">'Hello, world!'</span><span class="p">)</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="err">!</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="mi">42</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"The answer is"</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+<span class="n">The</span> <span class="n">answer</span> <span class="ow">is</span> <span class="mi">42</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+<p>The <code>input()</code> function reads a line from the standard input and returns it as a <strong>string</strong>.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">name</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">'What is your name? '</span><span class="p">)</span>
+<span class="n">What</span> <span class="ow">is</span> <span class="n">your</span> <span class="n">name</span><span class="err">?</span> <span class="n">Tom</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">name</span>
+<span class="s1">'Tom'</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=e26687d3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exercise-2.1">Exercise 2.1<a class="anchor-link" href="#Exercise-2.1">¶</a></h3><p>Write a program <code>greeting.py</code> that reads a name of a person from the standard input and writes a greeting to the standard output.</p>
+<p>The program should work as follows:</p>
+<pre><code>&gt;&gt;&gt; %Run greeting.py
+&gt;&gt;&gt; What is your name? Tom
+Hello, Tom!
+</code></pre>
 <hr/>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=240ccd5f"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=60c6957f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Lists">Lists<a class="anchor-link" href="#Lists">¶</a></h2><p>Lists are ordered collections of objects. Lists can contain objects of different types, including other lists. Lists are created using square brackets <code>[]</code>:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span>
-<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Hello"</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span>
-<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'Hello'</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+<h3 id="Exercise-2.2">Exercise 2.2<a class="anchor-link" href="#Exercise-2.2">¶</a></h3><p>Write a program <code>buisness_card.py</code> that reads a name of a person from the standard input and writes a buisness card to the standard output.</p>
+<p>The program should work as follows:</p>
+<pre><code>&gt;&gt;&gt; %Run buisness_card.py
+&gt;&gt;&gt; What is your name? Tom
+*******
+* Tom *
+*******
+&gt;&gt;&gt; %Run buisness_card.py
+&gt;&gt;&gt; What is your name? Alice
+*********
+* Alice *
+*********
+</code></pre>
+<p>Do not use loops in this exercise. Instead, use:</p>
+<ul>
+<li>concatenation and multiplication of strings;</li>
+<li>the <code>len()</code> function. It takes a string, or more generally, an iterable, and returns the number of elements in it.</li>
+</ul>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=731b54ca"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>print()</code> has some optional keyword arguments that allow you to control the output format. The most important are:</p>
+<ul>
+<li><code>sep</code> - a string that is written between the arguments; the default value is a space;</li>
+<li><code>end</code> - a string that is written at the end of the arguments; the default value is a newline character.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">', '</span><span class="p">)</span>
+<span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">'; '</span><span class="p">)</span>
+<span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">;</span>
 </pre></div>
-<p>Lists can be indexed and sliced in the same way as strings:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<p>The <code>input()</code> function always returns a string. If you want to read a number from the standard input, you have to convert the string to a number. You can use the <code>int()</code> and <code>float()</code> functions for this purpose.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">'Enter a number: '</span><span class="p">))</span>
+<span class="n">Enter</span> <span class="n">a</span> <span class="n">number</span><span class="p">:</span> <span class="mi">42</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">n</span>
+<span class="mi">42</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">'Enter a number: '</span><span class="p">))</span>
+<span class="n">Enter</span> <span class="n">a</span> <span class="n">number</span><span class="p">:</span> <span class="mf">3.14</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
+<span class="mf">3.14</span>
+</pre></div>
+<p>The <code>int()</code> and <code>float()</code> functions take an argument and try to convert it to an integer or a float, respectively. If the argument cannot be converted, a <code>ValueError</code> exception is raised.</p>
+<h3 id="Exercise-2.3">Exercise 2.3<a class="anchor-link" href="#Exercise-2.3">¶</a></h3><p>Write a program <code>sum.py</code> that reads two integers from the standard input and writes their sum to the standard output.</p>
+<p>The program should work as follows:</p>
+<pre><code>&gt;&gt;&gt; %Run sum.py
+&gt;&gt;&gt; Enter a number: 42
+&gt;&gt;&gt; Enter a number: 13
+42 + 13 = 55
+</code></pre>
+<hr/>
+<h3 id="Exercise-2.4">Exercise 2.4<a class="anchor-link" href="#Exercise-2.4">¶</a></h3><p>Write a program <code>triangle_area_v0.py</code> that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers and the input is correct, i.e., the side lengths are positive numbers and the sum of the lengths of any two sides is greater than the length of the third side.</p>
+<p>The program should work as follows:</p>
+<pre><code>&gt;&gt;&gt; %Run triangle_area_v0.py
+&gt;&gt;&gt; Enter the length of the first side: 6
+&gt;&gt;&gt; Enter the length of the second side: 8
+&gt;&gt;&gt; Enter the length of the third side: 10
+The area of the triangle is 24.0
+</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=0ffec97a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Conditional-statements">Conditional statements<a class="anchor-link" href="#Conditional-statements">¶</a></h2><p>Python provides the <code>if</code> statement for conditional execution. The syntax of the <code>if</code> statement is as follows:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
+    <span class="n">statement1</span>
+    <span class="n">statement2</span>
+    <span class="o">...</span>
+</pre></div>
+<p>The <code>condition</code> is an expression that is evaluated to a boolean value. If the value is <code>True</code>, the statements are executed. If the value is <code>False</code>, the statements are skipped.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">42</span><span class="p">:</span>
+<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">'The answer to the ultimate question of life, the universe, and everything.'</span><span class="p">)</span>
+<span class="n">The</span> <span class="n">answer</span> <span class="n">to</span> <span class="n">the</span> <span class="n">ultimate</span> <span class="n">question</span> <span class="n">of</span> <span class="n">life</span><span class="p">,</span> <span class="n">the</span> <span class="n">universe</span><span class="p">,</span> <span class="ow">and</span> <span class="n">everything</span><span class="o">.</span>
+</pre></div>
+<p>Note that the statements that are executed if the condition is <code>True</code> must be indented. The standard indentation is four spaces. You can use tabs instead of spaces, but it is not recommended.</p>
+<p>The <code>if</code> statement can be followed by an <code>else</code> statement:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
+    <span class="n">statement1</span>
+    <span class="n">statement2</span>
+    <span class="o">...</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">statement3</span>
+    <span class="n">statement4</span>
+    <span class="o">...</span>
+</pre></div>
+<p>If the condition is <code>True</code>, the statements after <code>if</code> are executed. If the condition is <code>False</code>, the statements after <code>else</code> are executed.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">'The number is even.'</span><span class="p">)</span>
+<span class="o">...</span> <span class="k">else</span><span class="p">:</span>
+<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">'The number is odd.'</span><span class="p">)</span>
+<span class="n">The</span> <span class="n">number</span> <span class="ow">is</span> <span class="n">odd</span><span class="o">.</span>
+</pre></div>
+<h3 id="Exercise-2.5">Exercise 2.5<a class="anchor-link" href="#Exercise-2.5">¶</a></h3><p>Write a program <code>triangle_area_v1.py</code> that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers. If the input is incorrect, i.e., the sum of the lengths of any two sides is not greater than the length of the third side, the program should write an error message to the standard output. Otherwise, the program should write the area of the triangle.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run triangle_area_v1.py
+&gt;&gt;&gt; Enter the length of the first side: 6
+&gt;&gt;&gt; Enter the length of the second side: 8
+&gt;&gt;&gt; Enter the length of the third side: 10
+The area of the triangle is 24.0
+&gt;&gt;&gt; %Run triangle_area_v1.py
+&gt;&gt;&gt; Enter the length of the first side: 6
+&gt;&gt;&gt; Enter the length of the second side: 8
+&gt;&gt;&gt; Enter the length of the third side: 20
+The input is incorrect.
+</code></pre>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=4bbcb54f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <code>if</code> statement can be followed by zero or more <code>elif</code> statements:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">condition1</span><span class="p">:</span>
+    <span class="n">statement1</span>
+    <span class="n">statement2</span>
+    <span class="o">...</span>
+<span class="k">elif</span> <span class="n">condition2</span><span class="p">:</span>
+    <span class="n">statement3</span>
+    <span class="n">statement4</span>
+    <span class="o">...</span>
+<span class="k">elif</span> <span class="n">condition3</span><span class="p">:</span>
+    <span class="n">statement5</span>
+    <span class="n">statement6</span>
+    <span class="o">...</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">statement7</span>
+    <span class="n">statement8</span>
+    <span class="o">...</span>
+</pre></div>
+<p>The <code>elif</code> statement is short for "else if". If none of the conditions is <code>True</code>, the statements after <code>else</code> are executed. Otherwise, the statements after the first <code>True</code> condition are executed.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">'The number is negative.'</span><span class="p">)</span>
+<span class="o">...</span> <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">'The number is zero.'</span><span class="p">)</span>
+<span class="o">...</span> <span class="k">else</span><span class="p">:</span>
+<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">'The number is positive.'</span><span class="p">)</span>
+<span class="n">The</span> <span class="n">number</span> <span class="ow">is</span> <span class="n">positive</span><span class="o">.</span>
+</pre></div>
+<h3 id="Exercise-2.6">Exercise 2.6<a class="anchor-link" href="#Exercise-2.6">¶</a></h3><p>Write a program <code>grades.py</code> that reads a grade from the standard input and writes a description of the grade to the standard output. The grades are as follows:</p>
+<ul>
+<li>A - excellent,</li>
+<li>B - good,</li>
+<li>C - satisfactory,</li>
+<li>D - pass,</li>
+<li>F - fail.</li>
+</ul>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run grades.py
+&gt;&gt;&gt; Enter a grade: B
+Good
+&gt;&gt;&gt; %Run grades.py
+&gt;&gt;&gt; Enter a grade: F
+Fail
+</code></pre>
+<hr/>
+<h3 id="Exercise-2.7">Exercise 2.7<a class="anchor-link" href="#Exercise-2.7">¶</a></h3><p>Write a program <code>points_to_grade.py</code> that reads the number of points from the standard input and writes a grade to the standard output. The table of grades has the following form:</p>
+<table>
+<thead>
+<tr>
+<th>Points</th>
+<th>Grade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0-49</td>
+<td>F</td>
+</tr>
+<tr>
+<td>50-59</td>
+<td>E</td>
+</tr>
+<tr>
+<td>60-69</td>
+<td>D</td>
+</tr>
+<tr>
+<td>70-79</td>
+<td>C</td>
+</tr>
+<tr>
+<td>80-89</td>
+<td>B</td>
+</tr>
+<tr>
+<td>90-100</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run points_to_grade.py
+&gt;&gt;&gt; Enter the number of points: 42
+F
+&gt;&gt;&gt; %Run points_to_grade.py
+&gt;&gt;&gt; Enter the number of points: 75
+C
+</code></pre>
+<p>Check if the input is correct, i.e., the number of points is between 0 and 100. If the input is incorrect, write an error message.</p>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=0e584796"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="while-loop"><code>while</code> loop<a class="anchor-link" href="#while-loop">¶</a></h2><p>Python provides the <code>while</code> statement for indefinite iteration. This statement has the following syntax:</p>
+<div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">condition</span><span class="p">:</span>
+    <span class="n">statement1</span>
+    <span class="n">statement2</span>
+    <span class="o">...</span>
+</pre></div>
+<p>The <code>condition</code> is an expression that is evaluated to a boolean value. If the value is <code>True</code>, the statements are executed. If the value is <code>False</code>, the statements are skipped.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="o">...</span>     <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="mi">0</span>
 <span class="mi">1</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+</pre></div>
+<p>You may think of the <code>while</code> statement as a repeated <code>if</code> statement. The difference is that the <code>if</code> statement is executed once, while the <code>while</code> statement is executed multiple times.</p>
+<h3 id="Exercise-2.8">Exercise 2.8<a class="anchor-link" href="#Exercise-2.8">¶</a></h3><p>Write a program <code>countdown.py</code> that reads a positive integer from the standard input and writes a countdown to the standard output. The countdown should start from the given number and end at 0. Instead of the final 0, the program should write the message "Start!".</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run countdown.py
+&gt;&gt;&gt; Enter a number: 5
+5
+4
+3
+2
+1
+Start!
+</code></pre>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=26d21c70"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exercise-2.9">Exercise 2.9<a class="anchor-link" href="#Exercise-2.9">¶</a></h3><p>Write a program <code>sum_of_many.py</code> that reads integers from the standard input until the user enters 0. The program should write the sum of the entered numbers to the standard output.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run sum_of_many.py
+&gt;&gt;&gt; Enter a number: 42
+&gt;&gt;&gt; Enter a number: 13
+&gt;&gt;&gt; Enter a number: 7
+&gt;&gt;&gt; Enter a number: -42
+&gt;&gt;&gt; Enter a number: 0
+20
+</code></pre>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=d51ae17f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exercise-2.10">Exercise 2.10<a class="anchor-link" href="#Exercise-2.10">¶</a></h3><p>Write a program <code>add_how_many.py</code> that reads the positive integer <code>n</code> from the standard input. Then the program writes the smallest number <code>k</code> such that the sum of the numbers from 1 to <code>k</code> is greater than or equal to <code>n</code>:</p>
+<p>$$
+1 + 2 + \ldots + k \geq n,
+$$</p>
+<p>where $k$ is the smallest possible.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run add_how_many.py
+&gt;&gt;&gt; Enter a number: 1
+1
+&gt;&gt;&gt; %Run add_how_many.py
+&gt;&gt;&gt; Enter a number: 10
+4
+&gt;&gt;&gt; %Run add_how_many.py
+&gt;&gt;&gt; Enter a number: 11
+5
+</code></pre>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=d29da09c"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exercise-2.11">Exercise 2.11<a class="anchor-link" href="#Exercise-2.11">¶</a></h3><p>Write a game <code>guess_the_number.py</code> that generates a random number between 1 and 100. The user has to guess the number. After each guess, the program writes a message to the standard output. If the guess is correct, the program writes the message "Congratulations! You guessed the number in <code>k</code> steps.", where <code>k</code> is the number of steps. If the guess is incorrect, the program writes the message "The number is too small." or "The number is too large.".</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run guess_the_number.py
+&gt;&gt;&gt; Enter a number: 50
+The number is too small.
+&gt;&gt;&gt; Enter a number: 75
+The number is too small.
+&gt;&gt;&gt; Enter a number: 88
+The number is too large.
+&gt;&gt;&gt; Enter a number: 80
+The number is too small.
+&gt;&gt;&gt; Enter a number: 84
+The number is too large.
+&gt;&gt;&gt; Enter a number: 82
+Congratulations! You guessed the number in 6 steps.
+</code></pre>
+<p>You can use the <code>randint()</code> function from the <code>random</code> module to generate a random number. The function takes two arguments, <code>a</code> and <code>b</code>, and returns a random number between <code>a</code> and <code>b</code>, inclusive.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="mi">42</span>
+</pre></div>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=fdaa7950"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exercise-2.12">Exercise 2.12<a class="anchor-link" href="#Exercise-2.12">¶</a></h3><p>Write a program <code>guess_the_given_number.py</code> that guesses a number chosen by the user. The user thinks of an integer (with unlimited size) and the program tries to guess it. After each try, the program gets a response from the user. The response can be one of the following:</p>
+<ul>
+<li><code>=</code> - the guess is correct,</li>
+<li><code>&lt;</code> - the guess is too small,</li>
+<li><code>&gt;</code> - the guess is too large.</li>
+</ul>
+<p>The program should write the number of tries to the standard output.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run guess_the_given_number.py
+&gt;&gt;&gt; Is the number 0? &gt;
+&gt;&gt;&gt; Is the number 1? &gt;
+&gt;&gt;&gt; Is the number 10? &gt;
+&gt;&gt;&gt; Is the number 100? &gt;
+&gt;&gt;&gt; Is the number 1000? &lt;
+&gt;&gt;&gt; Is the number 500? &lt;
+&gt;&gt;&gt; Is the number 250? &gt;
+&gt;&gt;&gt; Is the number 375? &lt;
+&gt;&gt;&gt; Is the number 312? &gt;
+&gt;&gt;&gt; Is the number 343? =
+Nice! I guessed the number in 7 tries :-)
+</code></pre>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=889aa237"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="break-statement"><code>break</code> statement<a class="anchor-link" href="#break-statement">¶</a></h2><p>Python provides the <code>break</code> statement for breaking out of a (innermost) loop. The <code>break</code> statement is used in the <code>while</code> and <code>for</code> loops (see the next lab). When the <code>break</code> statement is executed, the loop is terminated and the program continues with the statement after the loop.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="o">...</span>     <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="o">...</span>     <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+<span class="o">...</span>         <span class="k">break</span>
+<span class="mi">0</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+</pre></div>
+<h2 id="continue-statement"><code>continue</code> statement<a class="anchor-link" href="#continue-statement">¶</a></h2><p>Python provides the <code>continue</code> statement for skipping the rest of the loop body and continuing with the next iteration. The <code>continue</code> statement is used in the <code>while</code> and <code>for</code> loops. When the <code>continue</code> statement is executed, the loop continues with the next iteration.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+<span class="o">...</span>     <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="o">...</span>     <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="o">...</span>         <span class="k">continue</span>
+<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="mi">1</span>
+<span class="mi">3</span>
 <span class="mi">5</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
-<span class="p">[</span><span class="mi">5</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=4e8ff2f5"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.11">Exercise 1.11<a class="anchor-link" href="#Exercise-1.11">¶</a></h3><p>Given a list <code>lst</code>, write a Python expression that returns the list consisting of the first and last elements of <code>lst</code>. For example, if <code>lst = [1, 2, 3, 4, 5]</code>, the expression should return <code>[1, 5]</code>.</p>
-<p>Assume that the list <code>lst</code> has at least two elements. Then check your expression with the following lists:</p>
-<ul>
-<li><code>[1, 2, 3, 4, 5]</code></li>
-<li><code>["Hello", "World"]</code></li>
-<li><code>[[1, 2], [3, 4], [5, 6]]</code></li>
-</ul>
-<p>What happens if you try to use your expression with a list that has only one element or is empty?</p>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=6bfb1fcd"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Lists can be modified by assigning new values to elements or slices:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span>
-<span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lst</span>
-<span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-</pre></div>
-<p>This is called item assignment. Under this operation, the list is <strong>modified in place</strong>, i.e., the original list is changed, but the identity of the list remains the same (it is the same object). Data types that support item assignment are called <strong>mutable</strong>.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=7fb66d25"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.12">Exercise 1.12<a class="anchor-link" href="#Exercise-1.12">¶</a></h3><p>Strings are <strong>immutable</strong>, i.e., they cannot be modified in place. Try to assign a new value to an element of a string. What happens?</p>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=ea8e1ff5"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="range()-function"><code>range()</code> function<a class="anchor-link" href="#range()-function">¶</a></h2><p>The <code>range()</code> function generates a sequence of numbers. It can be called with one, two, or three arguments:</p>
-<ul>
-<li><code>range(stop)</code>: generates a sequence of numbers from <code>0</code> to <code>stop - 1</code></li>
-<li><code>range(start, stop)</code>: generates a sequence of numbers from <code>start</code> to <code>stop - 1</code></li>
-<li><code>range(start, stop, step)</code>: generates a sequence of numbers from <code>start</code> to <code>stop - 1</code> with a step <code>step</code></li>
-</ul>
-<p>The <code>range()</code> function returns an object of the <code>range</code> type:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span>
-<span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-</pre></div>
-<p>The numbers in the range are not stored in memory, but generated on the fly when needed. You can convert a <code>range</code> object to a list using the <code>list()</code> function:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">))</span>
-<span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=8ee36534"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.13">Exercise 1.13<a class="anchor-link" href="#Exercise-1.13">¶</a></h3><p>Use the <code>range()</code> function to generate the following sequences of numbers:</p>
-<ul>
-<li>$0, 1, 2, 3, 4, 5$</li>
-<li>$1, 2, 3, 4, 5$</li>
-<li>all even numbers from $0$ to $10$</li>
-<li>all odd numbers from $1$ to $9$</li>
-<li>all numbers from $10$ to $1$ in descending order</li>
-<li>all numbers divisible by $3$ from $0$ to $30$</li>
-</ul>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=2ac2c5e7"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="List-comprehensions">List comprehensions<a class="anchor-link" href="#List-comprehensions">¶</a></h2><p>List comprehensions are a concise way to create lists. They consist of an expression followed by a <code>for</code> clause, then zero or more <code>for</code> or <code>if</code> clauses. The result will be a new list resulting from evaluating the expression in the context of the <code>for</code> and <code>if</code> clauses that follow it.</p>
-<p>For example, the following list comprehension creates a list of squares of numbers from <code>0</code> to <code>9</code>:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">squares</span>
-<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">81</span><span class="p">]</span>
-</pre></div>
-<p>List comprehensions can be used to filter elements of a list:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">even_squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">even_squares</span>
-<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">64</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=5a9e2596"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.14">Exercise 1.14<a class="anchor-link" href="#Exercise-1.14">¶</a></h3><p>Use a list comprehension to generate the following lists:</p>
-<ul>
-<li>all numbers from $0$ to $100$ which are divisible by $3$ or $5$</li>
-<li>all squares not greater than $10000$</li>
-</ul>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=5ecf0dea"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.15">Exercise 1.15<a class="anchor-link" href="#Exercise-1.15">¶</a></h3><p>Use a list comprehension to generate the values from the multiplication table:</p>
-<pre><code>1    2    3    4    5    6    7    8    9   10
-2    4    6    8   10   12   14   16   18   20
-3    6    9   12   15   18   21   24   27   30
-4    8   12   16   20   24   28   32   36   40
-5   10   15   20   25   30   35   40   45   50
-6   12   18   24   30   36   42   48   54   60
-7   14   21   28   35   42   49   56   63   70
-8   16   24   32   40   48   56   64   72   80
-9   18   27   36   45   54   63   72   81   90
-10  20   30   40   50   60   70   80   90  100
-</code></pre>
-<p>Do this in two ways:</p>
-<ul>
-<li>using a list comprehension with a nested <code>for</code> loop. This should result in a list of the form<pre><code>[1, 2, 3, ..., 10, 2, 4, 6, ..., 20, 3, 6, 9, ..., 30, ..., 100]
-</code></pre>
-</li>
-<li>using a list comprehension of list comprehensions. This should result in a list of the form<pre><code>[[1, 2, 3, ..., 10], [2, 4, 6, ..., 20], [3, 6, 9, ..., 30], ..., [10, 20, 30, ..., 100]]
-</code></pre>
-</li>
-</ul>
+<h3 id="Exercise-2.13">Exercise 2.13<a class="anchor-link" href="#Exercise-2.13">¶</a></h3><p>Rewrite the programs <code>sum_of_many.py</code>, <code>add_how_many.py</code>, <code>guess_the_number.py</code>, and <code>guess_the_given_number.py</code> using the infinite <code>while True:</code> loop. Use the <code>break</code> statement to terminate the loop.</p>
 <hr/>
 </div>
 </div>
