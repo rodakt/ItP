@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>lab_4</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script type="module">
+<title>lab_5</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script type="module">
   import mermaid from 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs';
   mermaid.initialize({ startOnLoad: true });
 </script>
@@ -13089,7 +13089,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=85f023a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-IV">Lab IV<a class="anchor-link" href="#Lab-IV">¶</a></h2><p>2024/2025, winter semester</p>
+<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-V">Lab V<a class="anchor-link" href="#Lab-V">¶</a></h2><p>2024/2025, winter semester</p>
 <hr/>
 </div>
 </div>
@@ -13109,238 +13109,280 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=b95e514a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Working-with-files">Working with files<a class="anchor-link" href="#Working-with-files">¶</a></h2><p>Python provides a built-in <code>open()</code> function to open a file. The most important arguments of the <code>open()</code> function are</p>
-<ul>
-<li>string <code>filename</code> - the combination of the directory path and the name of the file to open;</li>
-<li>string <code>mode</code> - the mode in which the file should be opened.</li>
-</ul>
-<p>By default, the <code>open()</code> function opens the file in readonly text mode (<code>'r'</code>). The function returns a <em>file object</em>. Depending on the mode, the file object can be used to read from, write to, or append to the file. When you are done with the file, you should close it using the <code>close()</code> method of the file object.</p>
-<p>Assume we want to create a file <code>example.txt</code> with the following content:</p>
-<pre><code>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-culpa qui officia deserunt mollit anim id est laborum.
-</code></pre>
-<p>The following code creates the file and writes the content to it:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'example.txt'</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'Lorem ipsum dolor sit amet, consectetur adipiscing elit,</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'pariatur. Excepteur sint occaecat cupidatat non proident, sunt in</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'culpa qui officia deserunt mollit anim id est laborum.</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<h2 id="Functions">Functions<a class="anchor-link" href="#Functions">¶</a></h2><p>A function is a named sequence of statements (named block of code) that performs a computation.</p>
+<p>Functions are defined using the <code>def</code> keyword. The general syntax of a function definition is:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">function_name</span><span class="p">(</span><span class="n">parameters</span><span class="p">):</span>
+    <span class="n">statement1</span>
+    <span class="n">statement2</span>
+    <span class="o">...</span>
 </pre></div>
-<p>Then the following code reads the contents of the file and prints it on the screen:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'example.txt'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-<span class="n">Lorem</span> <span class="n">ipsum</span> <span class="n">dolor</span> <span class="n">sit</span> <span class="n">amet</span><span class="p">,</span> <span class="n">consectetur</span> <span class="n">adipiscing</span> <span class="n">elit</span><span class="p">,</span>
-<span class="n">sed</span> <span class="n">do</span> <span class="n">eiusmod</span> <span class="n">tempor</span> <span class="n">incididunt</span> <span class="n">ut</span> <span class="n">labore</span> <span class="n">et</span> <span class="n">dolore</span> <span class="n">magna</span> <span class="n">aliqua</span><span class="o">.</span>
-<span class="n">Ut</span> <span class="n">enim</span> <span class="n">ad</span> <span class="n">minim</span> <span class="n">veniam</span><span class="p">,</span> <span class="n">quis</span> <span class="n">nostrud</span> <span class="n">exercitation</span> <span class="n">ullamco</span> <span class="n">laboris</span>
-<span class="n">nisi</span> <span class="n">ut</span> <span class="n">aliquip</span> <span class="n">ex</span> <span class="n">ea</span> <span class="n">commodo</span> <span class="n">consequat</span><span class="o">.</span> <span class="n">Duis</span> <span class="n">aute</span> <span class="n">irure</span> <span class="n">dolor</span> <span class="ow">in</span>
-<span class="n">reprehenderit</span> <span class="ow">in</span> <span class="n">voluptate</span> <span class="n">velit</span> <span class="n">esse</span> <span class="n">cillum</span> <span class="n">dolore</span> <span class="n">eu</span> <span class="n">fugiat</span> <span class="n">nulla</span>
-<span class="n">pariatur</span><span class="o">.</span> <span class="n">Excepteur</span> <span class="n">sint</span> <span class="n">occaecat</span> <span class="n">cupidatat</span> <span class="n">non</span> <span class="n">proident</span><span class="p">,</span> <span class="n">sunt</span> <span class="ow">in</span>
-<span class="n">culpa</span> <span class="n">qui</span> <span class="n">officia</span> <span class="n">deserunt</span> <span class="n">mollit</span> <span class="n">anim</span> <span class="nb">id</span> <span class="n">est</span> <span class="n">laborum</span><span class="o">.</span>
+<p>Returning a value from a function is done using the <code>return</code> keyword:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">function_name</span><span class="p">(</span><span class="n">parameters</span><span class="p">):</span>
+    <span class="n">statement1</span>
+    <span class="n">statement2</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">value</span>
 </pre></div>
-<p>In the example above:</p>
-<ul>
-<li><code>f</code> is the file object,</li>
-<li><code>f.write()</code> writes the string to the file (because the mode is <code>'w'</code>, the file is opened for writing in text mode),</li>
-<li><code>f.read()</code> reads the contents of the entire file into a string (because the mode is <code>'r'</code>),</li>
-<li><code>f.close()</code> closes the file.</li>
-</ul>
-<h3 id="Exercise-4.1">Exercise 4.1<a class="anchor-link" href="#Exercise-4.1">¶</a></h3><p>Check the above code in the Python interpreter.</p>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=dc5e89ec"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Working-directory">Working directory<a class="anchor-link" href="#Working-directory">¶</a></h3><p>You may have noticed that the code above does not specify the full path to the file. The reson is that the file is created in the working directory by default. The Thonny IDE, like many other IDEs, has a concept of a working directory. The working directory is the directory from which the program is run. When you open a file without specifying the full path, Python looks for the file in the working directory. You can check the working directory by running the following code:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">os</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
-</pre></div>
-<p>You can change the working directory using the <code>os.chdir()</code> function:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">'C:/Users/John/Documents'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=7bcb9ccd"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Text-Encoding">Text Encoding<a class="anchor-link" href="#Text-Encoding">¶</a></h3><p>Text encoding is a mapping between characters and bytes. Different encodings map characters to byte sequences in different ways. The most common encodings are:</p>
-<ul>
-<li><strong>ASCII</strong>: Uses 7 bits to represent characters. It can encode 128 characters, including English letters, digits, and some control characters.</li>
-<li><strong>UTF-8</strong>: A variable-width encoding that can represent every character in the Unicode character set. It uses one to four bytes for each character.</li>
-<li><strong>UTF-16</strong>: Another variable-width encoding that uses two or four bytes for each character.</li>
-<li><strong>ISO-8859-1</strong>: Also known as Latin-1, it uses 8 bits to represent characters and can encode 256 characters.</li>
-</ul>
-<p>When working with text files, it is important to specify the correct encoding to ensure that the file is read and written correctly. In Python, you can specify the encoding when opening a file using the <code>encoding</code> parameter of the <code>open()</code> function.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=114c69f3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-4.2">Exercise 4.2<a class="anchor-link" href="#Exercise-4.2">¶</a></h3><p>Write a program <code>read_file.py</code>. The program should ask the user for the name and encoding of the file to read. Then the program should read the contents of the file and print them on the screen.</p>
-<p>In a text editor create a sample text file with arbitrary content. Run the program and check if it reads the contents of the file correctly.</p>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=50ab909e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-4.3">Exercise 4.3<a class="anchor-link" href="#Exercise-4.3">¶</a></h3><p>Write a program <code>typewriter.py</code>. The program should ask the user for the name and encoding of the file to write. Then the program takes the text from the user line by line and writes it to the appropriate file. The program should stop when the user enters an empty line. When the program finishes, it should print the number of characters written to the file.</p>
-<p>Run the program and check if it writes the contents of the file correctly.</p>
+<p>The <code>return</code> statement does not have to be the last statement. It can be used to return a value at any point in a function.</p>
 <p>Example:</p>
-<pre><code>&gt;&gt;&gt; %Run typewriter.py
-Enter the name of the file: example.txt
-Enter the encoding of the file: utf-8
-Enter the text to write to the file (empty line to finish):
-Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-culpa qui officia deserunt mollit anim id est laborum.
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">5</span>
+</pre></div>
+<h3 id="Exercise-5.1">Exercise 5.1<a class="anchor-link" href="#Exercise-5.1">¶</a></h3><p>Write a function <code>increment(x)</code> that increments its argument by 1 and returns the result.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">increment</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">increment</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="mi">0</span>
+</pre></div>
+<hr/>
+<h3 id="Exercise-5.2">Exercise 5.2<a class="anchor-link" href="#Exercise-5.2">¶</a></h3><p>Write a function <code>is_even(x)</code> that returns <code>True</code> if its argument is an even number and <code>False</code> otherwise.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">is_even</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="kc">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">is_even</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="kc">False</span>
+</pre></div>
+<hr/>
+<h3 id="Exercise-5.3">Exercise 5.3<a class="anchor-link" href="#Exercise-5.3">¶</a></h3><p>Write a function <code>is_prime(x)</code> that returns <code>True</code> if its argument is a prime number and <code>False</code> otherwise.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">is_prime</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="kc">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">is_prime</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="kc">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">is_prime</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="kc">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">is_prime</span><span class="p">(</span><span class="mi">29</span><span class="p">)</span>
+<span class="kc">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">is_prime</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="kc">False</span>
+</pre></div>
+<p>More demanding example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">is_prime</span><span class="p">(</span><span class="mi">22801763573</span><span class="p">)</span>
+<span class="kc">True</span>
+</pre></div>
+<p>If the above computation takes too long, you may want to optimize the function (<em>hint</em>: you do not have to check all numbers up to <code>x</code>).</p>
+<hr/>
+<h3 id="Exercise-5.4">Exercise 5.4<a class="anchor-link" href="#Exercise-5.4">¶</a></h3><p>Write a function <code>is_triangle(a, b, c)</code> that returns <code>True</code> if a triangle with sides of lengths <code>a</code>, <code>b</code>, and <code>c</code> can be constructed and <code>False</code> otherwise.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">is_triangle</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="kc">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">is_triangle</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="kc">False</span>
+</pre></div>
+<hr/>
+<h3 id="Exercise-5.5">Exercise 5.5<a class="anchor-link" href="#Exercise-5.5">¶</a></h3><p>Write functions:</p>
+<ol>
+<li><code>implies(p, q)</code> that returns the value of the logical implication <code>p =&gt; q</code>,</li>
+<li><code>xor(p, q)</code> that returns the value of the logical exclusive disjunction <code>p XOR q</code>,</li>
+<li><code>iff(p, q)</code> that returns the value of the logical equivalence <code>p &lt;=&gt; q</code>,</li>
+<li><code>nand(p, q)</code> that returns the value of the logical NAND <code>p NAND q</code>.</li>
+</ol>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">implies</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="kc">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">implies</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="kc">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">xor</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="kc">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">iff</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="kc">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">nand</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="kc">False</span>
+</pre></div>
+<hr/>
+<h3 id="Exercise-5.6">Exercise 5.6<a class="anchor-link" href="#Exercise-5.6">¶</a></h3><p>DNA is a sequence of nucleotides represented by the letters <code>A</code>, <code>C</code>, <code>G</code>, and <code>T</code>. It is built from two complementary strands, where <code>A</code> is complementary to <code>T</code> and <code>C</code> is complementary to <code>G</code>. Write a function <code>complementary(dna)</code> that returns the complementary strand of the DNA sequence <code>dna</code>. The <code>dna</code> sequence is given as a string and the complementary strand should be returned as a string. If the input string contains characters other than <code>A</code>, <code>C</code>, <code>G</code>, and <code>T</code>, the function should return <code>None</code> (the <code>None</code> value built into Python).</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">complementary</span><span class="p">(</span><span class="s1">'ACGT'</span><span class="p">)</span>
+<span class="s1">'TGCA'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">complementary</span><span class="p">(</span><span class="s1">'ACGTACGT'</span><span class="p">)</span>
+<span class="s1">'TGCATGCA'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">complementary</span><span class="p">(</span><span class="s1">'ACGTACGTACXG'</span><span class="p">)</span> 
+<span class="kc">None</span>
+</pre></div>
+<p>If you do not see the <code>None</code> value in the output, you can check it explicitly:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">complementary</span><span class="p">(</span><span class="s1">'ACGTACGTACXG'</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="kc">True</span>
+</pre></div>
+<hr/>
+<h3 id="Exercise-5.7">Exercise 5.7<a class="anchor-link" href="#Exercise-5.7">¶</a></h3><p>Fibonacci numbers are defined by the recurrence relation</p>
+<p>\begin{equation*}
+\begin{aligned}
+F(0) &amp;= 0, \\
+F(1) &amp;= 1, \\
+F(n) &amp;= F(n-1) + F(n-2).
+\end{aligned}
+\end{equation*}</p>
+<p>Write a function <code>fibonacci(n)</code> that returns the <code>n</code>-th Fibonacci number.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">fibonacci</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fibonacci</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fibonacci</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fibonacci</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fibonacci</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="mi">6765</span>
+</pre></div>
+<p>More demanding example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">fibonacci</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="mi">354224848179261915075</span>
+</pre></div>
+<p>If the above computation takes too long, then probably you have implemented the function recursively with no memoization. Remedy: use memoization or implement the function iteratively.</p>
+<hr/>
+<h3 id="Exercise-5.8">Exercise 5.8<a class="anchor-link" href="#Exercise-5.8">¶</a></h3><p>Write a function <code>gcd(a, b)</code> that returns the greatest common divisor of two non-negative integers <code>a</code> and <code>b</code>. Use the Euclidean algorithm: if <code>b</code> is zero, then the greatest common divisor of <code>a</code> and <code>b</code> is <code>a</code>; otherwise, the greatest common divisor of <code>a</code> and <code>b</code> is the greatest common divisor of <code>b</code> and the remainder of the division of <code>a</code> by <code>b</code>.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">gcd</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gcd</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gcd</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="mi">12</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gcd</span><span class="p">(</span><span class="mi">1234567890</span><span class="p">,</span> <span class="mi">1234567891</span><span class="p">)</span> <span class="c1">## 1234567890 + 1 == 1234567891, so the greatest common divisor is 1</span>
+<span class="mi">1</span>
+</pre></div>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=1315243a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exercise-5.9">Exercise 5.9<a class="anchor-link" href="#Exercise-5.9">¶</a></h3><p>Write a function <code>counter(seq)</code> that returns a dictionary with the counts of each element in the sequence <code>seq</code>.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">counter</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">counter</span><span class="p">(</span><span class="s1">'abracadabra'</span><span class="p">)</span>
+<span class="p">{</span><span class="s1">'a'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+</pre></div>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=9fb70ccf"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Docstrings">Docstrings<a class="anchor-link" href="#Docstrings">¶</a></h3><p>A docstring is a string literal that occurs as the first statement in a module, function, class, or method definition. It is used to document the purpose of the code and sometimes to provide usage examples and test cases. The docstring is available as the <code>__doc__</code> attribute of the object.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="o">...</span>     <span class="s2">"""Return the sum of two numbers."""</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">add</span><span class="o">.</span><span class="vm">__doc__</span>
+<span class="s1">'Return the sum of two numbers.'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">help</span><span class="p">(</span><span class="n">add</span><span class="p">)</span>
+<span class="n">Help</span> <span class="n">on</span> <span class="n">function</span> <span class="n">add</span> <span class="ow">in</span> <span class="n">module</span> <span class="n">__main__</span><span class="p">:</span>
 
-Written 439 characters to example.txt
-</code></pre>
+<span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">Return</span> <span class="n">the</span> <span class="nb">sum</span> <span class="n">of</span> <span class="n">two</span> <span class="n">numbers</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=ae36798c"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="doctest-module"><code>doctest</code> module<a class="anchor-link" href="#doctest-module">¶</a></h3><p>The <code>doctest</code> module searches for pieces of text that look like interactive Python sessions in the docstring of a function or module and then executes those sessions to verify that they work exactly as shown.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="o">...</span>     <span class="s2">"""Return the sum of two numbers.</span>
+<span class="s2">...</span>
+<span class="s2">...     Examples:</span>
+<span class="s2">...</span>
+<span class="s2">...     &gt;&gt;&gt; add(2, 3)</span>
+<span class="s2">...     5</span>
+<span class="s2">...     &gt;&gt;&gt; add(-1, 1)</span>
+<span class="s2">...     0</span>
+<span class="s2">...     """</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">doctest</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+<span class="n">TestResults</span><span class="p">(</span><span class="n">failed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">attempted</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+<h3 id="Exercise-5.10">Exercise 5.10<a class="anchor-link" href="#Exercise-5.10">¶</a></h3><p>Finish the implementation of the given below <code>rot13(text)</code> function:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rot13</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return the text encrypted using the ROT13 cipher.</span>
+<span class="sd">    </span>
+<span class="sd">    The ROT13 cipher is a simple letter substitution cipher</span>
+<span class="sd">    that replaces a letter with the 13th letter after it in the alphabet.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">    &gt;&gt;&gt; rot13('abc')</span>
+<span class="sd">    'nop'</span>
+<span class="sd">    &gt;&gt;&gt; rot13('xyz')</span>
+<span class="sd">    'klm'</span>
+<span class="sd">    &gt;&gt;&gt; rot13('The quick brown fox jumps over the lazy dog.')</span>
+<span class="sd">    'Gur dhvpx oebja sbk whzcf bire gur ynml qbt.'</span>
+<span class="sd">    """</span>
+    <span class="k">pass</span>
+</pre></div>
+<p>Use the <code>doctest</code> module to test the function.</p>
 <hr/>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=365a5f0b"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=f71108e3"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Working-with-text-files">Working with text files<a class="anchor-link" href="#Working-with-text-files">¶</a></h3><p>The <code>open()</code> function, when used with a text mode, returns a file object of the <code>TextIOWrapper</code> class. This is a stream object that can be used to read from, write to, or append to the file depending on the mode in which the file was opened.</p>
-<p>The most common methods for reading from a file are <code>read()</code>, <code>readline()</code>, and <code>readlines()</code> and they have the following meanings in text mode:</p>
-<ul>
-<li><code>read()</code> - reads the entire file into a string (optionally, you can specify the number of characters to read),</li>
-<li><code>readline()</code> - reads a single line from the file into a string,</li>
-<li><code>readlines()</code> - reads all lines from the file into a list of strings.</li>
-</ul>
-<p>For reading line by line, the <code>for</code> loop can be used:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'example.txt'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
-<span class="n">Lorem</span> <span class="n">ipsum</span> <span class="n">dolor</span> <span class="n">sit</span> <span class="n">amet</span><span class="p">,</span> <span class="n">consectetur</span> <span class="n">adipiscing</span> <span class="n">elit</span><span class="p">,</span>
-<span class="n">sed</span> <span class="n">do</span> <span class="n">eiusmod</span> <span class="n">tempor</span> <span class="n">incididunt</span> <span class="n">ut</span> <span class="n">labore</span> <span class="n">et</span> <span class="n">dolore</span> <span class="n">magna</span> <span class="n">aliqua</span><span class="o">.</span>
-<span class="n">Ut</span> <span class="n">enim</span> <span class="n">ad</span> <span class="n">minim</span> <span class="n">veniam</span><span class="p">,</span> <span class="n">quis</span> <span class="n">nostrud</span> <span class="n">exercitation</span> <span class="n">ullamco</span> <span class="n">laboris</span>
-<span class="n">nisi</span> <span class="n">ut</span> <span class="n">aliquip</span> <span class="n">ex</span> <span class="n">ea</span> <span class="n">commodo</span> <span class="n">consequat</span><span class="o">.</span> <span class="n">Duis</span> <span class="n">aute</span> <span class="n">irure</span> <span class="n">dolor</span> <span class="ow">in</span>
-<span class="n">reprehenderit</span> <span class="ow">in</span> <span class="n">voluptate</span> <span class="n">velit</span> <span class="n">esse</span> <span class="n">cillum</span> <span class="n">dolore</span> <span class="n">eu</span> <span class="n">fugiat</span> <span class="n">nulla</span>
-<span class="n">pariatur</span><span class="o">.</span> <span class="n">Excepteur</span> <span class="n">sint</span> <span class="n">occaecat</span> <span class="n">cupidatat</span> <span class="n">non</span> <span class="n">proident</span><span class="p">,</span> <span class="n">sunt</span> <span class="ow">in</span>
-<span class="n">culpa</span> <span class="n">qui</span> <span class="n">officia</span> <span class="n">deserunt</span> <span class="n">mollit</span> <span class="n">anim</span> <span class="nb">id</span> <span class="n">est</span> <span class="n">laborum</span><span class="o">.</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<h3 id="Exercise-5.11">Exercise 5.11<a class="anchor-link" href="#Exercise-5.11">¶</a></h3><p>Finish the implementation of the given below <code>ceasar(text, shift)</code> function:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ceasar</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">shift</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return the text encrypted using the Caesar cipher with the given shift.</span>
+<span class="sd">    </span>
+<span class="sd">    The Caesar cipher is a simple letter substitution cipher that replaces a letter</span>
+<span class="sd">    with the letter `shift` positions down the alphabet.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">    &gt;&gt;&gt; ceasar('abc', 1)</span>
+<span class="sd">    'bcd'</span>
+<span class="sd">    &gt;&gt;&gt; ceasar('xyz', 1)</span>
+<span class="sd">    'yza'</span>
+<span class="sd">    &gt;&gt;&gt; ceasar('The quick brown fox jumps over the lazy dog.', 13)</span>
+<span class="sd">    'Gur dhvpx oebja sbk whzcf bire gur ynml qbt.'</span>
+<span class="sd">    &gt;&gt;&gt; ceasar(ceasar('The quick brown fox jumps over the lazy dog.', 8), -8)</span>
+<span class="sd">    'The quick brown fox jumps over the lazy dog.'</span>
+<span class="sd">    """</span>
+    <span class="k">pass</span>
 </pre></div>
-<p>For the next set of exercises, download the text file <a href="https://www.gutenberg.org/ebooks/1257">Three Musketeers</a> by Alexandre Dumas from the Project Gutenberg website. Save the file as <code>three_musketeers.txt</code>.</p>
-<h3 id="Exercise-4.4">Exercise 4.4<a class="anchor-link" href="#Exercise-4.4">¶</a></h3><p>Answer the following questions about the <code>three_musketeers.txt</code> file:</p>
-<ul>
-<li>Line is a sequence of characters terminated by a newline character. How many lines are there in the file?</li>
-<li>Word is a sequence of characters separated by whitespace. How many words are in the file?</li>
-<li>How many characters are in the file?</li>
-<li>What is the longest line in the file (in terms of the number of characters)?</li>
-<li>What is the longest word in the file (in terms of the number of characters)?</li>
-</ul>
-<hr/>
-<h3 id="Exercise-4.5">Exercise 4.5<a class="anchor-link" href="#Exercise-4.5">¶</a></h3><p>Write a program <code>text_file_stats.py</code>. The program should ask the user for the name and encoding of a text file and then print the following statistics about the file:</p>
-<ul>
-<li>the number of lines (line is a sequence of characters terminated by a newline character),</li>
-<li>the number of words (word is a sequence of characters separated by whitespace),</li>
-<li>the number of english letters (treat upper and lower case letters as the same, <em>Hint</em>: use the <code>str.lower()</code> method),</li>
-<li>the number of vowels (again, treat upper and lower case letters as the same).</li>
-</ul>
-<p>Check the program on some simple text files and on the <code>three_musketeers.txt</code> file.</p>
-<p>Example output:</p>
-<pre><code>&gt;&gt;&gt; %Run text_file_stats.py
-Enter the name of the file: example.txt
-Enter the encoding of the file: utf-8
-Number of lines: 7
-Number of words: 69
-Number of letters: 369
-Number of vowels: 167
-</code></pre>
+<p>Again, use the <code>doctest</code> module to test the function.</p>
 <hr/>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=2b981500"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=a9b487a0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Dictionary">Dictionary<a class="anchor-link" href="#Dictionary">¶</a></h3><p>For the next exercise it will be very convenient to use a dictionary. A dictionary is a collection of key-value pairs. Each key is associated with a value. Dictionaries are unordered, mutable (you can change their content), and indexed by keys. The keys must be unique and immutable (strings, numbers, or tuples). The values can be of any type.</p>
-<p>You can create a dictionary by placing a comma-separated list of key-value pairs within curly braces <code>{}</code>. The
-syntax for a key-value pair is <code>key: value</code>. For example:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'John'</span><span class="p">,</span> <span class="s1">'age'</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">'city'</span><span class="p">:</span> <span class="s1">'New York'</span><span class="p">}</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
-<span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'John'</span><span class="p">,</span> <span class="s1">'age'</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">'city'</span><span class="p">:</span> <span class="s1">'New York'</span><span class="p">}</span>
+<h3 id="Exercise-5.12">Exercise 5.12<a class="anchor-link" href="#Exercise-5.12">¶</a></h3><p>Finish the implementation of the given below <code>vigenere(text, key)</code> function:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">vigenere</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return the text encrypted using the Vigenère cipher with the given key.</span>
+<span class="sd">    </span>
+<span class="sd">    The Vigenère cipher is a method of encrypting alphabetic text by using a simple form</span>
+<span class="sd">    of polyalphabetic substitution. A keyword determines the letter shift for each position</span>
+<span class="sd">    in the text.</span>
+<span class="sd">    </span>
+<span class="sd">    See:</span>
+<span class="sd">    - https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher</span>
+<span class="sd">    - https://cryptii.com/pipes/vigenere-cipher</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">    &gt;&gt;&gt; vigenere('abc', 'key')</span>
+<span class="sd">    'kfa'</span>
+<span class="sd">    &gt;&gt;&gt; vigenere('xyz', 'key')</span>
+<span class="sd">    'hcx'</span>
+<span class="sd">    &gt;&gt;&gt; vigenere('The quick brown fox jumps over the lazy dog.', 'key')</span>
+<span class="sd">    'Dlc aygmo zbsux jmh nswtq yzcb xfo pyjc byk.'</span>
+<span class="sd">    """</span>
+    <span class="k">pass</span>
 </pre></div>
-<p>You can access the value associated with a key by using the key in square brackets:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span>
-<span class="s1">'John'</span>
-</pre></div>
-<p>You can add a new key-value pair to a dictionary by assigning a value to a new key:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span><span class="p">[</span><span class="s1">'married'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span>
-<span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'John'</span><span class="p">,</span> <span class="s1">'age'</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">'city'</span><span class="p">:</span> <span class="s1">'New York'</span><span class="p">,</span> <span class="s1">'married'</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
-</pre></div>
-<p>Here is an example of how to store the frequency of each letter in a string in a dictionary:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">freq</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
-<span class="o">...</span>     <span class="k">if</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">freq</span><span class="p">:</span>
-<span class="o">...</span>         <span class="n">freq</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="o">...</span>     <span class="k">else</span><span class="p">:</span>
-<span class="o">...</span>         <span class="n">freq</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">freq</span>
-<span class="p">{</span><span class="s1">'L'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'o'</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">' '</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">'p'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'s'</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">'u'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'l'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'t'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">','</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'n'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'g'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'.'</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
-</pre></div>
-<p>Accessing the keys, values, and key-value pairs of a dictionary can be done using the <code>keys()</code>, <code>values()</code>, and <code>items()</code> methods, respectively:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">freq</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="n">dict_keys</span><span class="p">([</span><span class="s1">'L'</span><span class="p">,</span> <span class="s1">'o'</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">,</span> <span class="s1">' '</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">,</span> <span class="s1">'p'</span><span class="p">,</span> <span class="s1">'s'</span><span class="p">,</span> <span class="s1">'u'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">,</span> <span class="s1">'l'</span><span class="p">,</span> <span class="s1">'t'</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">,</span> <span class="s1">','</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'n'</span><span class="p">,</span> <span class="s1">'g'</span><span class="p">,</span> <span class="s1">'.'</span><span class="p">])</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">freq</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-<span class="n">dict_values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">freq</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-<span class="n">dict_items</span><span class="p">([(</span><span class="s1">'L'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">'o'</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s1">'r'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="s1">'m'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">' '</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="s1">'i'</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="s1">'p'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">'s'</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s1">'u'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">'d'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">'l'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">'t'</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">'c'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">'g'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">'.'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
-</pre></div>
-<p>Assume we want to see the sorted frequency of characters in the text. To this end, we can swap the keys and values, store them in a list, and then sort the list:</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">freq_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">freq</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">freq_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">freq_list</span>
-<span class="p">[(</span><span class="mi">7</span><span class="p">,</span> <span class="s1">' '</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">'t'</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">'s'</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">'o'</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'u'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'p'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'n'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'l'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'g'</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'L'</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'.'</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">','</span><span class="p">)]</span>
-</pre></div>
-<p>Here</p>
-<ul>
-<li><code>[(value, key) for key, value in freq.items()]</code> is a list comprehension that creates a list of tuples <code>(value, key)</code> from the key-value pairs in the dictionary <code>freq</code>. Since <code>dict.items()</code> returns the key-value pairs as tuples <code>(key, value)</code>, we may iterate over the pairs as <code>for key, value in freq.items()</code>.</li>
-<li><code>freq_list.sort(reverse=True)</code> sorts the list in descending order (default is ascending order).</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=ef28dc8b"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-4.6">Exercise 4.6<a class="anchor-link" href="#Exercise-4.6">¶</a></h3><p>Write a program <code>frequency_table.py</code>. The program asks the user for the name of a text file and its encoding. Then the program creates a frequency table of english letters (upper and lower case treated as the same) in the file. The table should have a form of a Markdown table with two columns: the letter and its frequency and should be sorted in descending order of frequency.</p>
-<p>For example, for the text <code>Abracadabra</code>, the table should look as follows:</p>
-<pre><code>| Character | Frequency |
-|-----------|-----------|
-| a         | 5         |
-| b         | 2         |
-| r         | 2         |
-| c         | 1         |
-| d         | 1         |
-</code></pre>
-<p>Check the program on some simple text files and on the <code>three_musketeers.txt</code> file.</p>
-<p>You may paste the table into an online Markdown previewer like <a href="https://markdownlivepreview.com/">this one</a>.</p>
+<p>The function should work as <a href="https://cryptii.com/pipes/vigenere-cipher">here</a> with case strategy set to <em>Maintain case</em>.</p>
 <hr/>
 </div>
 </div>
