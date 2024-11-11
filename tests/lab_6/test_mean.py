@@ -1,3 +1,10 @@
+"""Tests for the lab_6 mean module.
+
+Copy this file to the same directory as the mean.py file.
+Run the tests with the following command:
+$ python test_mean.py
+"""
+
 import math
 import unittest
 

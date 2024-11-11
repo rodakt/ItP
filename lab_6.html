@@ -13251,6 +13251,56 @@ Average: 3.0
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=74717961"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-to-open-a-file-safely">How to open a file safely<a class="anchor-link" href="#How-to-open-a-file-safely">¶</a></h2><p>When opening a file, after processing it, it <strong>always</strong> should be closed. However, an exception raised earlier in the code block can prevent the <code>close()</code> method from being executed, even if it's included. To ensure that the file is properly closed, we can use the <code>finally</code> block:</p>
+<div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">file</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># code that processes the file</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+<h3 id="Exercise-6.6">Exercise 6.6<a class="anchor-link" href="#Exercise-6.6">¶</a></h3><p>Write a program <code>file_size.py</code> that reads the name of a file from the user and displays its size in bytes. If the file does not exist or cannot be opened, the program should display a suitable error message. To compute the size of the file:</p>
+<ul>
+<li>open the file in binary mode,</li>
+<li>use the <code>read()</code> method (it reads the entire file into a byte string),</li>
+<li>use the <code>len()</code> function.</li>
+</ul>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run file_size.py
+Enter the file name: file_size.py
+The size of the file is 1234 bytes
+&gt;&gt;&gt; %Run file_size.py
+Enter the file name: KFLQFWLQMKWFLQMFQW.txt
+Error: file not found
+&gt;&gt;&gt; %Run file_size.py
+Enter the file name: /etc/passwd
+Error: destination exists but cannot be opened
+</code></pre>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=a9c1aaef"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The pattern of opening a file (or another resource) and closing it safely is so common that Python provides a special syntax for it: the <code>with</code> statement. The <code>with</code> statement is a compound statement that ensures that a resource is properly cleaned up after its use. It has the following syntax:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="o">&lt;</span><span class="n">expression</span><span class="o">&gt;</span> <span class="k">as</span> <span class="o">&lt;</span><span class="n">variable</span><span class="o">&gt;</span><span class="p">:</span>
+    <span class="c1"># code that uses the resource</span>
+</pre></div>
+<p>The <code>expression</code> must return an object that supports the context manager protocol (<code>open()</code> function returns such an object). The <code>variable</code> is assigned the object returned by the <code>expression</code>. The <code>with</code> statement ensures that the <code>__enter__()</code> method of the object is called before the block is executed and the <code>__exit__()</code> method is called after the block is executed. The <code>__exit__()</code> method is called even if an exception is raised in the block.</p>
+<p>So the proper pythonic way to open a file looks like this:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">file</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="c1"># code that processes the file</span>
+    <span class="c1"># no need to call f.close()</span>
+</pre></div>
+<p>The <code>open()</code> function returns a file object. The <code>as</code> keyword is used to assign the file object to a variable. The file is automatically closed when the block is exited, even if exceptions are raised.</p>
+<h3 id="Exercise-6.7">Exercise 6.7<a class="anchor-link" href="#Exercise-6.7">¶</a></h3><p>Rewrite the program from the previous exercise using the <code>with</code> statement.</p>
+<hr/>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=4ab9af60"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13281,7 +13331,7 @@ Average: 3.0
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Unit-tests">Unit tests<a class="anchor-link" href="#Unit-tests">¶</a></h2><p>Now we know how to handle exceptions hence we can introduce the concept of unit tests. A unit test is a piece of code that tests a small part of the program, typically a function, class method, or a class. The goal of unit testing is to verify that the code works as expected. There are many libraries for writing unit tests in Python, such as <code>unittest</code> or <code>pytest</code>, but now we will try to write simple tests using the <code>assert</code> and <code>try</code> statements.</p>
-<h3 id="Exercise-6.6">Exercise 6.6<a class="anchor-link" href="#Exercise-6.6">¶</a></h3><p>The code below provides a unit tests for the module <code>mean.py</code>. Copy the code to the file <code>test_mean.py</code> then write the module <code>mean.py</code> and put it in the same directory as the test file. Check carefully the code of the tests and write the module <code>mean.py</code> according to them. Run the tests.</p>
+<h3 id="Exercise-6.8">Exercise 6.8<a class="anchor-link" href="#Exercise-6.8">¶</a></h3><p>The code below provides a unit tests for the module <code>mean.py</code>. Copy the code to the file <code>test_mean.py</code> then write the module <code>mean.py</code> and put it in the same directory as the test file. Check carefully the code of the tests and write the module <code>mean.py</code> according to them. Run the tests.</p>
 <div class="highlight"><pre><span></span><span class="c1"># test_mean.py</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
@@ -13382,6 +13432,18 @@ Average: 3.0
     <span class="n">test_mean_default_type</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">"All tests passed"</span><span class="p">)</span>
 </pre></div>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=af4ffe7a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Writing tests is a good practice and very common in software development. <a href="https://github.com/rodakt/ItP/blob/main/tests/lab_6/test_mean.py">Here</a> you can find the same tests as above but written in the <code>unittest</code> framework. You can run them by executing the command:</p>
+<div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>test_mean.py
+</pre></div>
+<p>Ensure that the file <code>mean.py</code> is in the same directory as the test file.</p>
+<h3 id="Exercise-6.9">Exercise 6.9<a class="anchor-link" href="#Exercise-6.9">¶</a></h3><p>Test your <code>mean.py</code> module against the mentioned above tests.</p>
 <hr/>
 </div>
 </div>
