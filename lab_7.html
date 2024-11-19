@@ -13302,6 +13302,36 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=ecd50850"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exercise-7.8">Exercise 7.8<a class="anchor-link" href="#Exercise-7.8">¶</a></h3><p>Complete the implementation of the <code>sort_by_neglex(seq, ascending=True)</code> function.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sort_by_neglex</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Sorts a sequence of strings or tuples based on the lexicographic order of the elements, </span>
+<span class="sd">    but treating each element as if it were reversed.</span>
+
+<span class="sd">    - For strings, the reverse of the string is used for comparison.</span>
+<span class="sd">    - For tuples, the reverse of the tuple (element order reversed) is used for comparison.</span>
+
+<span class="sd">    The `ascending` parameter controls the sorting order:</span>
+<span class="sd">    - If `ascending=True` (default), the sequence is sorted in ascending order.</span>
+<span class="sd">    - If `ascending=False`, the sequence is sorted in descending order.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">    &gt;&gt;&gt; sort_by_neglex(["Lorem", "ipsum", "dolor", "sit", "amet"])</span>
+<span class="sd">    ['Lorem', 'ipsum', 'dolor', 'amet', 'sit']</span>
+<span class="sd">    &gt;&gt;&gt; sort_by_neglex(["Lorem", "ipsum", "dolor", "sit", "amet"], ascending=False)</span>
+<span class="sd">    ['sit', 'amet', 'dolor', 'ipsum', 'Lorem']</span>
+<span class="sd">    &gt;&gt;&gt; sort_by_neglex([(1, 2, 3), (3, 2, 1), (2, 3, 1), (1, 3, 2)])</span>
+<span class="sd">    [(3, 2, 1), (2, 3, 1), (1, 3, 2), (1, 2, 3)]</span>
+<span class="sd">    """</span>
+    <span class="k">pass</span>
+</pre></div>
+<hr/>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=0bf6d30f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13323,7 +13353,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=c12a67ce"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-7.8">Exercise 7.8<a class="anchor-link" href="#Exercise-7.8">¶</a></h3><p>Create a function called <code>product(seq)</code> that calculates the product of all elements in a given sequence <code>seq</code>. Use the <code>functools.reduce()</code> function to implement the <code>product()</code> function.</p>
+<h3 id="Exercise-7.9">Exercise 7.9<a class="anchor-link" href="#Exercise-7.9">¶</a></h3><p>Create a function called <code>product(seq)</code> that calculates the product of all elements in a given sequence <code>seq</code>. Use the <code>functools.reduce()</code> function to implement the <code>product()</code> function.</p>
 <hr/>
 </div>
 </div>
@@ -13340,7 +13370,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <span class="o">&gt;&gt;&gt;</span> <span class="n">g</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="mi">7</span>
 </pre></div>
-<h3 id="Exercise-7.9">Exercise 7.9<a class="anchor-link" href="#Exercise-7.9">¶</a></h3><p>Use <code>functools.reduce()</code> and a <code>lambda</code> function to implement the <code>product()</code> function from the previous exercise.</p>
+<h3 id="Exercise-7.10">Exercise 7.10<a class="anchor-link" href="#Exercise-7.10">¶</a></h3><p>Use <code>functools.reduce()</code> and a <code>lambda</code> function to implement the <code>product()</code> function from the previous exercise.</p>
 <hr/>
 </div>
 </div>
@@ -13348,7 +13378,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=6180c22e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-7.10">Exercise 7.10<a class="anchor-link" href="#Exercise-7.10">¶</a></h3><p>Finish the implementation of the following functions. Make use of the <code>functools.reduce()</code> function and a <code>lambda</code> statement or a named function. Do not use a <code>for</code> loop or a built-in functions or methods that would make the implementation trivial.</p>
+<h3 id="Exercise-7.11">Exercise 7.11<a class="anchor-link" href="#Exercise-7.11">¶</a></h3><p>Finish the implementation of the following functions. Make use of the <code>functools.reduce()</code> function and a <code>lambda</code> statement or a named function. Do not use a <code>for</code> loop or a built-in functions or methods that would make the implementation trivial.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">concatenate</span><span class="p">(</span><span class="n">seq</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Given a sequence of strings, return a single string that is the concatenation of all strings in the sequence.</span>
