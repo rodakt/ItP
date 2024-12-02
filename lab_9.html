@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>lab_8</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script type="module">
+<title>lab_9</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script type="module">
   import mermaid from 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs';
   mermaid.initialize({ startOnLoad: true });
 </script>
@@ -13089,7 +13089,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=85f023a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-VIII">Lab VIII<a class="anchor-link" href="#Lab-VIII">¶</a></h2><p>2024/2025, winter semester</p>
+<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-IX">Lab IX<a class="anchor-link" href="#Lab-IX">¶</a></h2><p>2024/2025, winter semester</p>
 <hr/>
 </div>
 </div>
@@ -13109,246 +13109,344 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=b95e514a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Custom-higher-order-functions">Custom higher order functions<a class="anchor-link" href="#Custom-higher-order-functions">¶</a></h2><h3 id="Exercise-8.1">Exercise 8.1<a class="anchor-link" href="#Exercise-8.1">¶</a></h3><p>Write a function <code>summation(n, term)</code> that returns the sum of the first <code>n</code> terms of the sequence defined by the <code>term</code> function. The <code>term</code> function should take a single argument and return a number.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">summation</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">term</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Return the sum of the first n terms of the sequence defined by term.</span>
+<h2 id="Object-Oriented-Programming">Object Oriented Programming<a class="anchor-link" href="#Object-Oriented-Programming">¶</a></h2><h3 id="Classes">Classes<a class="anchor-link" href="#Classes">¶</a></h3><p>From the Python standard library <a href="https://docs.python.org/3/tutorial/classes.html">documentation</a>:</p>
+<blockquote>
+<p>Classes provide a means of bundling data and functionality together. Creating a new class creates a new type of object, allowing new instances of that type to be made. Each class instance can have attributes attached to it for maintaining its state. Class instances can also have methods (defined by its class) for modifying its state.</p>
+</blockquote>
+<p>To define a class, use the <code>class</code> keyword followed by the class name and a colon. The class body is indented. The class body can contain method definitions, data attributes, and other class definitions</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="err">&lt;</span><span class="nc">class</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">:</span>
+    <span class="o">&lt;</span><span class="n">statement</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span>
+    <span class="o">...</span>
+    <span class="o">&lt;</span><span class="n">statement</span><span class="o">-</span><span class="n">N</span><span class="o">&gt;</span>
+</pre></div>
+<p>The simplest class definition is an empty class:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">pass</span>
+<span class="o">...</span>
+</pre></div>
+<p>The only use of a class is to create instances of it. To create an instance of a class, call the class object as if it were a function:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
+<span class="o">&lt;</span><span class="n">__main__</span><span class="o">.</span><span class="n">MyClass</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f3c5c2d3b50</span><span class="o">&gt;</span>
+</pre></div>
+<p>You may think of a class as a blueprint for creating objects. An object is an instance of a class. All objects created from the same class share the same structure (the same attributes and methods), but they they are separate entities.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">y</span> <span class="c1"># x and y are different objects (different things in memory)</span>
+<span class="kc">False</span>
+</pre></div>
+<h3 id="Attributes">Attributes<a class="anchor-link" href="#Attributes">¶</a></h3><p>Attributes are data stored inside a class or instance and represent the state or quality of the class or instance. There are two types of attributes: class attributes and instance attributes.</p>
+<p>Class attributes are shared by all instances of a class. They are defined within the class definition but outside any methods.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+<span class="o">...</span>     <span class="n">class_attribute</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">class_attribute</span>
+<span class="mi">42</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span><span class="o">.</span><span class="n">class_attribute</span>
+<span class="mi">42</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">MyClass</span><span class="o">.</span><span class="n">class_attribute</span>
+<span class="mi">42</span>
+</pre></div>
+<p>Instance attributes are unique to each instance. They are typically defined within the methods of a class, but they can be also defined by assigning to an instance attribute outside any method.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+<span class="o">...</span>     <span class="n">class_attribute</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="o">...</span>     
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">instance_attribute</span> <span class="o">=</span> <span class="mi">43</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">instance_attribute</span>
+<span class="mi">43</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span><span class="o">.</span><span class="n">instance_attribute</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">AttributeError</span><span class="p">:</span> <span class="s1">'MyClass'</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">'instance_attribute'</span>
+</pre></div>
+<h3 id="Methods">Methods<a class="anchor-link" href="#Methods">¶</a></h3><p>Methods are functions defined inside the body of a class. They are used to define the behaviors of an object.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>         <span class="k">return</span> <span class="s1">'Hello, world!'</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">method</span><span class="p">()</span>
+<span class="s1">'Hello, world!'</span>
+</pre></div>
+<p>The <code>self</code> parameter is a reference to the current instance of the class, and is used to access variables that belong to the class. It does not have to be named <code>self</code>, but it is a very strong convention.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>         <span class="k">return</span> <span class="bp">self</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">method</span><span class="p">()</span>
+<span class="o">&lt;</span><span class="n">__main__</span><span class="o">.</span><span class="n">MyClass</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f3c5c2d3b50</span><span class="o">&gt;</span>
+</pre></div>
+<p>More figuratively, let <code>MyClass</code> be a class with a method <code>method()</code> with some parameters:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+<span class="o">...</span>     <span class="o">...</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+<span class="o">...</span>         <span class="o">...</span>
+<span class="o">...</span>
+</pre></div>
+<p>Then the call <code>x.method(...)</code>, where <code>x</code> is an instance of <code>MyClass</code>, is equivalent to <code>MyClass.method(x, ...)</code>. The <code>self</code> parameter is a reference to the instance <code>x</code>.</p>
+<h3 id="Example">Example<a class="anchor-link" href="#Example">¶</a></h3><p>Let's define a class <code>Person</code> with two instance attributes: <code>name</code> and <code>age</code>, and a method <code>greet()</code> that returns a greeting message.</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">person</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
 
-<span class="sd">    Parameters:</span>
-<span class="sd">    n: the number of terms to add</span>
-<span class="sd">    term: a function that takes one argument</span>
-
-<span class="sd">    Return value: the sum of the first n terms of the sequence</span>
-<span class="sd">    </span>
-<span class="sd">    Example:</span>
-<span class="sd">    &gt;&gt;&gt; term = lambda k: k</span>
-<span class="sd">    &gt;&gt;&gt; summation(0, term)</span>
-<span class="sd">    0</span>
-<span class="sd">    &gt;&gt;&gt; summation(1, term)</span>
-<span class="sd">    1</span>
-<span class="sd">    &gt;&gt;&gt; summation(2, term)</span>
-<span class="sd">    3</span>
-<span class="sd">    &gt;&gt;&gt; summation(100, term)</span>
-<span class="sd">    5050</span>
-<span class="sd">    &gt;&gt;&gt; term = lambda k: k * k</span>
-<span class="sd">    &gt;&gt;&gt; summation(0, term)</span>
-<span class="sd">    0</span>
-<span class="sd">    &gt;&gt;&gt; summation(1, term)</span>
-<span class="sd">    1</span>
-<span class="sd">    &gt;&gt;&gt; summation(2, term)</span>
-<span class="sd">    5</span>
-<span class="sd">    &gt;&gt;&gt; summation(100, term) # https://www.wolframalpha.com/input?key=&amp;i=sum+of++squares+from+1+to+100</span>
-<span class="sd">    338350</span>
-<span class="sd">    """</span>
-    <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'Hello, my name is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> and I am </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="si">}</span><span class="s1"> years old.'</span>
+</pre></div>
+<p>Now we can create instances of the class <code>Person</code> and call the method <code>greet()</code> on them.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">alice</span> <span class="o">=</span> <span class="n">Person</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">alice</span><span class="o">.</span><span class="n">person</span><span class="p">(</span><span class="s1">'Alice'</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">alice</span><span class="o">.</span><span class="n">greet</span><span class="p">()</span>
+<span class="s1">'Hello, my name is Alice and I am 25 years old.'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bob</span> <span class="o">=</span> <span class="n">Person</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bob</span><span class="o">.</span><span class="n">person</span><span class="p">(</span><span class="s1">'Bob'</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bob</span><span class="o">.</span><span class="n">greet</span><span class="p">()</span>
+<span class="s1">'Hello, my name is Bob and I am 30 years old.'</span>
+</pre></div>
+<p><code>alice</code> and <code>bob</code> are separate instances of the same blueprint, the class <code>Person</code>. They have separate attributes <code>name</code> and <code>age</code> and same method <code>greet()</code>, which has access to the attributes of the instance it is called on.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=51cff98a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exercise-9.1">Exercise 9.1<a class="anchor-link" href="#Exercise-9.1">¶</a></h3><p>Define a class <code>Rectangle</code> with two instance attributes: <code>width</code> and <code>height</code>, and three methods:</p>
+<ul>
+<li><code>initialize(self, width, height)</code> that initializes the instance attributes <code>width</code> and <code>height</code>,</li>
+<li><code>area(self)</code> that returns the area of the rectangle,</li>
+<li><code>perimeter(self)</code> that returns the perimeter of the rectangle.</li>
+</ul>
+<p>Usage example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+<span class="mi">200</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">perimeter</span><span class="p">()</span>
+<span class="mi">60</span>
+</pre></div>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=5051ae1e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exercise-9.2">Exercise 9.2<a class="anchor-link" href="#Exercise-9.2">¶</a></h3><p>Write a class <code>Point</code>. Instances of this class should represent points $(x, y)$ in the Cartesian plane. The class should have methods</p>
+<ul>
+<li><code>initialize(self, x, y)</code> that initializes the instance attributes <code>x</code> and <code>y</code>,</li>
+<li><code>move(self, dx, dy)</code> that moves the point <code>self</code> by <code>dx</code> in the x-direction and by <code>dy</code> in the y-direction,</li>
+<li><code>distance(self, other)</code> that returns the Euclidean distance between the point <code>self</code> and the point <code>other</code>.</li>
+</ul>
+<p>Usage example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p1</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">Point</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p2</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p1</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+<span class="mf">5.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p1</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p1</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+<span class="mf">0.0</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=15df0c95"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=2efbd02d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-8.2">Exercise 8.2<a class="anchor-link" href="#Exercise-8.2">¶</a></h3><p>Write a function <code>adder_factory(term)</code> that returns a function that takes a single argument <code>n</code> and returns the sum of the first <code>n</code> terms of the sequence defined by the <code>term</code> function. The <code>term</code> function should take a single argument and return a number.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">adder_factory</span><span class="p">(</span><span class="n">term</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Return a function that takes a single argument n and returns the sum of the first n terms of the sequence defined by term.</span>
-
-<span class="sd">    Parameters:</span>
-<span class="sd">    term: a function that takes one argument</span>
-
-<span class="sd">    Return value: a function that takes a single argument n and returns the sum of the first n terms of the sequence</span>
-<span class="sd">    </span>
-<span class="sd">    Example:</span>
-<span class="sd">    &gt;&gt;&gt; f = adder_factory(lambda x: x)</span>
-<span class="sd">    &gt;&gt;&gt; f(0)</span>
-<span class="sd">    0</span>
-<span class="sd">    &gt;&gt;&gt; f(1)</span>
-<span class="sd">    1</span>
-<span class="sd">    &gt;&gt;&gt; f(2)</span>
-<span class="sd">    3</span>
-<span class="sd">    &gt;&gt;&gt; f(100)</span>
-<span class="sd">    5050</span>
-<span class="sd">    &gt;&gt;&gt; f = adder_factory(lambda k: k * k)</span>
-<span class="sd">    &gt;&gt;&gt; f(0)</span>
-<span class="sd">    0</span>
-<span class="sd">    &gt;&gt;&gt; f(1)</span>
-<span class="sd">    1</span>
-<span class="sd">    &gt;&gt;&gt; f(2)</span>
-<span class="sd">    5</span>
-<span class="sd">    &gt;&gt;&gt; f(100) # https://www.wolframalpha.com/input?key=&amp;i=sum+of++squares+from+1+to+100</span>
-<span class="sd">    338350</span>
-<span class="sd">    """</span>
-    <span class="k">pass</span>
+<h3 id="Exercise-9.3">Exercise 9.3<a class="anchor-link" href="#Exercise-9.3">¶</a></h3><p>Write a class <code>BankAccount</code>. Object of this class should represent a bank account with attributes <code>balance</code> and <code>account_number</code>. The class should have methods</p>
+<ul>
+<li><code>initialize_account(self, account_number, initial_balance)</code> that initializes the instance attributes <code>account_number</code> and <code>balance</code>,</li>
+<li><code>deposit(self, amount)</code> that deposits <code>amount</code> to the account,</li>
+<li><code>withdraw(self, amount)</code> that withdraws <code>amount</code> from the account,</li>
+<li><code>transfer(self, other, amount)</code> that transfers <code>amount</code> from the account <code>self</code> to the account <code>other</code>,</li>
+<li><code>show_balance(self)</code> that returns the current balance of the account,</li>
+<li><code>show_account_number(self)</code> that returns the account number,</li>
+<li><code>show_account(self)</code> that returns a string with the account number and the current balance.</li>
+</ul>
+<p>Usage example:</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span> <span class="o">=</span> <span class="n">BankAccount</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span><span class="o">.</span><span class="n">initialize_account</span><span class="p">(</span><span class="s1">'1234567890'</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span><span class="o">.</span><span class="n">show_account</span><span class="p">()</span>
+<span class="s1">'Account number: 1234567890, balance: 1000'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span><span class="o">.</span><span class="n">deposit</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span><span class="o">.</span><span class="n">show_balance</span><span class="p">()</span>
+<span class="mi">1500</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span><span class="o">.</span><span class="n">withdraw</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span><span class="o">.</span><span class="n">show_balance</span><span class="p">()</span>
+<span class="mi">1300</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a2</span> <span class="o">=</span> <span class="n">BankAccount</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a2</span><span class="o">.</span><span class="n">initialize_account</span><span class="p">(</span><span class="s1">'0987654321'</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span><span class="o">.</span><span class="n">transfer</span><span class="p">(</span><span class="n">a2</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a1</span><span class="o">.</span><span class="n">show_balance</span><span class="p">()</span>
+<span class="mi">1000</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a2</span><span class="o">.</span><span class="n">show_balance</span><span class="p">()</span>
+<span class="mi">2300</span>
 </pre></div>
+<hr/>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=c93b48d6"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=7f9eafba"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-8.3">Exercise 8.3<a class="anchor-link" href="#Exercise-8.3">¶</a></h3><!-- from math import isclose
+<h3 id="Exercise-9.4">Exercise 9.4<a class="anchor-link" href="#Exercise-9.4">¶</a></h3><!-- Write a parameterless function moving_avg(). The function returns a function that calculates the moving average. See the tests for details.
 
-avg = moving_avg()
+def moving_avg():
+    """Return a function that calculates the moving average.
 
-assert avg(-10) == -10
-assert isclose(avg(10), (-10 + 10) / 2)
-assert isclose(avg(5), (-10 + 10 + 5) / 3)
-assert isclose(avg(200), (-10 + 10 + 5 + 200) / 4) -->
-<p>Write a parameterless function <code>moving_avg()</code>. The function returns a function that calculates the moving average. See the tests for details.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">moving_avg</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">"""Return a function that calculates the moving average.</span>
+    Example:
+    >>> avg = moving_avg()
+    >>> avg(-10)
+    -10
+    >>> avg(10)
+    0.0
+    >>> avg(5)
+    1.6666666666666667
+    >>> avg(200)
+    51.25
+    """
+    pass -->
+<p>Finish the class <code>MovingAverage</code>. The class should have two methods:</p>
+<ul>
+<li><code>initialize()</code> that initializes the instance attributes (what are they?),</li>
+<li><code>new_value()</code> that takes a new value and returns the average of the all values passed to the method so far. The average is calculated as the sum of all values divided by the number of values.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MovingAverage</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Calculate the moving average of the values passed to the new_value() method.</span>
 
 <span class="sd">    Example:</span>
-<span class="sd">    &gt;&gt;&gt; avg = moving_avg()</span>
-<span class="sd">    &gt;&gt;&gt; avg(-10)</span>
+<span class="sd">    &gt;&gt;&gt; ma = MovingAverage()</span>
+<span class="sd">    &gt;&gt;&gt; ma.initialize()</span>
+<span class="sd">    &gt;&gt;&gt; ma.new_value(-10)</span>
 <span class="sd">    -10.0</span>
-<span class="sd">    &gt;&gt;&gt; avg(10)</span>
+<span class="sd">    &gt;&gt;&gt; ma.new_value(10)</span>
 <span class="sd">    0.0</span>
-<span class="sd">    &gt;&gt;&gt; avg(5)</span>
+<span class="sd">    &gt;&gt;&gt; ma.new_value(5)</span>
 <span class="sd">    1.6666666666666667</span>
-<span class="sd">    &gt;&gt;&gt; avg(200)</span>
+<span class="sd">    &gt;&gt;&gt; ma.new_value(200)</span>
 <span class="sd">    51.25</span>
 <span class="sd">    """</span>
     <span class="k">pass</span>
 </pre></div>
+<p>Use the <code>doctest</code> module to test the class.</p>
+<hr/>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=89a14642"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=2b34ca02"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-8.4">Exercise 8.4<a class="anchor-link" href="#Exercise-8.4">¶</a></h3><!-- f = lambda x: x + 1
-g = lambda x: x * 2
+<h3 id="Exercise-9.5">Exercise 9.5<a class="anchor-link" href="#Exercise-9.5">¶</a></h3><!-- Napisz klasę Fib. Obiekt klasy powinien posiadać metody:
 
-assert compose(f, g)(1) == 3
-assert compose(g, f)(1) == 4
-assert compose(f, f)(1) == 3
-assert compose(g, g)(1) == 4
+    .__init__() - akceptuje dwie wartości początkowe ciągu a (wartość F0
 
-s = 'cba'
-assert compose(str.upper, str.lower)(s) == s.upper()
-assert compose(str.lower, str.upper)(s) == s.lower()
+) i b (wartość F1
+), domyślnie 0 i 1;
+.indeks() - oblicza rekurencyjnie wyraz Fn
+ciągu Fibonacciego. Wykorzystaj memoizację: przechowaj obliczone wartości ciągu w słowniku będącym atrybutem self. -->
+<p>The Fibonacci sequence is defined as follows:</p>
+<p>$$
+F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} + F_{n-2} \quad \text{for} \quad n \geq 2.
+$$</p>
+<p>It may be generalized to any two initial values $a$ and $b$:</p>
+<p>$$
+F_0 = a, \quad F_1 = b, \quad F_n = F_{n-1} + F_{n-2} \quad \text{for} \quad n \geq 2.
+$$</p>
+<p>Write a class <code>Fib</code>. Instances of this class should have two attributes: <code>a</code> and <code>b</code>, and two methods:</p>
+<ul>
+<li><code>initialize(self, a=0, b=1)</code> that initializes the instance attributes <code>a</code> and <code>b</code>,</li>
+<li><code>index(self, n)</code> that returns the $n$-th Fibonacci number. Use recursion with memoization to speed up the calculations.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">Fib</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="mi">55</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">g</span> <span class="o">=</span> <span class="n">Fib</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">g</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">g</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">g</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="mi">8</span>
+</pre></div>
+<hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=401123dc"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="__init__-method"><code>__init__</code> method<a class="anchor-link" href="#__init__-method">¶</a></h3><p>In many previous examples, we had to define a method <code>initialize()</code> to initialize the instance attributes. It was necessary, because sometimes objects need to be initialized with some values. This is a common pattern, so Python provides a special method <code>__init__</code> that is called automatically when an object is created. The <code>__init__</code> method is called an <em>initializer</em>. It is an optional method, and it should be defined wheneever the object needs to be initialized with some values.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
 
-first = lambda seq: seq[0]
-assert compose(first, str.upper)(s) == 'C'
-assert compose(first, sorted)(s) == 'a' -->
-<p>Write a function <code>compose(f, g)</code> that returns a function that is the composition of the two unary functions <code>f</code> and <code>g</code>.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compose</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Return a function that is the composition of the two unary functions f and g.</span>
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span>
 
-<span class="sd">    Parameters:</span>
-<span class="sd">    f: a unary function</span>
-<span class="sd">    g: a unary function</span>
-
-<span class="sd">    Return value: a unary function that is the composition of f and g</span>
-<span class="sd">    </span>
-<span class="sd">    Example:</span>
-<span class="sd">    &gt;&gt;&gt; f = lambda x: x + 1</span>
-<span class="sd">    &gt;&gt;&gt; g = lambda x: x * 2</span>
-<span class="sd">    &gt;&gt;&gt; compose(f, g)(1)</span>
-<span class="sd">    3</span>
-<span class="sd">    &gt;&gt;&gt; compose(g, f)(1)</span>
-<span class="sd">    4</span>
-<span class="sd">    &gt;&gt;&gt; compose(f, f)(1)</span>
-<span class="sd">    3</span>
-<span class="sd">    &gt;&gt;&gt; compose(g, g)(1)</span>
-<span class="sd">    4</span>
-<span class="sd">    &gt;&gt;&gt; s = 'cba'</span>
-<span class="sd">    &gt;&gt;&gt; compose(str.upper, str.lower)(s)</span>
-<span class="sd">    'CBA'</span>
-<span class="sd">    &gt;&gt;&gt; compose(str.lower, str.upper)(s)</span>
-<span class="sd">    'cba'</span>
-<span class="sd">    &gt;&gt;&gt; first = lambda seq: seq[0]</span>
-<span class="sd">    &gt;&gt;&gt; compose(first, str.upper)(s)</span>
-<span class="sd">    'C'</span>
-<span class="sd">    &gt;&gt;&gt; compose(first, sorted)(s)</span>
-<span class="sd">    'a'</span>
-<span class="sd">    """</span>
-    <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">perimeter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+</pre></div>
+<p>Now we can create instances of the class <code>Rectangle</code> with the <code>width</code> and <code>height</code> attributes initialized.</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+<span class="mi">200</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">perimeter</span><span class="p">()</span>
+<span class="mi">60</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=7fb3eff4"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=d0313c97"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-8.5">Exercise 8.5<a class="anchor-link" href="#Exercise-8.5">¶</a></h3><p>Create a module named <code>lottery_machine</code> containing a function <code>lottery_machine(replacement=True, **balls)</code>. This function returns a parameterless function, <code>lottery()</code>, which simulates drawing balls from an urn.</p>
-<p>Parameters:</p>
-<ul>
-<li><code>replacement</code> (optional): A boolean specifying whether balls are replaced after each draw. Defaults to <code>True</code> (with replacement).</li>
-<li><code>balls</code>: Keyword arguments in the format <code>color=quantity</code>, where:<ul>
-<li><code>color</code>: A string representing the color of a ball.</li>
-<li><code>quantity</code>: A non-negative integer specifying the number of balls of that color in the urn.</li>
-</ul>
-</li>
-</ul>
-<p>Behavior of the <code>lottery()</code> function:</p>
-<ul>
-<li>Each call to <code>lottery()</code> draws one ball from the urn and returns a list of all the balls drawn so far.</li>
-<li>If the urn becomes empty, <code>lottery()</code> raises a <code>LookupError</code> with the message: "The urn is empty".</li>
-</ul>
-<p>A suite of unit tests is available <a href="https://github.com/rodakt/ItP/tree/main/tests/lab_8">here</a>.</p>
+<h3 id="Exercise-9.6">Exercise 9.6<a class="anchor-link" href="#Exercise-9.6">¶</a></h3><p>Rewrite the classes from the previous exercises using the <code>__init__</code> method.</p>
+<hr/>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=a8e119cf"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=c99ce5f3"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-8.6">Exercise 8.6<a class="anchor-link" href="#Exercise-8.6">¶</a></h3><p>Write a function <code>find_root(f, a, b, abs_tol=1e-6)</code> to approximate the root of a function within a given interval using the bisection method. The function behaves as follows:</p>
-<ol>
-<li>If the function <code>f</code> does not change sign at the endpoints of the interval <code>[a, b]</code>, the function raises a <code>ValueError</code> with the message: <code>"The function does not change sign at the ends of the interval."</code>.</li>
-<li>Otherwise, the function uses the bisection method to iteratively narrow the interval until the difference between its endpoints is less than <code>abs_tol</code>.</li>
-<li>The function then returns the midpoint of the final interval as the approximate root.</li>
-</ol>
-<p>See the detailes of the bisection method <a href="https://en.wikipedia.org/wiki/Bisection_method">here</a>.</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_root</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Approximate the root of a function within a specified interval using the bisection method.</span>
-
-<span class="sd">    Parameters:</span>
-<span class="sd">    - f (callable): The function for which the root is sought.</span>
-<span class="sd">    - a (float): The lower bound of the interval.</span>
-<span class="sd">    - b (float): The upper bound of the interval.</span>
-<span class="sd">    - abs_tol (float, optional): The absolute tolerance for the root approximation. Defaults to 1e-6.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">    - float: The approximate root of the function within the interval.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">    - ValueError: If the function does not change sign at the ends of the interval.</span>
-
-<span class="sd">    Examples:</span>
-<span class="sd">    &gt;&gt;&gt; from math import cos, pi, isclose</span>
-<span class="sd">    &gt;&gt;&gt; abs_tol = 1e-6</span>
-
-<span class="sd">    # Example 1: Root of f(x) = x in [-100, 200]</span>
-<span class="sd">    &gt;&gt;&gt; f = lambda x: x</span>
-<span class="sd">    &gt;&gt;&gt; root = find_root(f, -100, 200)</span>
-<span class="sd">    &gt;&gt;&gt; isclose(root, 0, abs_tol=abs_tol)</span>
-<span class="sd">    True</span>
-
-<span class="sd">    # Example 2: Root of f(x) = cos(x) in [0, pi]</span>
-<span class="sd">    &gt;&gt;&gt; root = find_root(cos, 0, pi)</span>
-<span class="sd">    &gt;&gt;&gt; isclose(root, pi / 2, abs_tol=abs_tol)</span>
-<span class="sd">    True</span>
-
-<span class="sd">    # Example 3: Root of f(x) = x^3 - x - 2 in [0, 2] with higher precision</span>
-<span class="sd">    &gt;&gt;&gt; f = lambda x: x**3 - x - 2</span>
-<span class="sd">    &gt;&gt;&gt; root = find_root(f, 0, 2, abs_tol=1e-11)</span>
-<span class="sd">    &gt;&gt;&gt; isclose(root, 1.52137970680457, abs_tol=1e-11)</span>
-<span class="sd">    True</span>
-
-<span class="sd">    # Example 4: f(x) = 1 + x^2 has no root in [1, 100]</span>
-<span class="sd">    &gt;&gt;&gt; f = lambda x: 1 + x**2</span>
-<span class="sd">    &gt;&gt;&gt; try:</span>
-<span class="sd">    ...     find_root(f, 1, 100)</span>
-<span class="sd">    ... except ValueError:</span>
-<span class="sd">    ...     pass</span>
-<span class="sd">    ... except Exception:</span>
-<span class="sd">    ...     raise AssertionError("Invalid error type.")</span>
-<span class="sd">    ... else:</span>
-<span class="sd">    ...     raise AssertionError("No ValueError exception. The function has no root in the interval.")</span>
-<span class="sd">    """</span>
-    <span class="k">pass</span>
+<h3 id="Exercise-9.7">Exercise 9.7<a class="anchor-link" href="#Exercise-9.7">¶</a></h3><p>Write a class <code>Stack</code>. Instances of this class should represent stacks. The class should have methods:</p>
+<ul>
+<li><code>__init__(self)</code> that initializes the stack,</li>
+<li><code>push(self, value)</code> that pushes <code>value</code> to the stack,</li>
+<li><code>pop(self)</code> that pops the top value from the stack and returns it,</li>
+<li><code>top(self)</code> that returns the top value from the stack without removing it,</li>
+<li><code>is_empty(self)</code> that returns <code>True</code> if the stack is empty and <code>False</code> otherwise.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stack</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">top</span><span class="p">()</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">top</span><span class="p">()</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="kc">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>
+<span class="kc">True</span>
 </pre></div>
+<hr/>
 </div>
 </div>
 </div>
