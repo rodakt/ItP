@@ -13089,8 +13089,61 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=85f023a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-I">Lab I<a class="anchor-link" href="#Lab-I">¶</a></h2><p>2024/2025, winter semester</p>
-<hr/>
+<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-I">Lab I<a class="anchor-link" href="#Lab-I">¶</a></h2><hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=6c0119a6"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">¶</a></h2><ol>
+<li><a href="#assessment">Assessment</a></li>
+<li><a href="#literature">Literature</a></li>
+<li><a href="#thonny-ide">Thonny IDE</a><ul>
+<li><a href="#editor">Editor</a></li>
+<li><a href="#shell">Shell</a></li>
+</ul>
+</li>
+<li><a href="#basic-arithmetic-operations">Basic Arithmetic Operations</a><ul>
+<li><a href="#exercise-11">Exercise 1.1</a></li>
+<li><a href="#exercise-12">Exercise 1.2</a></li>
+</ul>
+</li>
+<li><a href="#variables-assignment-and-data-types">Variables, Assignment, and Data Types</a></li>
+<li><a href="#numeric-types">Numeric Types</a><ul>
+<li><a href="#exercise-13">Exercise 1.3</a></li>
+<li><a href="#exercise-14">Exercise 1.4</a></li>
+<li><a href="#exercise-15">Exercise 1.5</a></li>
+<li><a href="#exercise-16">Exercise 1.6</a></li>
+</ul>
+</li>
+<li><a href="#booleans">Booleans</a><ul>
+<li><a href="#exercise-17">Exercise 1.7</a></li>
+<li><a href="#exercise-18">Exercise 1.8</a></li>
+<li><a href="#exercise-19">Exercise 1.9</a></li>
+<li><a href="#exercise-110">Exercise 1.10</a></li>
+<li><a href="#exercise-111">Exercise 1.11</a></li>
+</ul>
+</li>
+<li><a href="#strings">Strings</a><ul>
+<li><a href="#exercise-112">Exercise 1.12</a></li>
+</ul>
+</li>
+<li><a href="#lists">Lists</a><ul>
+<li><a href="#exercise-113">Exercise 1.13</a></li>
+<li><a href="#exercise-114">Exercise 1.14</a></li>
+</ul>
+</li>
+<li><a href="#range-function"><code>range()</code> Function</a><ul>
+<li><a href="#exercise-115">Exercise 1.15</a></li>
+</ul>
+</li>
+<li><a href="#list-comprehensions">List Comprehensions</a><ul>
+<li><a href="#exercise-116">Exercise 1.16</a></li>
+<li><a href="#exercise-117">Exercise 1.17</a></li>
+</ul>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -13386,6 +13439,39 @@ $$</p>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=b8c2b3cd"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Logical operators in Python have some interesting behavior when used with non-Boolean operands.</p>
+<p>The <code>not</code> operator first converts its operand to a Boolean value, then negates it. The following values are treated as <code>False</code> in a Boolean context:</p>
+<ul>
+<li><code>None</code></li>
+<li><code>0</code></li>
+<li><code>0.0</code></li>
+<li><code>""</code> (empty string)</li>
+<li><code>[]</code> (empty list)</li>
+<li><code>()</code> (empty tuple)</li>
+<li><code>{}</code> (empty dictionary)</li>
+</ul>
+<p>The <code>and</code> and <code>or</code> operators, on the other hand, do <strong>not</strong> always return a Boolean value. Instead, they return one of their operands—the first one that determines the outcome of the operation.</p>
+<h3 id="Exercise-1.9">Exercise 1.9<a class="anchor-link" href="#Exercise-1.9">¶</a></h3><p>Explain the rationale behind the expression <code>not not x</code>. What effect does it have on <code>x</code>?</p>
+<hr/>
+<h3 id="Exercise-1.10">Exercise 1.10<a class="anchor-link" href="#Exercise-1.10">¶</a></h3><p>Predict the results of the following expressions before running them:</p>
+<ul>
+<li><p><code>0 and 5</code></p>
+</li>
+<li><p><code>5 and 0</code></p>
+</li>
+<li><p><code>3 and 5</code></p>
+</li>
+<li></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">count</span> <span class="ow">and</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">count</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=772f97c8"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13404,7 +13490,7 @@ $$</p>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=b7078450"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.9">Exercise 1.9<a class="anchor-link" href="#Exercise-1.9">¶</a></h3><p>Write a Python expression that returns the string <code>"even"</code> if a given integer <code>x</code> is even, and <code>"odd"</code> otherwise.</p>
+<h3 id="Exercise-1.11">Exercise 1.11<a class="anchor-link" href="#Exercise-1.11">¶</a></h3><p>Write a Python expression that returns the string <code>"even"</code> if a given integer <code>x</code> is even, and <code>"odd"</code> otherwise.</p>
 <hr/>
 </div>
 </div>
@@ -13463,7 +13549,7 @@ $$</p>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=21e026b2"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.10">Exercise 1.10<a class="anchor-link" href="#Exercise-1.10">¶</a></h3><p>Given a string <code>s</code>, write a Python expression that returns the string consisting of the first and last characters of <code>s</code>. For example, if <code>s = "Python"</code>, the expression should return <code>"Pn"</code>.</p>
+<h3 id="Exercise-1.12">Exercise 1.12<a class="anchor-link" href="#Exercise-1.12">¶</a></h3><p>Given a string <code>s</code>, write a Python expression that returns the string consisting of the first and last characters of <code>s</code>. For example, if <code>s = "Python"</code>, the expression should return <code>"Pn"</code>.</p>
 <p>Assume that the string <code>s</code> has at least two characters. Then check your expression with the following strings:</p>
 <ul>
 <li><code>"Python"</code></li>
@@ -13509,7 +13595,7 @@ $$</p>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=4e8ff2f5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.11">Exercise 1.11<a class="anchor-link" href="#Exercise-1.11">¶</a></h3><p>Given a list <code>lst</code>, write a Python expression that returns the list consisting of the first and last elements of <code>lst</code>. For example, if <code>lst = [1, 2, 3, 4, 5]</code>, the expression should return <code>[1, 5]</code>.</p>
+<h3 id="Exercise-1.13">Exercise 1.13<a class="anchor-link" href="#Exercise-1.13">¶</a></h3><p>Given a list <code>lst</code>, write a Python expression that returns the list consisting of the first and last elements of <code>lst</code>. For example, if <code>lst = [1, 2, 3, 4, 5]</code>, the expression should return <code>[1, 5]</code>.</p>
 <p>Assume that the list <code>lst</code> has at least two elements. Then check your expression with the following lists:</p>
 <ul>
 <li><code>[1, 2, 3, 4, 5]</code></li>
@@ -13540,7 +13626,7 @@ $$</p>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=7fb66d25"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.12">Exercise 1.12<a class="anchor-link" href="#Exercise-1.12">¶</a></h3><p>Strings are <strong>immutable</strong>, i.e., they cannot be modified in place. Try to assign a new value to an element of a string. What happens?</p>
+<h3 id="Exercise-1.14">Exercise 1.14<a class="anchor-link" href="#Exercise-1.14">¶</a></h3><p>Strings are <strong>immutable</strong>, i.e., they cannot be modified in place. Try to assign a new value to an element of a string. What happens?</p>
 <hr/>
 </div>
 </div>
@@ -13575,7 +13661,7 @@ $$</p>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=8ee36534"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.13">Exercise 1.13<a class="anchor-link" href="#Exercise-1.13">¶</a></h3><p>Use the <code>range()</code> function to generate the following sequences of numbers:</p>
+<h3 id="Exercise-1.15">Exercise 1.15<a class="anchor-link" href="#Exercise-1.15">¶</a></h3><p>Use the <code>range()</code> function to generate the following sequences of numbers:</p>
 <ul>
 <li>$0, 1, 2, 3, 4, 5$</li>
 <li>$1, 2, 3, 4, 5$</li>
@@ -13608,7 +13694,7 @@ $$</p>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=5a9e2596"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.14">Exercise 1.14<a class="anchor-link" href="#Exercise-1.14">¶</a></h3><p>Use a list comprehension to generate the following lists:</p>
+<h3 id="Exercise-1.16">Exercise 1.16<a class="anchor-link" href="#Exercise-1.16">¶</a></h3><p>Use a list comprehension to generate the following lists:</p>
 <ul>
 <li>all numbers from $0$ to $100$ which are divisible by $3$ or $5$</li>
 <li>all squares not greater than $10000$</li>
@@ -13620,7 +13706,7 @@ $$</p>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=5ecf0dea"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-1.15">Exercise 1.15<a class="anchor-link" href="#Exercise-1.15">¶</a></h3><p>Use a list comprehension to generate the values from the multiplication table:</p>
+<h3 id="Exercise-1.17">Exercise 1.17<a class="anchor-link" href="#Exercise-1.17">¶</a></h3><p>Use a list comprehension to generate the values from the multiplication table:</p>
 <pre><code>1    2    3    4    5    6    7    8    9   10
 2    4    6    8   10   12   14   16   18   20
 3    6    9   12   15   18   21   24   27   30
