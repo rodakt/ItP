@@ -13093,10 +13093,45 @@ div#notebook {
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=4199c322"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">¶</a></h2><ol>
+<li>Literature</li>
+<li>Writing Programs</li>
+<li>Input and Output<ul>
+<li>Exercise 2.1</li>
+<li>Exercise 2.2</li>
+<li>Exercise 2.3</li>
+<li>Exercise 2.4</li>
+</ul>
+</li>
+<li>Conditional Statements<ul>
+<li>Exercise 2.5</li>
+<li>Exercise 2.6</li>
+<li>Exercise 2.7</li>
+</ul>
+</li>
+<li><code>while</code> Loop<ul>
+<li>Exercise 2.8</li>
+<li>Exercise 2.9</li>
+<li>Exercise 2.10</li>
+<li>Exercise 2.11</li>
+<li>Exercise 2.12</li>
+</ul>
+</li>
+<li><code>break</code> and <code>continue</code> Statements<ul>
+<li>Exercise 2.13</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=f3f452f0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Literature">Literature<a class="anchor-link" href="#Literature">¶</a></h2><ul>
+<h2 id="1.-Literature">1. Literature<a class="anchor-link" href="#1.-Literature">¶</a></h2><ul>
 <li><a href="https://docs.python.org/3/tutorial/index.html">The Python Tutorial</a></li>
 <li><a href="https://diveintopython3.net/index.html">Dive Into Python 3</a></li>
 <li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a></li>
@@ -13108,7 +13143,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=962da4c9"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Writing-programs">Writing programs<a class="anchor-link" href="#Writing-programs">¶</a></h2><p>In Thonny, you can write programs in the editor window. The program is saved in a file with the <code>.py</code> extension. You can run the program by clicking the <code>Run</code> button or by pressing <code>F5</code>. The program output is displayed in the shell window. You can also run the program in the shell window by typing</p>
+<h2 id="2.-Writing-programs">2. Writing programs<a class="anchor-link" href="#2.-Writing-programs">¶</a></h2><p>In Thonny, you can write programs in the editor window. The program is saved in a file with the <code>.py</code> extension. You can run the program by clicking the <code>Run</code> button or by pressing <code>F5</code>. The program output is displayed in the shell window. You can also run the program in the shell window by typing</p>
 <pre><code>&gt;&gt;&gt; %Run program_name.py
 </code></pre>
 <p>where <code>program_name.py</code> is the name of the file with the program. This is valid in the Thonny shell window only. In the system shell, you can run the program by typing</p>
@@ -13121,7 +13156,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=7ef5c970"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Input-and-output">Input and output<a class="anchor-link" href="#Input-and-output">¶</a></h2><p>Python provides two built-in functions for writing a text to the standard output and reading a text from the standard input: <code>print()</code> and <code>input()</code>.</p>
+<h2 id="3.-Input-and-output">3. Input and output<a class="anchor-link" href="#3.-Input-and-output">¶</a></h2><p>Python provides two built-in functions for writing a text to the standard output and reading a text from the standard input: <code>print()</code> and <code>input()</code>.</p>
 <p>The <code>print()</code> function takes zero or more positional arguments and writes them to the standard output. The type of the arguments can be any, they are converted to strings before being written.</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s1">'Hello, world!'</span><span class="p">)</span>
 <span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="err">!</span>
@@ -13227,7 +13262,7 @@ The area of the triangle is 24.0
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=0ffec97a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Conditional-statements">Conditional statements<a class="anchor-link" href="#Conditional-statements">¶</a></h2><p>Python provides the <code>if</code> statement for conditional execution. The syntax of the <code>if</code> statement is as follows:</p>
+<h2 id="4.-Conditional-statements">4. Conditional statements<a class="anchor-link" href="#4.-Conditional-statements">¶</a></h2><p>Python provides the <code>if</code> statement for conditional execution. The syntax of the <code>if</code> statement is as follows:</p>
 <div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">condition</span><span class="p">:</span>
     <span class="n">statement1</span>
     <span class="n">statement2</span>
@@ -13258,6 +13293,12 @@ The area of the triangle is 24.0
 <span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s1">'The number is odd.'</span><span class="p">)</span>
 <span class="n">The</span> <span class="n">number</span> <span class="ow">is</span> <span class="n">odd</span><span class="o">.</span>
 </pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=847eb1ef"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Exercise-2.5">Exercise 2.5<a class="anchor-link" href="#Exercise-2.5">¶</a></h3><p>Write a program <code>triangle_area_v1.py</code> that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers. If the input is incorrect, i.e., the sum of the lengths of any two sides is not greater than the length of the third side, the program should write an error message to the standard output. Otherwise, the program should write the area of the triangle.</p>
 <p>Example:</p>
 <pre><code>&gt;&gt;&gt; %Run triangle_area_v1.py
@@ -13374,7 +13415,7 @@ C
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=0e584796"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="while-loop"><code>while</code> loop<a class="anchor-link" href="#while-loop">¶</a></h2><p>Python provides the <code>while</code> statement for indefinite iteration. This statement has the following syntax:</p>
+<h2 id="5.-while-loop">5. <code>while</code> loop<a class="anchor-link" href="#5.-while-loop">¶</a></h2><p>Python provides the <code>while</code> statement for indefinite iteration. This statement has the following syntax:</p>
 <div class="highlight"><pre><span></span><span class="k">while</span> <span class="n">condition</span><span class="p">:</span>
     <span class="n">statement1</span>
     <span class="n">statement2</span>
@@ -13392,6 +13433,12 @@ C
 <span class="mi">4</span>
 </pre></div>
 <p>You may think of the <code>while</code> statement as a repeated <code>if</code> statement. The difference is that the <code>if</code> statement is executed once, while the <code>while</code> statement is executed multiple times.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=bcb2a8bf"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Exercise-2.8">Exercise 2.8<a class="anchor-link" href="#Exercise-2.8">¶</a></h3><p>Write a program <code>countdown.py</code> that reads a positive integer from the standard input and writes a countdown to the standard output. The countdown should start from the given number and end at 0. Instead of the final 0, the program should write the message "Start!".</p>
 <p>Example:</p>
 <pre><code>&gt;&gt;&gt; %Run countdown.py
@@ -13506,7 +13553,7 @@ Nice! I guessed the number in 7 tries :-)
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=889aa237"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="break-statement"><code>break</code> statement<a class="anchor-link" href="#break-statement">¶</a></h2><p>Python provides the <code>break</code> statement for breaking out of a (innermost) loop. The <code>break</code> statement is used in the <code>while</code> and <code>for</code> loops (see the next lab). When the <code>break</code> statement is executed, the loop is terminated and the program continues with the statement after the loop.</p>
+<h2 id="6.-break-and-continue-statements">6. <code>break</code> and <code>continue</code> statements<a class="anchor-link" href="#6.-break-and-continue-statements">¶</a></h2><p>Python provides the <code>break</code> statement for breaking out of a (innermost) loop. The <code>break</code> statement is used in the <code>while</code> and <code>for</code> loops (see the next lab). When the <code>break</code> statement is executed, the loop is terminated and the program continues with the statement after the loop.</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
 <span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
@@ -13519,7 +13566,7 @@ Nice! I guessed the number in 7 tries :-)
 <span class="mi">3</span>
 <span class="mi">4</span>
 </pre></div>
-<h2 id="continue-statement"><code>continue</code> statement<a class="anchor-link" href="#continue-statement">¶</a></h2><p>Python provides the <code>continue</code> statement for skipping the rest of the loop body and continuing with the next iteration. The <code>continue</code> statement is used in the <code>while</code> and <code>for</code> loops. When the <code>continue</code> statement is executed, the loop continues with the next iteration.</p>
+<h3 id="continue-statement"><code>continue</code> statement<a class="anchor-link" href="#continue-statement">¶</a></h3><p>Python provides the <code>continue</code> statement for skipping the rest of the loop body and continuing with the next iteration. The <code>continue</code> statement is used in the <code>while</code> and <code>for</code> loops. When the <code>continue</code> statement is executed, the loop continues with the next iteration.</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
 <span class="o">...</span>     <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -13530,6 +13577,12 @@ Nice! I guessed the number in 7 tries :-)
 <span class="mi">3</span>
 <span class="mi">5</span>
 </pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=8cefafe7"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Exercise-2.13">Exercise 2.13<a class="anchor-link" href="#Exercise-2.13">¶</a></h3><p>Rewrite the programs <code>sum_of_many.py</code>, <code>add_how_many.py</code>, <code>guess_the_number.py</code>, and <code>guess_the_given_number.py</code> using the infinite <code>while True:</code> loop. Use the <code>break</code> statement to terminate the loop.</p>
 <hr/>
 </div>

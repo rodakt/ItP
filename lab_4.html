@@ -13089,15 +13089,42 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=85f023a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-IV">Lab IV<a class="anchor-link" href="#Lab-IV">¶</a></h2><p>2024/2025, winter semester</p>
-<hr/>
+<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-IV">Lab IV<a class="anchor-link" href="#Lab-IV">¶</a></h2><hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=0c5d8cf2"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">¶</a></h2><ol>
+<li>Literature</li>
+<li>Working with Files<ul>
+<li>Exercise 4.1</li>
+</ul>
+</li>
+<li>Working Directory</li>
+<li>Text Encoding<ul>
+<li>Exercise 4.2</li>
+<li>Exercise 4.3</li>
+</ul>
+</li>
+<li>Working with Text Files<ul>
+<li>Exercise 4.4</li>
+<li>Exercise 4.5</li>
+</ul>
+</li>
+<li>Dictionaries<ul>
+<li>Exercise 4.6</li>
+</ul>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=f3f452f0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Literature">Literature<a class="anchor-link" href="#Literature">¶</a></h2><ul>
+<h2 id="1.-Literature">1. Literature<a class="anchor-link" href="#1.-Literature">¶</a></h2><ul>
 <li><a href="https://docs.python.org/3/tutorial/index.html">The Python Tutorial</a></li>
 <li><a href="https://diveintopython3.net/index.html">Dive Into Python 3</a></li>
 <li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a></li>
@@ -13109,7 +13136,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=b95e514a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Working-with-files">Working with files<a class="anchor-link" href="#Working-with-files">¶</a></h2><p>Python provides a built-in <code>open()</code> function to open a file. The most important arguments of the <code>open()</code> function are</p>
+<h2 id="2.-Working-with-files">2. Working with files<a class="anchor-link" href="#2.-Working-with-files">¶</a></h2><p>Python provides a built-in <code>open()</code> function to open a file. The most important arguments of the <code>open()</code> function are</p>
 <ul>
 <li>string <code>filename</code> - the combination of the directory path and the name of the file to open;</li>
 <li>string <code>mode</code> - the mode in which the file should be opened.</li>
@@ -13163,7 +13190,7 @@ culpa qui officia deserunt mollit anim id est laborum.
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=dc5e89ec"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Working-directory">Working directory<a class="anchor-link" href="#Working-directory">¶</a></h3><p>You may have noticed that the code above does not specify the full path to the file. The reson is that the file is created in the working directory by default. The Thonny IDE, like many other IDEs, has a concept of a working directory. The working directory is the directory from which the program is run. When you open a file without specifying the full path, Python looks for the file in the working directory. You can check the working directory by running the following code:</p>
+<h2 id="3.-Working-Directory">3. Working Directory<a class="anchor-link" href="#3.-Working-Directory">¶</a></h2><p>You may have noticed that the code above does not specify the full path to the file. The reson is that the file is created in the working directory by default. The Thonny IDE, like many other IDEs, has a concept of a working directory. The working directory is the directory from which the program is run. When you open a file without specifying the full path, Python looks for the file in the working directory. You can check the working directory by running the following code:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">os</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
 </pre></div>
@@ -13176,7 +13203,7 @@ culpa qui officia deserunt mollit anim id est laborum.
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=7bcb9ccd"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Text-Encoding">Text Encoding<a class="anchor-link" href="#Text-Encoding">¶</a></h3><p>Text encoding is a mapping between characters and bytes. Different encodings map characters to byte sequences in different ways. The most common encodings are:</p>
+<h2 id="4.-Text-Encoding">4. Text Encoding<a class="anchor-link" href="#4.-Text-Encoding">¶</a></h2><p>Text encoding is a mapping between characters and bytes. Different encodings map characters to byte sequences in different ways. The most common encodings are:</p>
 <ul>
 <li><strong>ASCII</strong>: Uses 7 bits to represent characters. It can encode 128 characters, including English letters, digits, and some control characters.</li>
 <li><strong>UTF-8</strong>: A variable-width encoding that can represent every character in the Unicode character set. It uses one to four bytes for each character.</li>
@@ -13223,7 +13250,7 @@ Written 439 characters to example.txt
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=365a5f0b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Working-with-text-files">Working with text files<a class="anchor-link" href="#Working-with-text-files">¶</a></h3><p>The <code>open()</code> function, when used with a text mode, returns a file object of the <code>TextIOWrapper</code> class. This is a stream object that can be used to read from, write to, or append to the file depending on the mode in which the file was opened.</p>
+<h2 id="5.-Working-with-text-files">5. Working with text files<a class="anchor-link" href="#5.-Working-with-text-files">¶</a></h2><p>The <code>open()</code> function, when used with a text mode, returns a file object of the <code>TextIOWrapper</code> class. This is a stream object that can be used to read from, write to, or append to the file depending on the mode in which the file was opened.</p>
 <p>The most common methods for reading from a file are <code>read()</code>, <code>readline()</code>, and <code>readlines()</code> and they have the following meanings in text mode:</p>
 <ul>
 <li><code>read()</code> - reads the entire file into a string (optionally, you can specify the number of characters to read),</li>
@@ -13277,7 +13304,7 @@ Number of vowels: 167
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=2b981500"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Dictionary">Dictionary<a class="anchor-link" href="#Dictionary">¶</a></h3><p>For the next exercise it will be very convenient to use a dictionary. A dictionary is a collection of key-value pairs. Each key is associated with a value. Dictionaries are unordered, mutable (you can change their content), and indexed by keys. The keys must be unique and immutable (strings, numbers, or tuples). The values can be of any type.</p>
+<h2 id="6.-Dictionaries">6. Dictionaries<a class="anchor-link" href="#6.-Dictionaries">¶</a></h2><p>For the next exercise it will be very convenient to use a dictionary. A dictionary is a collection of key-value pairs. Each key is associated with a value. Dictionaries are unordered, mutable (you can change their content), and indexed by keys. The keys must be unique and immutable (strings, numbers, or tuples). The values can be of any type.</p>
 <p>You can create a dictionary by placing a comma-separated list of key-value pairs within curly braces <code>{}</code>. The
 syntax for a key-value pair is <code>key: value</code>. For example:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'John'</span><span class="p">,</span> <span class="s1">'age'</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">'city'</span><span class="p">:</span> <span class="s1">'New York'</span><span class="p">}</span>
