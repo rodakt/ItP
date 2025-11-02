@@ -13089,15 +13089,42 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=85f023a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-V">Lab V<a class="anchor-link" href="#Lab-V">¶</a></h2><p>2024/2025, winter semester</p>
-<hr/>
+<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-V">Lab V<a class="anchor-link" href="#Lab-V">¶</a></h2><hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=d9532a83"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">¶</a></h2><ol>
+<li>Literature</li>
+<li>Functions<ul>
+<li>Exercise 5.1</li>
+<li>Exercise 5.2</li>
+<li>Exercise 5.3</li>
+<li>Exercise 5.4</li>
+<li>Exercise 5.5</li>
+<li>Exercise 5.6</li>
+<li>Exercise 5.7</li>
+<li>Exercise 5.8</li>
+<li>Exercise 5.9</li>
+</ul>
+</li>
+<li>Docstrings</li>
+<li><code>doctest</code> module<ul>
+<li>Exercise 5.10</li>
+<li>Exercise 5.11</li>
+<li>Exercise 5.12</li>
+</ul>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=f3f452f0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Literature">Literature<a class="anchor-link" href="#Literature">¶</a></h2><ul>
+<h2 id="1.-Literature">1. Literature<a class="anchor-link" href="#1.-Literature">¶</a></h2><ul>
 <li><a href="https://docs.python.org/3/tutorial/index.html">The Python Tutorial</a></li>
 <li><a href="https://diveintopython3.net/index.html">Dive Into Python 3</a></li>
 <li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a></li>
@@ -13109,7 +13136,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=b95e514a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Functions">Functions<a class="anchor-link" href="#Functions">¶</a></h2><p>A function is a named sequence of statements (named block of code) that performs a computation.</p>
+<h2 id="2.-Functions">2. Functions<a class="anchor-link" href="#2.-Functions">¶</a></h2><p>A function is a named sequence of statements (named block of code) that performs a computation.</p>
 <p>Functions are defined using the <code>def</code> keyword. The general syntax of a function definition is:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">function_name</span><span class="p">(</span><span class="n">parameters</span><span class="p">):</span>
     <span class="n">statement1</span>
@@ -13267,7 +13294,7 @@ F(n) &amp;= F(n-1) + F(n-2).
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=9fb70ccf"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Docstrings">Docstrings<a class="anchor-link" href="#Docstrings">¶</a></h3><p>A docstring is a string literal that occurs as the first statement in a module, function, class, or method definition. It is used to document the purpose of the code and sometimes to provide usage examples and test cases. The docstring is available as the <code>__doc__</code> attribute of the object.</p>
+<h2 id="3.-Docstrings">3. Docstrings<a class="anchor-link" href="#3.-Docstrings">¶</a></h2><p>A docstring is a string literal that occurs as the first statement in a module, function, class, or method definition. It is used to document the purpose of the code and sometimes to provide usage examples and test cases. The docstring is available as the <code>__doc__</code> attribute of the object.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="o">...</span>     <span class="s2">"""Return the sum of two numbers."""</span>
@@ -13287,7 +13314,7 @@ F(n) &amp;= F(n-1) + F(n-2).
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=ae36798c"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="doctest-module"><code>doctest</code> module<a class="anchor-link" href="#doctest-module">¶</a></h3><p>The <code>doctest</code> module searches for pieces of text that look like interactive Python sessions in the docstring of a function or module and then executes those sessions to verify that they work exactly as shown.</p>
+<h2 id="4.-doctest-module">4. <code>doctest</code> module<a class="anchor-link" href="#4.-doctest-module">¶</a></h2><p>The <code>doctest</code> module searches for pieces of text that look like interactive Python sessions in the docstring of a function or module and then executes those sessions to verify that they work exactly as shown.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="o">...</span>     <span class="s2">"""Return the sum of two numbers.</span>
@@ -13352,37 +13379,6 @@ F(n) &amp;= F(n-1) + F(n-2).
     <span class="k">pass</span>
 </pre></div>
 <p>Again, use the <code>doctest</code> module to test the function.</p>
-<hr/>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=a9b487a0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-5.12">Exercise 5.12<a class="anchor-link" href="#Exercise-5.12">¶</a></h3><p>Finish the implementation of the given below <code>vigenere(text, key)</code> function:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">vigenere</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Return the text encrypted using the Vigenère cipher with the given key.</span>
-<span class="sd">    </span>
-<span class="sd">    The Vigenère cipher is a method of encrypting alphabetic text by using a simple form</span>
-<span class="sd">    of polyalphabetic substitution. A keyword determines the letter shift for each position</span>
-<span class="sd">    in the text.</span>
-<span class="sd">    </span>
-<span class="sd">    See:</span>
-<span class="sd">    - https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher</span>
-<span class="sd">    - https://cryptii.com/pipes/vigenere-cipher</span>
-
-<span class="sd">    Examples:</span>
-
-<span class="sd">    &gt;&gt;&gt; vigenere('abc', 'key')</span>
-<span class="sd">    'kfa'</span>
-<span class="sd">    &gt;&gt;&gt; vigenere('xyz', 'key')</span>
-<span class="sd">    'hcx'</span>
-<span class="sd">    &gt;&gt;&gt; vigenere('The quick brown fox jumps over the lazy dog.', 'key')</span>
-<span class="sd">    'Dlc aygmo zbsux jmh nswtq yzcb xfo pyjc byk.'</span>
-<span class="sd">    """</span>
-    <span class="k">pass</span>
-</pre></div>
-<p>The function should work as <a href="https://cryptii.com/pipes/vigenere-cipher">here</a> with case strategy set to <em>Maintain case</em>.</p>
 <hr/>
 </div>
 </div>
