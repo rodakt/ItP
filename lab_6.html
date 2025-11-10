@@ -13089,15 +13089,47 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=85f023a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-VI">Lab VI<a class="anchor-link" href="#Lab-VI">¶</a></h2><p>2024/2025, winter semester</p>
-<hr/>
+<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-VI">Lab VI<a class="anchor-link" href="#Lab-VI">¶</a></h2><hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=40622cdd"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">¶</a></h2><ol>
+<li>Literature</li>
+<li>Exceptions<ul>
+<li>Exercise 6.1</li>
+</ul>
+</li>
+<li>Handling exceptions<ul>
+<li>Exercise 6.2</li>
+<li>Exercise 6.3</li>
+<li>Exercise 6.4</li>
+<li>Exercise 6.5</li>
+</ul>
+</li>
+<li>Details of <code>try</code> statement</li>
+<li>How to open a file safely<ul>
+<li>Exercise 6.6</li>
+<li>Exercise 6.7</li>
+</ul>
+</li>
+<li>Raising exceptions</li>
+<li><code>assert</code> statement</li>
+<li>Unit tests<ul>
+<li>Exercise 6.8</li>
+<li>Exercise 6.9</li>
+</ul>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=f3f452f0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Literature">Literature<a class="anchor-link" href="#Literature">¶</a></h2><ul>
+<h2 id="1.-Literature">1. Literature<a class="anchor-link" href="#1.-Literature">¶</a></h2><ul>
 <li><a href="https://docs.python.org/3/tutorial/index.html">The Python Tutorial</a></li>
 <li><a href="https://diveintopython3.net/index.html">Dive Into Python 3</a></li>
 <li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a></li>
@@ -13109,7 +13141,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=b95e514a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Exceptions">Exceptions<a class="anchor-link" href="#Exceptions">¶</a></h2><p>Errors detected during Python program execution are called <em>exceptions</em>. Many standard exceptions are built into Python, they form an inheritance hierarchy. The base class for all built-in exceptions is <code>BaseException</code>. The most common exception is <code>Exception</code>. From the <code>Exception</code> class, many other exception classes are derived, such as:</p>
+<h2 id="2.-Exceptions">2. Exceptions<a class="anchor-link" href="#2.-Exceptions">¶</a></h2><p>Errors detected during Python program execution are called <em>exceptions</em>. Many standard exceptions are built into Python, they form an inheritance hierarchy. The base class for all built-in exceptions is <code>BaseException</code>. The most common exception is <code>Exception</code>. From the <code>Exception</code> class, many other exception classes are derived, such as:</p>
 <ul>
 <li><code>ValueError</code> - when a function receives an argument of the correct type, but with an inappropriate value,</li>
 <li><code>TypeError</code> - when a function receives an argument of an inappropriate type,</li>
@@ -13134,7 +13166,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=04ee4ea3"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Handling-exceptions">Handling exceptions<a class="anchor-link" href="#Handling-exceptions">¶</a></h2><p>Exceptions can be handled using the <code>try</code> statement. The most basic form of the <code>try</code> statement is:</p>
+<h2 id="3.-Handling-exceptions">3. Handling exceptions<a class="anchor-link" href="#3.-Handling-exceptions">¶</a></h2><p>Exceptions can be handled using the <code>try</code> statement. The most basic form of the <code>try</code> statement is:</p>
 <div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="c1"># code that may raise an exception</span>
 <span class="k">except</span> <span class="o">&lt;</span><span class="n">exception</span><span class="o">&gt;</span><span class="p">:</span>
@@ -13146,7 +13178,7 @@ div#notebook {
 <li>If no exception occurs, the <code>except</code> block is skipped and the <code>try</code> statement is finished.</li>
 <li>If an exception occurs during the execution of the <code>try</code> block, the rest of the block is skipped. Then, if the exception type matches the exception named after the <code>except</code> keyword, the code block following the <code>except</code> keyword is executed. If the exception type does not match, it is passed to higher level of the stack. If no handler is found, the exception is an <em>unhandled exception</em> and the program stops with an error message.</li>
 </ol>
-<h3 id="Exercise-6.2">Exercise 6.2<a class="anchor-link" href="#Exercise-6.2">¶</a></h3><p>Write a program <code>square,py</code> that reads a floating-point number from the user and prints its square. If the user enters a string that cannot be converted to a number, the program should print an error message.</p>
+<h3 id="Exercise-6.2">Exercise 6.2<a class="anchor-link" href="#Exercise-6.2">¶</a></h3><p>Write a program <code>square.py</code> that reads a floating-point number from the user and prints its square. If the user enters a string that cannot be converted to a number, the program should print an error message.</p>
 <p>Example:</p>
 <pre><code>&gt;&gt;&gt; %Run square.py
 Enter a number: 5
@@ -13236,7 +13268,7 @@ Average: 3.0
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=357696cd"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Detailes-of-try-statement">Detailes of <code>try</code> statement<a class="anchor-link" href="#Detailes-of-try-statement">¶</a></h2><p>The <code>try</code> is followed by <code>except</code>, <code>else</code>, and <code>finally</code> blocks in many different combinations, but at least one of <code>except</code> or <code>finally</code> must be present. The <code>else</code> block is executed if the code block in the <code>try</code> statement does not raise an exception. The <code>finally</code> block is executed after the <code>try</code> block, regardless of whether an exception was raised or not.</p>
+<h2 id="4.-Details-of-try-statement">4. Details of <code>try</code> statement<a class="anchor-link" href="#4.-Details-of-try-statement">¶</a></h2><p>The <code>try</code> is followed by <code>except</code>, <code>else</code>, and <code>finally</code> blocks in many different combinations, but at least one of <code>except</code> or <code>finally</code> must be present. The <code>else</code> block is executed if the code block in the <code>try</code> statement does not raise an exception. The <code>finally</code> block is executed after the <code>try</code> block, regardless of whether an exception was raised or not.</p>
 <div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="c1"># code that may raise an exception</span>
 <span class="k">except</span> <span class="o">&lt;</span><span class="n">exception</span><span class="o">&gt;</span><span class="p">:</span>
@@ -13254,7 +13286,7 @@ Average: 3.0
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=74717961"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="How-to-open-a-file-safely">How to open a file safely<a class="anchor-link" href="#How-to-open-a-file-safely">¶</a></h2><p>When opening a file, after processing it, it <strong>always</strong> should be closed. However, an exception raised earlier in the code block can prevent the <code>close()</code> method from being executed, even if it's included. To ensure that the file is properly closed, we can use the <code>finally</code> block:</p>
+<h2 id="5.-How-to-open-a-file-safely">5. How to open a file safely<a class="anchor-link" href="#5.-How-to-open-a-file-safely">¶</a></h2><p>When opening a file, after processing it, it <strong>always</strong> should be closed. However, an exception raised earlier in the code block can prevent the <code>close()</code> method from being executed, even if it's included. To ensure that the file is properly closed, we can use the <code>finally</code> block:</p>
 <div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">file</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="c1"># code that processes the file</span>
@@ -13304,7 +13336,7 @@ Error: destination exists but cannot be opened
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=4ab9af60"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Raising-exceptions">Raising exceptions<a class="anchor-link" href="#Raising-exceptions">¶</a></h2><p>Exceptions can be raised using the <code>raise</code> statement:</p>
+<h2 id="6.-Raising-exceptions">6. Raising exceptions<a class="anchor-link" href="#6.-Raising-exceptions">¶</a></h2><p>Exceptions can be raised using the <code>raise</code> statement:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">raise</span> <span class="o">&lt;</span><span class="n">exception</span><span class="o">&gt;</span>
 </pre></div>
 <p>where <code>&lt;exception&gt;</code> is an exception class or an instance of an exception class. The <code>raise</code> statement can be used without an argument to re-raise the last exception.</p>
@@ -13320,7 +13352,7 @@ Error: destination exists but cannot be opened
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=1a8748fc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="assert-statement"><code>assert</code> statement<a class="anchor-link" href="#assert-statement">¶</a></h2><p>The <code>assert</code> statement is used to check the correctness of the program. It has the following form:</p>
+<h2 id="7.-assert-statement">7. <code>assert</code> statement<a class="anchor-link" href="#7.-assert-statement">¶</a></h2><p>The <code>assert</code> statement is used to check the correctness of the program. It has the following form:</p>
 <div class="highlight"><pre><span></span><span class="k">assert</span> <span class="o">&lt;</span><span class="n">condition</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">message</span><span class="o">&gt;</span>
 </pre></div>
 <p>If the condition is <code>False</code>, the <code>AssertionError</code> exception is raised with the message provided. Otherwise, the program continues to execute normally.</p>
@@ -13330,7 +13362,7 @@ Error: destination exists but cannot be opened
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=4e32532d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Unit-tests">Unit tests<a class="anchor-link" href="#Unit-tests">¶</a></h2><p>Now we know how to handle exceptions hence we can introduce the concept of unit tests. A unit test is a piece of code that tests a small part of the program, typically a function, class method, or a class. The goal of unit testing is to verify that the code works as expected. There are many libraries for writing unit tests in Python, such as <code>unittest</code> or <code>pytest</code>, but now we will try to write simple tests using the <code>assert</code> and <code>try</code> statements.</p>
+<h2 id="8.-Unit-tests">8. Unit tests<a class="anchor-link" href="#8.-Unit-tests">¶</a></h2><p>Now we know how to handle exceptions hence we can introduce the concept of unit tests. A unit test is a piece of code that tests a small part of the program, typically a function, class method, or a class. The goal of unit testing is to verify that the code works as expected. There are many libraries for writing unit tests in Python, such as <code>unittest</code> or <code>pytest</code>, but now we will try to write simple tests using the <code>assert</code> and <code>try</code> statements.</p>
 <h3 id="Exercise-6.8">Exercise 6.8<a class="anchor-link" href="#Exercise-6.8">¶</a></h3><p>The code below provides a unit tests for the module <code>mean.py</code>. Copy the code to the file <code>test_mean.py</code> then write the module <code>mean.py</code> and put it in the same directory as the test file. Check carefully the code of the tests and write the module <code>mean.py</code> according to them. Run the tests.</p>
 <div class="highlight"><pre><span></span><span class="c1"># test_mean.py</span>
 <span class="kn">import</span> <span class="nn">math</span>
