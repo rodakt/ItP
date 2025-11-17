@@ -13089,15 +13089,48 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=85f023a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-VII">Lab VII<a class="anchor-link" href="#Lab-VII">¶</a></h2><p>2024/2025, winter semester</p>
-<hr/>
+<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-VII">Lab VII<a class="anchor-link" href="#Lab-VII">¶</a></h2><hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=65433e0b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">¶</a></h2><ol>
+<li>Literature</li>
+<li>Higher order functions</li>
+<li>Built-in higher order functions<ul>
+<li>3.1. <code>max()</code> and <code>min()</code> with a key function</li>
+<li>Exercise 7.1</li>
+<li>3.2. <code>sorted()</code> and <code>list.sort()</code> with a key function</li>
+<li>Exercise 7.2</li>
+<li>Exercise 7.3</li>
+<li>3.3. <code>filter()</code> with a predicate function</li>
+<li>Exercise 7.4</li>
+<li>3.4. <code>map()</code> with a transformation function</li>
+<li>Exercise 7.5</li>
+<li>Exercise 7.6</li>
+<li>Exercise 7.7</li>
+<li>Exercise 7.8</li>
+</ul>
+</li>
+<li><code>functools.reduce()</code><ul>
+<li>Exercise 7.9</li>
+</ul>
+</li>
+<li><code>lambda</code> functions<ul>
+<li>Exercise 7.10</li>
+<li>Exercise 7.11</li>
+</ul>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=f3f452f0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Literature">Literature<a class="anchor-link" href="#Literature">¶</a></h2><ul>
+<h2 id="1.-Literature">1. Literature<a class="anchor-link" href="#1.-Literature">¶</a></h2><ul>
 <li><a href="https://docs.python.org/3/tutorial/index.html">The Python Tutorial</a></li>
 <li><a href="https://diveintopython3.net/index.html">Dive Into Python 3</a></li>
 <li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a></li>
@@ -13109,14 +13142,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=b95e514a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Higher-order-functions">Higher order functions<a class="anchor-link" href="#Higher-order-functions">¶</a></h2><p>A higher order function is a function that takes another function as an argument or returns a function as a result. In Python, functions are first-class objects, which means that they can be passed around as arguments to other functions, returned as values from other functions, and assigned to variables or stored in data structures.</p>
+<h2 id="2.-Higher-order-functions">2. Higher order functions<a class="anchor-link" href="#2.-Higher-order-functions">¶</a></h2><p>A higher order function is a function that takes another function as an argument or returns a function as a result. In Python, functions are first-class objects, which means that they can be passed around as arguments to other functions, returned as values from other functions, and assigned to variables or stored in data structures.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=d4490480"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Built-in-higher-order-functions">Built-in higher order functions<a class="anchor-link" href="#Built-in-higher-order-functions">¶</a></h2><p>These are some of the built-in higher order functions in Python:</p>
+<h2 id="3.-Built-in-higher-order-functions">3. Built-in higher order functions<a class="anchor-link" href="#3.-Built-in-higher-order-functions">¶</a></h2><p>These are some of the built-in higher order functions in Python:</p>
 <ul>
 <li><code>max()</code> and <code>min()</code> with a key function</li>
 <li><code>sorted()</code> with a key function</li>
@@ -13125,7 +13158,7 @@ div#notebook {
 <li><code>map()</code> with a transformation function</li>
 </ul>
 <p>All of these functions take another function as an argument. In case of <code>max()</code>, <code>min()</code>, <code>sorted()</code>, and <code>list.sort()</code> this is optional, but in case of <code>filter()</code> and <code>map()</code> it is mandatory.</p>
-<h3 id="max()-and-min()-with-a-key-function"><code>max()</code> and <code>min()</code> with a key function<a class="anchor-link" href="#max()-and-min()-with-a-key-function">¶</a></h3><p>The <code>max()</code> and <code>min()</code> functions return the largest and the smallest element of an iterable, respectively. If the iterable is empty, a <code>ValueError</code> is raised. The <code>key</code> argument is a function that is called on each element of the iterable before the comparison is made. The default value of the <code>key</code> argument is <code>None</code>, which means that the elements are compared directly.</p>
+<h3 id="3.1.-max()-and-min()-with-a-key-function">3.1. <code>max()</code> and <code>min()</code> with a key function<a class="anchor-link" href="#3.1.-max()-and-min()-with-a-key-function">¶</a></h3><p>The <code>max()</code> and <code>min()</code> functions return the largest and the smallest element of an iterable, respectively. If the iterable is empty, a <code>ValueError</code> is raised. The <code>key</code> argument is a function that is called on each element of the iterable before the comparison is made. The default value of the <code>key</code> argument is <code>None</code>, which means that the elements are compared directly.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">max</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
 <span class="mi">5</span>
@@ -13145,7 +13178,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=ba1ffd82"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Exercise-7.1">Exercise 7.1<a class="anchor-link" href="#Exercise-7.1">¶</a></h3><p>Create a function called <code>count_vowels(s: str) -&gt; int</code> that counts and returns the number of vowels in a given string <code>s</code>. The vowels are <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code>, and <code>u</code>.
+<h3 id="Exercise-7.1">Exercise 7.1<a class="anchor-link" href="#Exercise-7.1">¶</a></h3><p>Create a function called <code>count_vowels(s)</code> that counts and returns the number of vowels in a given string <code>s</code>. The vowels are <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code>, and <code>u</code>.
 Use this <code>count_vowels()</code> function in combination with the <code>max()</code> function and its <code>key</code> argument to identify the word from the list of Debian release names that contains the most vowels.</p>
 <p>The list of Debian release names is as follows:</p>
 <pre><code>&gt;&gt;&gt; names = ["buzz", "rex", "bo", "hamm", "slink", "potato", "woody", "sarge",
@@ -13160,7 +13193,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=857f8b4c"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="sorted()-and-list.sort()-with-a-key-function"><code>sorted()</code> and <code>list.sort()</code> with a key function<a class="anchor-link" href="#sorted()-and-list.sort()-with-a-key-function">¶</a></h3><p>The key function here serves the same purpose as in the case of <code>max()</code> and <code>min()</code>. The <code>sorted()</code> function returns a new list with the elements of the iterable sorted in ascending order. The <code>list.sort()</code> method sorts the list in place and returns <code>None</code>. Both functions have an optional <code>reverse</code> argument that, if set to <code>True</code>, sorts the elements in descending order, the default value is <code>False</code>. The <code>key</code> argument is optional, the default value is <code>None</code>. If the <code>key</code> argument is not <code>None</code>, the elements are sorted based on the values returned by the key function for each element.</p>
+<h3 id="3.2.-sorted()-and-list.sort()-with-a-key-function">3.2. <code>sorted()</code> and <code>list.sort()</code> with a key function<a class="anchor-link" href="#3.2.-sorted()-and-list.sort()-with-a-key-function">¶</a></h3><p>The key function here serves the same purpose as in the case of <code>max()</code> and <code>min()</code>. The <code>sorted()</code> function returns a new list with the elements of the iterable sorted in ascending order. The <code>list.sort()</code> method sorts the list in place and returns <code>None</code>. Both functions have an optional <code>reverse</code> argument that, if set to <code>True</code>, sorts the elements in descending order, the default value is <code>False</code>. The <code>key</code> argument is optional, the default value is <code>None</code>. If the <code>key</code> argument is not <code>None</code>, the elements are sorted based on the values returned by the key function for each element.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
@@ -13203,7 +13236,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=45ea2c04"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="filter()-with-a-predicate-function"><code>filter()</code> with a predicate function<a class="anchor-link" href="#filter()-with-a-predicate-function">¶</a></h3><p>The <code>filter(function, iterable)</code> function returns an iterator over the elements of the <code>iterable</code> for which the <code>function</code> returns <code>True</code>. The <code>function</code> is called with one argument, the element of the <code>iterable</code>.</p>
+<h3 id="3.3.-filter()-with-a-predicate-function">3.3. <code>filter()</code> with a predicate function<a class="anchor-link" href="#3.3.-filter()-with-a-predicate-function">¶</a></h3><p>The <code>filter(function, iterable)</code> function returns an iterator over the elements of the <code>iterable</code> for which the <code>function</code> returns <code>True</code>. The <code>function</code> is called with one argument, the element of the <code>iterable</code>.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">is_even</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="o">...</span>     <span class="k">return</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
@@ -13221,6 +13254,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Exercise-7.4">Exercise 7.4<a class="anchor-link" href="#Exercise-7.4">¶</a></h3><p>Create a list of all Debian release names that contain the letter o. Use the <code>filter()</code> function with a predicate function to check if the letter o is present in each name.</p>
 <p>Next, create a list of all Debian release names that have an even number of characters.</p>
+<p>Do the same using list comprehensions.</p>
 <hr/>
 </div>
 </div>
@@ -13228,7 +13262,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=71ee8db5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="map()-with-a-transformation-function"><code>map()</code> with a transformation function<a class="anchor-link" href="#map()-with-a-transformation-function">¶</a></h3><p>The <code>map(function, iterable)</code> function returns an iterator over the elements of the <code>iterable</code> after applying the <code>function</code> to each element. The <code>function</code> is called with one argument, the element of the <code>iterable</code>.</p>
+<h3 id="3.4.-map()-with-a-transformation-function">3.4. <code>map()</code> with a transformation function<a class="anchor-link" href="#3.4.-map()-with-a-transformation-function">¶</a></h3><p>The <code>map(function, iterable)</code> function returns an iterator over the elements of the <code>iterable</code> after applying the <code>function</code> to each element. The <code>function</code> is called with one argument, the element of the <code>iterable</code>.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="o">...</span>     <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
@@ -13261,7 +13295,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <span class="sd">    Given a sequence of points represented as tuples (x, y), return the point that is farthest from the origin (0, 0).</span>
 
 <span class="sd">    The distance from the origin is calculated using the Euclidean distance formula:</span>
-<span class="sd">        distance = sqrt(x^2 + y^2)</span>
+<span class="sd">        distance2 = x**2 + y**2</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">    &gt;&gt;&gt; distant_point([(1, 1), (2, 3), (3, -3), (4, 4)])</span>
@@ -13284,7 +13318,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <span class="sd">    Given a sequence of points represented as tuples (x, y), return the sequence sorted by the distance from the origin (0, 0).</span>
 
 <span class="sd">    The distance from the origin is calculated using the Euclidean distance formula:</span>
-<span class="sd">        distance = sqrt(x^2 + y^2)</span>
+<span class="sd">        distance2 = x**2 + y**2</span>
 
 <span class="sd">    The `ascending` argument determines the sorting order. If `ascending` is True, the sequence is sorted in ascending order, otherwise in descending order.</span>
 
@@ -13308,11 +13342,8 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <h3 id="Exercise-7.8">Exercise 7.8<a class="anchor-link" href="#Exercise-7.8">¶</a></h3><p>Complete the implementation of the <code>sort_by_neglex(seq, ascending=True)</code> function.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sort_by_neglex</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Sorts a sequence of strings or tuples based on the lexicographic order of the elements, </span>
+<span class="sd">    Sorts a sequence of strings, tuples or lists based on the lexicographic order of the elements, </span>
 <span class="sd">    but treating each element as if it were reversed.</span>
-
-<span class="sd">    - For strings, the reverse of the string is used for comparison.</span>
-<span class="sd">    - For tuples, the reverse of the tuple (element order reversed) is used for comparison.</span>
 
 <span class="sd">    The `ascending` parameter controls the sorting order:</span>
 <span class="sd">    - If `ascending=True` (default), the sequence is sorted in ascending order.</span>
@@ -13335,7 +13366,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=0bf6d30f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="functools.reduce()"><code>functools.reduce()</code><a class="anchor-link" href="#functools.reduce()">¶</a></h3><p>The <code>functools.reduce(function, iterable, initializer=None)</code> function applies the <code>function</code> cumulatively to the items of the <code>iterable</code>, from left to right, so as to reduce the iterable to a single value. The <code>initializer</code> argument is optional. If it is not <code>None</code>, the <code>initializer</code> is placed before the items of the <code>iterable</code> in the calculation, and serves as a default value when the <code>iterable</code> is empty.</p>
+<h2 id="4.-functools.reduce()">4. <code>functools.reduce()</code><a class="anchor-link" href="#4.-functools.reduce()">¶</a></h2><p>The <code>functools.reduce(function, iterable, initializer=None)</code> function applies the <code>function</code> cumulatively to the items of the <code>iterable</code>, from left to right, so as to reduce the iterable to a single value. The <code>initializer</code> argument is optional. If it is not <code>None</code>, the <code>initializer</code> is placed before the items of the <code>iterable</code> in the calculation, and serves as a default value when the <code>iterable</code> is empty.</p>
 <p><a href="https://docs.python.org/3/library/functools.html#functools.reduce">Here</a> you can find the documentation of the <code>functools.reduce()</code> function and equivalent pure Python implementation.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
@@ -13354,6 +13385,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Exercise-7.9">Exercise 7.9<a class="anchor-link" href="#Exercise-7.9">¶</a></h3><p>Create a function called <code>product(seq)</code> that calculates the product of all elements in a given sequence <code>seq</code>. Use the <code>functools.reduce()</code> function to implement the <code>product()</code> function.</p>
+<p>Write equivalent implementation of the <code>product()</code> without using <code>functools.reduce()</code>.</p>
 <hr/>
 </div>
 </div>
@@ -13361,7 +13393,7 @@ Use this <code>count_vowels()</code> function in combination with the <code>max(
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=b557a753"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="lambda-functions"><code>lambda</code> functions<a class="anchor-link" href="#lambda-functions">¶</a></h3><p>A <code>lambda</code> function is a small anonymous function defined with the <code>lambda</code> keyword. It can take any number of arguments, but can only have one expression. <code>lambda</code> functions can be used wherever function objects are required.</p>
+<h2 id="5.-lambda-functions">5. <code>lambda</code> functions<a class="anchor-link" href="#5.-lambda-functions">¶</a></h2><p>A <code>lambda</code> function is a small anonymous function defined with the <code>lambda</code> keyword. It can take any number of arguments, but can only have one expression. <code>lambda</code> functions can be used wherever function objects are required.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
