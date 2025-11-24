@@ -13089,8 +13089,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=85f023a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-VIII">Lab VIII<a class="anchor-link" href="#Lab-VIII">¶</a></h2><p>2024/2025, winter semester</p>
-<hr/>
+<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-VIII">Lab VIII<a class="anchor-link" href="#Lab-VIII">¶</a></h2><hr/>
 </div>
 </div>
 </div>
@@ -13346,6 +13345,61 @@ assert compose(first, sorted)(s) == 'a' -->
 <span class="sd">    ...     raise AssertionError("Invalid error type.")</span>
 <span class="sd">    ... else:</span>
 <span class="sd">    ...     raise AssertionError("No ValueError exception. The function has no root in the interval.")</span>
+<span class="sd">    """</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=8b906af2"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exercise-8.7">Exercise 8.7<a class="anchor-link" href="#Exercise-8.7">¶</a></h3><p>Write a function <code>memoize(f)</code> that returns a memoized version of the function <code>f</code>. Memoization is an optimization technique that stores the results of expensive function calls and returns the cached result when the same inputs occur again.</p>
+<p>The memoized function should:</p>
+<ul>
+<li>Cache the results of previous calls based on the input arguments</li>
+<li>Return the cached result if the function is called again with the same arguments</li>
+<li>Only work with hashable arguments (arguments that can be used as dictionary keys)</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">memoize</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Return a memoized version of the function f.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    f: a function to be memoized</span>
+
+<span class="sd">    Return value: a memoized version of f that caches results</span>
+<span class="sd">    </span>
+<span class="sd">    Example:</span>
+<span class="sd">    &gt;&gt;&gt; # Counter to track function calls</span>
+<span class="sd">    &gt;&gt;&gt; call_count = 0</span>
+<span class="sd">    &gt;&gt;&gt; def expensive_function(n):</span>
+<span class="sd">    ...     global call_count</span>
+<span class="sd">    ...     call_count += 1</span>
+<span class="sd">    ...     return n * n</span>
+<span class="sd">    &gt;&gt;&gt; memoized = memoize(expensive_function)</span>
+<span class="sd">    &gt;&gt;&gt; call_count = 0</span>
+<span class="sd">    &gt;&gt;&gt; memoized(5)</span>
+<span class="sd">    25</span>
+<span class="sd">    &gt;&gt;&gt; call_count  # First call, function executed</span>
+<span class="sd">    1</span>
+<span class="sd">    &gt;&gt;&gt; memoized(5)  # Second call with same argument</span>
+<span class="sd">    25</span>
+<span class="sd">    &gt;&gt;&gt; call_count  # Function not executed, result from cache</span>
+<span class="sd">    1</span>
+<span class="sd">    &gt;&gt;&gt; memoized(10)</span>
+<span class="sd">    100</span>
+<span class="sd">    &gt;&gt;&gt; call_count  # New argument, function executed</span>
+<span class="sd">    2</span>
+<span class="sd">    &gt;&gt;&gt; # Fibonacci example</span>
+<span class="sd">    &gt;&gt;&gt; def fib(n):</span>
+<span class="sd">    ...     if n &lt; 2:</span>
+<span class="sd">    ...         return n</span>
+<span class="sd">    ...     return fib(n-1) + fib(n-2)</span>
+<span class="sd">    &gt;&gt;&gt; fib_memo = memoize(fib)</span>
+<span class="sd">    &gt;&gt;&gt; fib_memo(35) # First call, computes the result</span>
+<span class="sd">    9227465</span>
+<span class="sd">    &gt;&gt;&gt; fib_memo(35)  # Much faster on second call</span>
+<span class="sd">    9227465</span>
 <span class="sd">    """</span>
     <span class="k">pass</span>
 </pre></div>
