@@ -13089,15 +13089,38 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=85f023a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-IX">Lab IX<a class="anchor-link" href="#Lab-IX">¶</a></h2><p>2024/2025, winter semester</p>
-<hr/>
+<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-IX">Lab IX<a class="anchor-link" href="#Lab-IX">¶</a></h2><hr/>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=e1b0141c"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">¶</a></h2><ol>
+<li>Literature</li>
+<li>Object Oriented Programming<ul>
+<li>2.1. Classes</li>
+<li>2.2. Attributes</li>
+<li>2.3. Methods</li>
+<li>2.4. Example</li>
+<li>Exercise 9.1</li>
+<li>Exercise 9.2</li>
+<li>Exercise 9.3</li>
+<li>Exercise 9.4</li>
+<li>Exercise 9.5</li>
+<li>2.5. <code>__init__</code> method</li>
+<li>Exercise 9.6</li>
+<li>Exercise 9.7</li>
+</ul>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=f3f452f0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Literature">Literature<a class="anchor-link" href="#Literature">¶</a></h2><ul>
+<h2 id="1.-Literature">1. Literature<a class="anchor-link" href="#1.-Literature">¶</a></h2><ul>
 <li><a href="https://docs.python.org/3/tutorial/index.html">The Python Tutorial</a></li>
 <li><a href="https://diveintopython3.net/index.html">Dive Into Python 3</a></li>
 <li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a></li>
@@ -13109,7 +13132,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=b95e514a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Object-Oriented-Programming">Object Oriented Programming<a class="anchor-link" href="#Object-Oriented-Programming">¶</a></h2><h3 id="Classes">Classes<a class="anchor-link" href="#Classes">¶</a></h3><p>From the Python standard library <a href="https://docs.python.org/3/tutorial/classes.html">documentation</a>:</p>
+<h2 id="2.-Object-Oriented-Programming">2. Object Oriented Programming<a class="anchor-link" href="#2.-Object-Oriented-Programming">¶</a></h2><h3 id="2.1.-Classes">2.1. Classes<a class="anchor-link" href="#2.1.-Classes">¶</a></h3><p>From the Python standard library <a href="https://docs.python.org/3/tutorial/classes.html">documentation</a>:</p>
 <blockquote>
 <p>Classes provide a means of bundling data and functionality together. Creating a new class creates a new type of object, allowing new instances of that type to be made. Each class instance can have attributes attached to it for maintaining its state. Class instances can also have methods (defined by its class) for modifying its state.</p>
 </blockquote>
@@ -13135,7 +13158,7 @@ div#notebook {
 <span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="ow">is</span> <span class="n">y</span> <span class="c1"># x and y are different objects (different things in memory)</span>
 <span class="kc">False</span>
 </pre></div>
-<h3 id="Attributes">Attributes<a class="anchor-link" href="#Attributes">¶</a></h3><p>Attributes are data stored inside a class or instance and represent the state or quality of the class or instance. There are two types of attributes: class attributes and instance attributes.</p>
+<h3 id="2.2.-Attributes">2.2. Attributes<a class="anchor-link" href="#2.2.-Attributes">¶</a></h3><p>Attributes are data stored inside a class or instance and represent the state or quality of the class or instance. There are two types of attributes: class attributes and instance attributes.</p>
 <p>Class attributes are shared by all instances of a class. They are defined within the class definition but outside any methods.</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
 <span class="o">...</span>     <span class="n">class_attribute</span> <span class="o">=</span> <span class="mi">42</span>
@@ -13163,7 +13186,7 @@ div#notebook {
   <span class="n">File</span> <span class="s2">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">AttributeError</span><span class="p">:</span> <span class="s1">'MyClass'</span> <span class="nb">object</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">'instance_attribute'</span>
 </pre></div>
-<h3 id="Methods">Methods<a class="anchor-link" href="#Methods">¶</a></h3><p>Methods are functions defined inside the body of a class. They are used to define the behaviors of an object.</p>
+<h3 id="2.3.-Methods">2.3. Methods<a class="anchor-link" href="#2.3.-Methods">¶</a></h3><p>Methods are functions defined inside the body of a class. They are used to define the behaviors of an object.</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
 <span class="o">...</span>     <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="o">...</span>         <span class="k">return</span> <span class="s1">'Hello, world!'</span>
@@ -13189,7 +13212,7 @@ div#notebook {
 <span class="o">...</span>
 </pre></div>
 <p>Then the call <code>x.method(...)</code>, where <code>x</code> is an instance of <code>MyClass</code>, is equivalent to <code>MyClass.method(x, ...)</code>. The <code>self</code> parameter is a reference to the instance <code>x</code>.</p>
-<h3 id="Example">Example<a class="anchor-link" href="#Example">¶</a></h3><p>Let's define a class <code>Person</code> with two instance attributes: <code>name</code> and <code>age</code>, and a method <code>greet()</code> that returns a greeting message.</p>
+<h3 id="2.4.-Example">2.4. Example<a class="anchor-link" href="#2.4.-Example">¶</a></h3><p>Let's define a class <code>Person</code> with two instance attributes: <code>name</code> and <code>age</code>, and a method <code>greet()</code> that returns a greeting message.</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">person</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -13385,7 +13408,7 @@ $$</p>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=401123dc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="__init__-method"><code>__init__</code> method<a class="anchor-link" href="#__init__-method">¶</a></h3><p>In many previous examples, we had to define a method <code>initialize()</code> to initialize the instance attributes. It was necessary, because sometimes objects need to be initialized with some values. This is a common pattern, so Python provides a special method <code>__init__</code> that is called automatically when an object is created. The <code>__init__</code> method is called an <em>initializer</em>. It is an optional method, and it should be defined wheneever the object needs to be initialized with some values.</p>
+<h3 id="2.5.-__init__-method">2.5. <code>__init__</code> method<a class="anchor-link" href="#2.5.-__init__-method">¶</a></h3><p>In many previous examples, we had to define a method <code>initialize()</code> to initialize the instance attributes. It was necessary, because sometimes objects need to be initialized with some values. This is a common pattern, so Python provides a special method <code>__init__</code> that is called automatically when an object is created. The <code>__init__</code> method is called an <em>initializer</em>. It is an optional method, and it should be defined wheneever the object needs to be initialized with some values.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Rectangle</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
