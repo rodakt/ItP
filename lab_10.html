@@ -13089,15 +13089,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=85f023a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-X">Lab X<a class="anchor-link" href="#Lab-X">¶</a></h2><p>2024/2025, winter semester</p>
-<hr/>
+<h1 id="Introduction-to-Python-for-Data-Science">Introduction to Python for Data Science<a class="anchor-link" href="#Introduction-to-Python-for-Data-Science">¶</a></h1><h3 id="Tomasz-Rodak">Tomasz Rodak<a class="anchor-link" href="#Tomasz-Rodak">¶</a></h3><h2 id="Lab-X">Lab X<a class="anchor-link" href="#Lab-X">¶</a></h2><hr/>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=f3f452f0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Literature">Literature<a class="anchor-link" href="#Literature">¶</a></h2><ul>
+<h2 id="1.-Literature">1. Literature<a class="anchor-link" href="#1.-Literature">¶</a></h2><ul>
 <li><a href="https://docs.python.org/3/tutorial/index.html">The Python Tutorial</a></li>
 <li><a href="https://diveintopython3.net/index.html">Dive Into Python 3</a></li>
 <li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a></li>
@@ -13106,14 +13105,34 @@ div#notebook {
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=a028feb9"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">¶</a></h2><ol>
+<li>Literature</li>
+<li>OOP - special methods<ul>
+<li>2.1. Special methods</li>
+<li>2.2. <code>datetime</code> example</li>
+<li>Exercise 10.1</li>
+<li>Exercise 10.2</li>
+<li>Exercise 10.3</li>
+<li>2.3. Non-public names</li>
+<li>Exercise 10.4</li>
+<li>Exercise 10.5</li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=b95e514a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="OOP---special-methods">OOP - special methods<a class="anchor-link" href="#OOP---special-methods">¶</a></h2><h3 id="Special-methods">Special methods<a class="anchor-link" href="#Special-methods">¶</a></h3><p>Special methods, also known as <strong>magic methods</strong> or <strong>dunder methods</strong>, are a set of predefined methods in Python that allow you to customize the behavior of your classes in various ways. They are recognized by their double underscores (<code>__</code>) at the beginning and end of their names.</p>
+<h2 id="2.-OOP---special-methods">2. OOP - special methods<a class="anchor-link" href="#2.-OOP---special-methods">¶</a></h2><h3 id="2.1.-Special-methods">2.1. Special methods<a class="anchor-link" href="#2.1.-Special-methods">¶</a></h3><p>Special methods, also known as <strong>magic methods</strong> or <strong>dunder methods</strong>, are a set of predefined methods in Python that allow you to customize the behavior of your classes in various ways. They are recognized by their double underscores (<code>__</code>) at the beginning and end of their names.</p>
 <p>These methods are invoked by Python's interpreter under certain circumstances, such as when you use operators like <code>+</code>, <code>-</code>, <code>*</code>, or when you call built-in functions like <code>len()</code>, <code>str()</code>, or <code>repr()</code>.</p>
 <p>From the Python <a href="https://docs.python.org/3/reference/datamodel.html#special-method-names">documentation</a>:</p>
 <blockquote>
-<p>A class can implement certain operations that are invoked by special syntax (such as arithmetic operations or subscripting and slicing) by defining methods with special names. This is Python’s approach to <strong>operator overloading</strong>, allowing classes to define their own behavior with respect to language operators. For instance, if a class defines a method named <code>__getitem__()</code>, and <code>x</code> is an instance of this class, then <code>x[i]</code> is roughly equivalent to <code>type(x).__getitem__(x, i)</code>. Except where mentioned, attempts to execute an operation raise an exception when no appropriate method is defined (typically <code>AttributeError</code> or <code>TypeError</code>).</p>
+<p>A class can implement certain operations that are invoked by special syntax (such as arithmetic operations or subscripting and slicing) by defining methods with special names. This is Python's approach to <strong>operator overloading</strong>, allowing classes to define their own behavior with respect to language operators. For instance, if a class defines a method named <code>__getitem__()</code>, and <code>x</code> is an instance of this class, then <code>x[i]</code> is roughly equivalent to <code>type(x).__getitem__(x, i)</code>. Except where mentioned, attempts to execute an operation raise an exception when no appropriate method is defined (typically <code>AttributeError</code> or <code>TypeError</code>).</p>
 </blockquote>
 <p>We already met the <code>__init__()</code> method, which is called when an object is created. Here are some other special methods:</p>
 <ul>
@@ -13131,7 +13150,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=398eeda2"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="datetime-example"><code>datetime</code> example<a class="anchor-link" href="#datetime-example">¶</a></h3><p>Let's see how the <code>datetime</code> module uses <code>__str__()</code> and <code>__repr__()</code> methods.</p>
+<h3 id="2.2.-datetime-example">2.2. <code>datetime</code> example<a class="anchor-link" href="#2.2.-datetime-example">¶</a></h3><p>Let's see how the <code>datetime</code> module uses <code>__str__()</code> and <code>__repr__()</code> methods.</p>
 <p>Two main objects in the <code>datetime</code> module are <code>datetime</code> and <code>timedelta</code>. The <code>datetime</code> object represents a date and time, while the <code>timedelta</code> object represents a duration, the difference between two dates and times. The following code snippet shows how to create a <code>datetime</code> representing the current date and time:</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
@@ -13307,7 +13326,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=1434d87c"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Non-public-names">Non-public names<a class="anchor-link" href="#Non-public-names">¶</a></h3><p>In Python, there is a convention that names prefixed with an underscore (<code>_</code>) are considered non-public. This means that they are not meant to be used outside of the class. This is just a convention, and Python does not enforce it. However, it is a good practice to follow this convention to avoid accidental misuse of non-public names.</p>
+<h3 id="2.3.-Non-public-names">2.3. Non-public names<a class="anchor-link" href="#2.3.-Non-public-names">¶</a></h3><p>In Python, there is a convention that names prefixed with an underscore (<code>_</code>) are considered non-public. This means that they are not meant to be used outside of the class. This is just a convention, and Python does not enforce it. However, it is a good practice to follow this convention to avoid accidental misuse of non-public names.</p>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LinearFunction</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
