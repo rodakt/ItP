@@ -240,6 +240,8 @@ An **expression** is a piece of code that *evaluates to a value*: `2 + 2`, `x > 
 
 A **statement** is an instruction that *does something* but has no value itself, e.g. an assignment `x = 10`, or `if`, `for`, `while`, `def`.
 
+(If you know C, C++ or Java, note the difference: there an assignment is an expression, `x = 10` has the value `10`, and you can write `y = (x = 10) + 1`. In Python this is a syntax error.)
+
 When an exercise asks you to *write an expression*, the answer is a single expression, not a program. For example, an expression that is `True` when `x` is between 1 and 10 is
 
 ```python
