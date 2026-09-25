@@ -10,16 +10,19 @@ In-class written assessment, last class.
 
 ## 2. Literature
 
+All of the following are freely available online.
 
-* [The Python Tutorial](https://docs.python.org/3/tutorial/index.html)
-* [Dive Into Python 3](https://diveintopython3.net/index.html)
-* [Automate the Boring Stuff with Python](https://automatetheboringstuff.com/)
+* [The Python Tutorial](https://docs.python.org/3/tutorial/index.html) — the official tutorial.
+* [Dive Into Python 3](https://diveintopython3.net/index.html) — M. Pilgrim; written for Python 3.1, but still a distinctive and demanding read.
+* [Think Python, 3rd ed.](https://allendowney.github.io/ThinkPython/) — A. Downey; a gentle, up-to-date introduction.
+* [Composing Programs](https://www.composingprograms.com/) — J. DeNero; the classic SICP approach to programming, in Python.
+* [Automate the Boring Stuff with Python](https://automatetheboringstuff.com/) — A. Sweigart; practical, task-oriented.
+* [Fluent Python](https://www.fluentpython.com/) — L. Ramalho; free extra articles and a glossary accompanying the (paid) book, for later in the course.
 * [Python 3 documentation](https://docs.python.org/3/index.html)
-
 
 ## 3. Thonny IDE
 
-Thonny is a beginner-friendly Integrated Development Environment (IDE) for Python. By default its window has two panes: the editor and the shell. Additional views (e.g. *Variables*) can be turned on from the *View* menu.
+[Thonny](https://thonny.org/) is a beginner-friendly Integrated Development Environment (IDE) for Python. By default its window has two panes: the editor and the shell. Additional views (e.g. *Variables*) can be turned on from the *View* menu.
 
 ### 3.1. Editor
 
@@ -61,7 +64,7 @@ Python supports the following basic arithmetic operations:
 
 The order of operations is the same as in mathematics. Round brackets can be used to change the order of operations.
 
-### Exercise 1.1
+::: {.callout-tip #exercise-1-1 title="Exercise 1.1"}
 
 Calculate the following expressions. Use the shell in Thonny.
 
@@ -72,9 +75,9 @@ Calculate the following expressions. Use the shell in Thonny.
 * $7 \div 3$ (integer division)
 * $7 \mod 3$
 
----
+:::
 
-### Exercise 1.2
+::: {.callout-tip #exercise-1-2 title="Exercise 1.2"}
 
 More complex expressions:
 
@@ -83,7 +86,7 @@ More complex expressions:
 * $2^{10}$
 * $2^{10} \mod 3$
 
----
+:::
 
 ## 5. Variables, assignment, and data types
 
@@ -132,7 +135,7 @@ Python supports three built-in numeric types:
 * floating-point numbers (`float`)
 * complex numbers (`complex`)
 
-### Exercise 1.3
+::: {.callout-tip #exercise-1-3 title="Exercise 1.3"}
 
 Integers in Python have an interesting property: they can be arbitrarily large. Calculate the following expressions:
 
@@ -140,9 +143,9 @@ Integers in Python have an interesting property: they can be arbitrarily large. 
 * $2^{10000}$
 * $2^{2^{10}}$
 
----
+:::
 
-### Exercise 1.4
+::: {.callout-tip #exercise-1-4 title="Exercise 1.4"}
 
 Type of an object returned by an operation may depend on the types of the operands. Experiment with the following operations in Python and determine the type of the result in each case:
 
@@ -162,9 +165,9 @@ For each operation:
 3. Use the `type()` function to check the actual type of the result.
 4. Explain why the result has that particular type.
 
----
+:::
 
-### Exercise 1.5
+::: {.callout-tip #exercise-1-5 title="Exercise 1.5"}
 
 Previously, we have seen that Python is able to compute as large powers of $2$ as $2^{10000}$. This is possible because Python uses arbitrary-precision integer arithmetic. However, the same is not true for floating-point numbers. What will happen if you try to compute `2.0**10000`? You'll notice that this calculation raises an `OverflowError` exception. The reason is that floating-point numbers in Python are represented using a fixed number of bits (64, IEEE 754 double precision), which limits the range of numbers that can be represented.
 
@@ -172,9 +175,9 @@ Previously, we have seen that Python is able to compute as large powers of $2$ a
 * What happens if you try to compute powers of `2.0` with large negative exponents, e.g., `2.0**(-10000)`?
 * What happens if you try to divide very large numbers, e.g., `10**10000 / 10**9999` or `10**10000 / 10**1000`?
 
----
+:::
 
-### Exercise 1.6
+::: {.callout-tip #exercise-1-6 title="Exercise 1.6"}
 
 Let $T$ be a triangle with sides of lengths $a=3$, $b=4$, and $c=5$. The area of $T$ can be calculated using Heron's formula:
 
@@ -195,7 +198,7 @@ Do the same for triangles with sides:
 * $a=5$, $b=12$, $c=13$ (answer: $30$),
 * $a=1$, $b=1$, $c=1$ (answer: $\sqrt{3}/4 \approx 0.433$).
 
----
+:::
 
 ## 7. Booleans
 
@@ -233,7 +236,7 @@ False
 False
 ```
 
-### Exercise 1.7
+::: {.callout-tip #exercise-1-7 title="Exercise 1.7"}
 
 Determine the truth value of the following logical expressions. Try to predict the result before running the code.
 
@@ -245,16 +248,16 @@ Determine the truth value of the following logical expressions. Try to predict t
 * `(2 + 2 == 4) and (3 * 4 == 12) or (5 ** 2 == 24)`
 * `(2 + 2 == 4) and (3 * 4 == 12) or (5 ** 2 == 25)`
 
----
+:::
 
-### Exercise 1.8
+::: {.callout-tip #exercise-1-8 title="Exercise 1.8"}
 
 Given two Boolean variables `p` and `q`:
 
 * write the expression for the XOR operation (exclusive OR) using only `p`, `q`, and the logical operators `and`, `or`, and `not`. The XOR operation returns `True` if exactly one of the operands is `True`, otherwise it returns `False`.
 * write the expression for the implication operation using only `p`, `q`, and the logical operators `and`, `or`, and `not`. The implication operation returns `False` if the first operand is `True` and the second operand is `False`, otherwise it returns `True`.
 
----
+:::
 
 ### Truthiness
 
@@ -272,13 +275,13 @@ The `not` operator first converts its operand to a Boolean value, then negates i
 
 The `and` and `or` operators, on the other hand, do **not** always return a Boolean value. Instead, they return one of their operands—the first one that determines the outcome of the operation. Evaluation stops as soon as the outcome is known (*short-circuit evaluation*).
 
-### Exercise 1.9
+::: {.callout-tip #exercise-1-9 title="Exercise 1.9"}
 
 Explain the rationale behind the expression `not not x`. What does it evaluate to? Which built-in function gives the same result?
 
----
+:::
 
-### Exercise 1.10
+::: {.callout-tip #exercise-1-10 title="Exercise 1.10"}
 
 Predict the results of the following expressions before running them:
 
@@ -296,7 +299,7 @@ What is the result of the code below, and why doesn't it raise `ZeroDivisionErro
 >>> count and 100 / count
 ```
 
----
+:::
 
 ### Conditional expression
 
@@ -313,11 +316,11 @@ The conditional expression `a if condition else b` evaluates to `a` if `conditio
 
 This is similar to the ternary operator in C, Java, and other languages.
 
-### Exercise 1.11
+::: {.callout-tip #exercise-1-11 title="Exercise 1.11"}
 
 Write a Python expression that returns the string `"even"` if a given integer `x` is even, and `"odd"` otherwise.
 
----
+:::
 
 ## 8. Strings
 
@@ -381,7 +384,7 @@ Slices are specified by two indices separated by a colon. The first index is the
 'nohtyP'
 ```
 
-### Exercise 1.12
+::: {.callout-tip #exercise-1-12 title="Exercise 1.12"}
 
 Given a string `s`, write a Python expression that returns the string consisting of the first and last characters of `s`. For example, if `s = "Python"`, the expression should return `"Pn"`.
 
@@ -393,7 +396,7 @@ Assume that the string `s` has at least two characters. Then check your expressi
 
 What happens if you try to use your expression with a string that has only one character or is empty?
 
----
+:::
 
 ## 9. Lists
 
@@ -432,7 +435,7 @@ Lists can be indexed and sliced just like strings:
 [5, 4, 3, 2, 1]
 ```
 
-### Exercise 1.13
+::: {.callout-tip #exercise-1-13 title="Exercise 1.13"}
 
 Given a list `lst`, write a Python expression that returns the list consisting of the first and last elements of `lst`. For example, if `lst = [1, 2, 3, 4, 5]`, the expression should return `[1, 5]`.
 
@@ -444,7 +447,7 @@ Assume that the list `lst` has at least two elements. Then check your expression
 
 What happens if you try to use your expression with a list that has only one element or is empty?
 
----
+:::
 
 Lists can be modified by assigning new values to elements or slices:
 
@@ -460,11 +463,11 @@ Lists can be modified by assigning new values to elements or slices:
 
 This is called item assignment. Under this operation, the list is **modified in place**, i.e., the original list is changed, but the identity of the list remains the same (it is the same object). Data types whose objects can be modified in place are called **mutable**.
 
-### Exercise 1.14
+::: {.callout-tip #exercise-1-14 title="Exercise 1.14"}
 
 Strings are **immutable**, i.e., they cannot be modified in place. Try to assign a new value to an element of a string. What happens?
 
----
+:::
 
 ## 10. `range()` function
 
@@ -495,7 +498,7 @@ The numbers in the range are not stored in memory, but generated on the fly when
 [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 ```
 
-### Exercise 1.15
+::: {.callout-tip #exercise-1-15 title="Exercise 1.15"}
 
 Use the `range()` function to generate the following sequences of numbers:
 
@@ -506,7 +509,7 @@ Use the `range()` function to generate the following sequences of numbers:
 * all numbers from $10$ to $1$ in descending order
 * all numbers divisible by $3$ from $0$ to $30$
 
----
+:::
 
 ## 11. List comprehensions
 
@@ -531,20 +534,20 @@ You can also add conditions to filter the elements:
 List comprehensions can be more complex:
 
 ```python
->>> [(x, y) for x in range(3) for y in range(3)]
-[(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1), (2, 2)]
+>>> [s + t for s in "ab" for t in "xyz"]
+['ax', 'ay', 'az', 'bx', 'by', 'bz']
 ```
 
-### Exercise 1.16
+::: {.callout-tip #exercise-1-16 title="Exercise 1.16"}
 
 Use a list comprehension to generate the following lists:
 
 * all numbers from $0$ to $100$ which are divisible by $3$ or $5$
 * all squares of integers not greater than $10000$
 
----
+:::
 
-### Exercise 1.17
+::: {.callout-tip #exercise-1-17 title="Exercise 1.17"}
 
 Use a list comprehension to generate the values from the multiplication table:
 
@@ -563,14 +566,17 @@ Use a list comprehension to generate the values from the multiplication table:
 
 Do this in two ways:
 
-* using a list comprehension with a nested `for` loop. This should result in a list of the form 
-    ```
-    [1, 2, 3, ..., 10, 2, 4, 6, ..., 20, 3, 6, 9, ..., 30, ..., 100]
-    ```
-* using a list comprehension of list comprehensions. This should result in a list of the form 
-    ```
-    [[1, 2, 3, ..., 10], [2, 4, 6, ..., 20], [3, 6, 9, ..., 30], ..., [10, 20, 30, ..., 100]]
-    ```
+* using a list comprehension with a nested `for` loop. This should result in a list of the form
 
----
+  ```
+  [1, 2, 3, ..., 10, 2, 4, 6, ..., 20, 3, 6, 9, ..., 30, ..., 100]
+  ```
+
+* using a list comprehension of list comprehensions. This should result in a list of the form
+
+  ```
+  [[1, 2, 3, ..., 10], [2, 4, 6, ..., 20], [3, 6, 9, ..., 30], ..., [10, 20, 30, ..., 100]]
+  ```
+
+:::
 
