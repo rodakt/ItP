@@ -1,0 +1,6 @@
+---
+title: "Introduction to Python for Data Science"
+author: "Tomasz Rodak"
+---
+
+Materials for the laboratory classes. New labs are published here as the semester progresses — see the **Labs** section in the sidebar.

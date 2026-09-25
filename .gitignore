@@ -13,10 +13,12 @@
 *.db
 *.sqlite
 
-# HTML files except for the lab_*.html files
+# HTML files (the site is rendered by Quarto)
 *.html
-!lab_[0-9].html
-!lab_[0-9][0-9].html
+
+# Quarto
+/.quarto/
+/_site/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -60,3 +62,4 @@ Thumbs.db
 
 # Ignore the `final` folder
 final/
+**/*.quarto_ipynb

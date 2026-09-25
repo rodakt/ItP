@@ -1,0 +1,23 @@
+project:
+  type: website
+  render:              # whitelist: nothing else in the directory is rendered
+    - index.qmd
+    - "lab_*.qmd"
+
+lang: en
+
+website:
+  title: "Introduction to Python for Data Science"
+  repo-url: https://github.com/rodakt/ItP
+  sidebar:
+    style: docked
+    search: true
+    contents:
+      - index.qmd
+      - section: "Labs"
+        contents: "lab_*.qmd"   # released labs appear automatically
+
+format:
+  html:
+    theme: cosmo
+    toc: true
