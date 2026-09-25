@@ -3,4 +3,33 @@ title: "Introduction to Python for Data Science"
 author: "Tomasz Rodak"
 ---
 
+This course is an introduction to Python for students who already program in another language. Rather than teaching programming from scratch, it focuses on what is characteristic of Python: its data model, idioms and standard tools.
+
 Materials for the laboratory classes. New labs are published here as the semester progresses — see the **Labs** section in the sidebar.
+
+## Scope
+
+* core types: numbers, booleans, strings, lists and dictionaries; slicing and comprehensions
+* control flow, loops and iteration; console input and output
+* working with files and text encodings
+* functions, docstrings and `doctest`
+* exceptions, `assert` and unit testing
+* functional style: higher-order functions, `lambda`, `functools`
+* object-oriented programming and special methods
+* iterators and generators
+
+## Assessment
+
+In-class written assessment, last class.
+
+## Literature
+
+All of the following are freely available online.
+
+* [The Python Tutorial](https://docs.python.org/3/tutorial/index.html) — the official tutorial.
+* [Dive Into Python 3](https://diveintopython3.net/index.html) — M. Pilgrim; written for Python 3.1, but still a distinctive and demanding read.
+* [Think Python, 3rd ed.](https://allendowney.github.io/ThinkPython/) — A. Downey; a gentle, up-to-date introduction.
+* [Composing Programs](https://www.composingprograms.com/) — J. DeNero; the classic SICP approach to programming, in Python.
+* [Automate the Boring Stuff with Python](https://automatetheboringstuff.com/) — A. Sweigart; practical, task-oriented.
+* [Fluent Python](https://www.fluentpython.com/) — L. Ramalho; free extra articles and a glossary accompanying the (paid) book, for later in the course.
+* [Python 3 documentation](https://docs.python.org/3/index.html)
