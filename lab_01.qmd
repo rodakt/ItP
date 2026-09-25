@@ -220,6 +220,20 @@ False
 False
 ```
 
+::: {.callout-tip #exercise-1-7 title="Exercise 1.7"}
+
+Determine the truth value of the following logical expressions. Try to predict the result before running the code.
+
+* `(2 + 2 == 4) and (3 * 4 == 12)`
+* `(2 + 2 > 4) or (3 * 4 < 12)`
+* `not (2 + 2 == 4)`
+* `(2 + 2 == 4) and not (3 * 4 == 12)`
+* `(2 + 2 == 4) and (3 * 4 == 12) and (5 ** 2 == 25)`
+* `(2 + 2 == 4) and (3 * 4 == 12) or (5 ** 2 == 24)`
+* `(2 + 2 == 4) and (3 * 4 == 12) or (5 ** 2 == 25)`
+
+:::
+
 ::: {.callout-note title="Expression vs. statement"}
 
 An **expression** is a piece of code that *evaluates to a value*: `2 + 2`, `x > 5 and y < 30`, `not p`. You can type it into the shell and it prints the result, or use it anywhere a value is expected, e.g. on the right-hand side of `=`.
@@ -248,20 +262,6 @@ To test your expression, assign values to the variables in the shell and then ty
 >>> q = False
 >>> <your expression>
 ```
-
-:::
-
-::: {.callout-tip #exercise-1-7 title="Exercise 1.7"}
-
-Determine the truth value of the following logical expressions. Try to predict the result before running the code.
-
-* `(2 + 2 == 4) and (3 * 4 == 12)`
-* `(2 + 2 > 4) or (3 * 4 < 12)`
-* `not (2 + 2 == 4)`
-* `(2 + 2 == 4) and not (3 * 4 == 12)`
-* `(2 + 2 == 4) and (3 * 4 == 12) and (5 ** 2 == 25)`
-* `(2 + 2 == 4) and (3 * 4 == 12) or (5 ** 2 == 24)`
-* `(2 + 2 == 4) and (3 * 4 == 12) or (5 ** 2 == 25)`
 
 :::
 
