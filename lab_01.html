@@ -221,6 +221,7 @@ window.Quarto = {
   <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists">7. Lists</a></li>
   <li><a href="#range-function" id="toc-range-function" class="nav-link" data-scroll-target="#range-function">8. <code>range()</code> function</a></li>
   <li><a href="#list-comprehensions" id="toc-list-comprehensions" class="nav-link" data-scroll-target="#list-comprehensions">9. List comprehensions</a></li>
+  <li><a href="#challenge-optional" id="toc-challenge-optional" class="nav-link" data-scroll-target="#challenge-optional">10. Challenge (optional)</a></li>
   </ul>
 </nav>
     </div>
@@ -301,32 +302,14 @@ window.Quarto = {
 <div class="callout-body-container callout-body">
 <p>Calculate the following expressions. Use the shell in Thonny.</p>
 <ul>
-<li><span class="math inline">\(2 + 2\)</span></li>
-<li><span class="math inline">\(3 \times 4\)</span></li>
-<li><span class="math inline">\(5^2\)</span></li>
 <li><span class="math inline">\(7 \div 3\)</span></li>
 <li><span class="math inline">\(7 \div 3\)</span> (integer division)</li>
 <li><span class="math inline">\(7 \mod 3\)</span></li>
-</ul>
-</div>
-</div>
-<div id="exercise-1-2" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.2">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.2
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>More complex expressions:</p>
-<ul>
 <li><span class="math inline">\(2 + 3 \times 4\)</span></li>
 <li><span class="math inline">\((2 + 3) \times 4\)</span></li>
-<li><span class="math inline">\(2^{10}\)</span></li>
 <li><span class="math inline">\(2^{10} \mod 3\)</span></li>
 </ul>
+<p>Now compute <code>-7 // 2</code> and <code>-7 % 3</code>. Predict the results first. If you know C, C++ or Java, compare with what <code>-7 / 2</code> and <code>-7 % 3</code> give there. What rule does Python use for integer division of negative numbers? Check that <code>a == (a // b) * b + a % b</code> holds for <code>a = -7</code>, <code>b = 3</code>.</p>
 </div>
 </div>
 </section>
@@ -368,6 +351,38 @@ window.Quarto = {
 <li>floating-point numbers (<code>float</code>)</li>
 <li>complex numbers (<code>complex</code>)</li>
 </ul>
+<div id="exercise-1-2" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 1.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Type of an object returned by an operation may depend on the types of the operands. Experiment with the following operations in Python and determine the type of the result in each case:</p>
+<ul>
+<li><code>5 + 3</code></li>
+<li><code>5 + 3.0</code></li>
+<li><code>5 / 2</code></li>
+<li><code>6 / 3</code></li>
+<li><code>5 // 2</code></li>
+<li><code>2 ** -1</code></li>
+<li><code>100 ** 0.5</code></li>
+<li><code>4 ** (-1/2)</code></li>
+<li><code>(-8) ** (1/3)</code></li>
+</ul>
+<p>For each operation:</p>
+<ol type="1">
+<li>Predict the result and its type before running the code.</li>
+<li>Use the Python interpreter to perform the operation.</li>
+<li>Use the <code>type()</code> function to check the actual type of the result.</li>
+<li>Explain why the result has that particular type.</li>
+</ol>
+<p>How does <code>6 / 3</code> differ from the same expression in C, C++ or Java?</p>
+</div>
+</div>
 <div id="exercise-1-3" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.3">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -378,11 +393,13 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Integers in Python have an interesting property: they can be arbitrarily large. Calculate the following expressions:</p>
+<p>Compute <span class="math inline">\(2^{1000}\)</span>, <span class="math inline">\(2^{10000}\)</span> and <span class="math inline">\(2^{2^{10}}\)</span>. Integers in Python can be arbitrarily large (<em>arbitrary-precision arithmetic</em>); compare this with <code>int</code> or <code>long</code> in C.</p>
+<p>Now try <code>2.0 ** 10000</code>. What happens? Floating-point numbers are stored in a fixed number of bits (64, IEEE 754 double precision), just like <code>double</code> in C.</p>
 <ul>
-<li><span class="math inline">\(2^{1000}\)</span></li>
-<li><span class="math inline">\(2^{10000}\)</span></li>
-<li><span class="math inline">\(2^{2^{10}}\)</span></li>
+<li>What is the biggest integer power of <code>2.0</code> that you can compute without an error?</li>
+<li>What happens with large negative exponents, e.g., <code>2.0 ** -10000</code>?</li>
+<li>What happens when you divide very large integers, e.g., <code>10**10000 / 10**9999</code> and <code>10**10000 / 10**1000</code>? Why do both operands fit, but not always the result?</li>
+<li>Evaluate <code>0.1 + 0.2</code> and <code>0.1 + 0.2 == 0.3</code>. Explain the result. What does this mean for comparing floats with <code>==</code>?</li>
 </ul>
 </div>
 </div>
@@ -393,54 +410,6 @@ window.Quarto = {
 </div>
 <div class="callout-title-container flex-fill">
 <span class="screen-reader-only">Tip</span>Exercise 1.4
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Type of an object returned by an operation may depend on the types of the operands. Experiment with the following operations in Python and determine the type of the result in each case:</p>
-<ul>
-<li><code>5 + 3</code></li>
-<li><code>5 + 3.0</code></li>
-<li><code>5 / 2</code></li>
-<li><code>5 // 2</code></li>
-<li><code>5 * 2</code></li>
-<li><code>5 * 2.0</code></li>
-<li><code>100 ** 0.5</code></li>
-<li><code>4 ** (-1/2)</code></li>
-</ul>
-<p>For each operation:</p>
-<ol type="1">
-<li>Predict the result and its type before running the code.</li>
-<li>Use the Python interpreter to perform the operation.</li>
-<li>Use the <code>type()</code> function to check the actual type of the result.</li>
-<li>Explain why the result has that particular type.</li>
-</ol>
-</div>
-</div>
-<div id="exercise-1-5" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.5">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.5
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Previously, we have seen that Python is able to compute as large powers of <span class="math inline">\(2\)</span> as <span class="math inline">\(2^{10000}\)</span>. This is possible because Python uses arbitrary-precision integer arithmetic. However, the same is not true for floating-point numbers. What will happen if you try to compute <code>2.0**10000</code>? You’ll notice that this calculation raises an <code>OverflowError</code> exception. The reason is that floating-point numbers in Python are represented using a fixed number of bits (64, IEEE 754 double precision), which limits the range of numbers that can be represented.</p>
-<ul>
-<li>What is the biggest integer power of <code>2.0</code> that you can compute without getting an <code>OverflowError</code>?</li>
-<li>What happens if you try to compute powers of <code>2.0</code> with large negative exponents, e.g., <code>2.0**(-10000)</code>?</li>
-<li>What happens if you try to divide very large numbers, e.g., <code>10**10000 / 10**9999</code> or <code>10**10000 / 10**1000</code>?</li>
-</ul>
-</div>
-</div>
-<div id="exercise-1-6" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.6">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.6
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -490,26 +459,31 @@ p = \frac{a + b + c}{2}.
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">not</span> (x <span class="op">&gt;</span> <span class="dv">5</span>)</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="exercise-1-7" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.7">
+<p>Comparisons can be chained: <code>a &lt; b &lt; c</code> means <code>a &lt; b and b &lt; c</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">1</span> <span class="op">&lt;=</span> x <span class="op">&lt;=</span> <span class="dv">10</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="exercise-1-5" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.5">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.7
+<span class="screen-reader-only">Tip</span>Exercise 1.5
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Determine the truth value of the following logical expressions. Try to predict the result before running the code.</p>
 <ul>
-<li><code>(2 + 2 == 4) and (3 * 4 == 12)</code></li>
-<li><code>(2 + 2 &gt; 4) or (3 * 4 &lt; 12)</code></li>
-<li><code>not (2 + 2 == 4)</code></li>
-<li><code>(2 + 2 == 4) and not (3 * 4 == 12)</code></li>
-<li><code>(2 + 2 == 4) and (3 * 4 == 12) and (5 ** 2 == 25)</code></li>
-<li><code>(2 + 2 == 4) and (3 * 4 == 12) or (5 ** 2 == 24)</code></li>
-<li><code>(2 + 2 == 4) and (3 * 4 == 12) or (5 ** 2 == 25)</code></li>
+<li><code>(2 + 2 &gt; 4) or not (3 * 4 == 12)</code></li>
+<li><code>False and True or True</code></li>
+<li><code>False and (True or True)</code></li>
+<li><code>True or True and False</code></li>
+<li><code>1 &lt; 5 &lt; 10</code></li>
+<li><code>3 &lt; 2 &lt; 1</code></li>
 </ul>
+<p>What is the precedence of <code>and</code> compared to <code>or</code>?</p>
+<p>In C and C++, <code>3 &lt; 2 &lt; 1</code> compiles and is true. Why? (In Java it does not compile at all.)</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Expression vs. statement">
@@ -526,25 +500,25 @@ p = \frac{a + b + c}{2}.
 <p>A <strong>statement</strong> is an instruction that <em>does something</em> but has no value itself, e.g.&nbsp;an assignment <code>x = 10</code>, or <code>if</code>, <code>for</code>, <code>while</code>, <code>def</code>.</p>
 <p>(If you know C, C++ or Java, note the difference: there an assignment is an expression, <code>x = 10</code> has the value <code>10</code>, and you can write <code>y = (x = 10) + 1</code>. In Python this is a syntax error.)</p>
 <p>When an exercise asks you to <em>write an expression</em>, the answer is a single expression, not a program. For example, an expression that is <code>True</code> when <code>x</code> is between 1 and 10 is</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">&gt;=</span> <span class="dv">1</span> <span class="kw">and</span> x <span class="op">&lt;=</span> <span class="dv">10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">&gt;=</span> <span class="dv">1</span> <span class="kw">and</span> x <span class="op">&lt;=</span> <span class="dv">10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>and <strong>not</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&gt;=</span> <span class="dv">1</span> <span class="kw">and</span> x <span class="op">&lt;=</span> <span class="dv">10</span>:</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&gt;=</span> <span class="dv">1</span> <span class="kw">and</span> x <span class="op">&lt;=</span> <span class="dv">10</span>:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To test your expression, assign values to the variables in the shell and then type the expression:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> q <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="op">&lt;</span>your expression<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> p <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> q <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="op">&lt;</span>your expression<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
-<div id="exercise-1-8" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.8">
+<div id="exercise-1-6" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.6">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.8
+<span class="screen-reader-only">Tip</span>Exercise 1.6
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -553,6 +527,7 @@ p = \frac{a + b + c}{2}.
 <li>write a single expression for the XOR operation (exclusive OR) using only <code>p</code>, <code>q</code>, and the logical operators <code>and</code>, <code>or</code>, and <code>not</code>. The XOR operation returns <code>True</code> if exactly one of the operands is <code>True</code>, otherwise it returns <code>False</code>.</li>
 <li>write a single expression for the implication operation using only <code>p</code>, <code>q</code>, and the logical operators <code>and</code>, <code>or</code>, and <code>not</code>. The implication operation returns <code>False</code> if the first operand is <code>True</code> and the second operand is <code>False</code>, otherwise it returns <code>True</code>.</li>
 </ul>
+<p>For Boolean <code>p</code> and <code>q</code>, XOR can also be written with a single comparison operator. Which one?</p>
 </div>
 </div>
 <section id="truthiness" class="level3">
@@ -569,29 +544,17 @@ p = \frac{a + b + c}{2}.
 <li><code>{}</code> (empty dictionary)</li>
 </ul>
 <p>The <code>and</code> and <code>or</code> operators, on the other hand, do <strong>not</strong> always return a Boolean value. Instead, they return one of their operands—the first one that determines the outcome of the operation. Evaluation stops as soon as the outcome is known (<em>short-circuit evaluation</em>).</p>
-<div id="exercise-1-9" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.9">
+<div id="exercise-1-7" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.7">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.9
+<span class="screen-reader-only">Tip</span>Exercise 1.7
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Explain the rationale behind the expression <code>not not x</code>. What does it evaluate to? Which built-in function gives the same result?</p>
-</div>
-</div>
-<div id="exercise-1-10" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.10">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.10
-</div>
-</div>
-<div class="callout-body-container callout-body">
 <p>Predict the results of the following expressions before running them:</p>
 <ul>
 <li><code>0 and 5</code></li>
@@ -602,21 +565,152 @@ p = \frac{a + b + c}{2}.
 <li><code>"" or "default"</code></li>
 </ul>
 <p>What is the result of the code below, and why doesn’t it raise <code>ZeroDivisionError</code>?</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> count <span class="kw">and</span> <span class="dv">100</span> <span class="op">/</span> count</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> count <span class="kw">and</span> <span class="dv">100</span> <span class="op">/</span> count</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
 <section id="conditional-expression" class="level3">
 <h3 class="anchored" data-anchor-id="conditional-expression">Conditional expression</h3>
 <p>The conditional expression <code>a if condition else b</code> evaluates to <code>a</code> if <code>condition</code> is true, and to <code>b</code> otherwise:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">"positive"</span> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">"non-positive"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">'positive'</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="op">-</span><span class="dv">10</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">"positive"</span> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">"non-positive"</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">'non-positive'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">"positive"</span> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">"non-positive"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">'positive'</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="op">-</span><span class="dv">10</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">"positive"</span> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">"non-positive"</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">'non-positive'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This is similar to the ternary operator in C, Java, and other languages.</p>
+<div id="exercise-1-8" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.8">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 1.8
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a Python expression that returns the string <code>"even"</code> if a given integer <code>x</code> is even, and <code>"odd"</code> otherwise.</p>
+<p>Then write an expression that returns <code>"negative"</code>, <code>"zero"</code> or <code>"positive"</code>, depending on the sign of <code>x</code>. Hint: conditional expressions can be nested.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="strings" class="level2">
+<h2 class="anchored" data-anchor-id="strings">6. Strings</h2>
+<p>Strings are sequences of characters. In Python, strings are represented using single quotes (<code>'</code>) or double quotes (<code>"</code>). Strings can be concatenated using the <code>+</code> operator:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s1 <span class="op">=</span> <span class="st">"Hello"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s2 <span class="op">=</span> <span class="st">"World"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s1 <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> s2</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">'Hello World'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Multiplication of a string by an integer results in multiple concatenations:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">"Hello"</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">'HelloHelloHello'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you want to write a string that spans multiple lines, you can use triple quotes (<code>'''</code> or <code>"""</code>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">"""This is a string</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">... that spans multiple lines."""</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">'This is a string</span><span class="ch">\n</span><span class="co">that spans multiple lines.'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Strings, as other sequences in Python, can be indexed and sliced. Indexing starts at <code>0</code>; negative indices count from the end (<code>-1</code> is the last element).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">"Python"</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">0</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">'P'</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">2</span>]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">'t'</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">'n'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Slicing returns a subsequence of the string:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">"Python"</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">2</span>:<span class="dv">5</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">'yth'</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[:<span class="dv">4</span>]</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">'Pyth'</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">4</span>:]</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">'on'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Slices are specified by two indices separated by a colon. The first index is the start of the slice, and the second index is the end of the slice. The slice includes the start index but excludes the end index. If the start index is omitted, it defaults to <code>0</code>. If the end index is omitted, it defaults to the length of the sequence. You can also specify a step value, which is the third index in the slice specification:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">"Python"</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[::<span class="dv">2</span>]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">'Pto'</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">'nohtyP'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="exercise-1-9" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.9">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 1.9
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Given a string <code>s</code>, write Python expressions that return:</p>
+<ul>
+<li>the string consisting of the first and last characters of <code>s</code> (for <code>s = "Python"</code>: <code>"Pn"</code>);</li>
+<li><code>s</code> without its first and last characters (for <code>s = "Python"</code>: <code>"ytho"</code>);</li>
+<li><code>True</code> if <code>s</code> is a palindrome (reads the same backwards), and <code>False</code> otherwise. Test it with <code>"kayak"</code>, <code>"level"</code>, <code>"Python"</code>.</li>
+</ul>
+<p>Check the first expression with <code>"Python"</code>, <code>"Hello, World!"</code> and <code>"1234567890"</code>. What happens with a string that has only one character or is empty? Can you write a version, using slices only, that works for the empty string as well?</p>
+</div>
+</div>
+</section>
+<section id="lists" class="level2">
+<h2 class="anchored" data-anchor-id="lists">7. Lists</h2>
+<p>Lists are ordered collections of objects. Lists can contain objects of different types, including other lists. Lists are created using square brackets <code>[]</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">"Hello"</span>, <span class="fl">3.14</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">'Hello'</span>, <span class="fl">3.14</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Lists can be indexed and sliced just like strings:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">0</span>]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">2</span>]</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">1</span>:<span class="dv">4</span>]</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[:<span class="dv">3</span>]</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">2</span>:]</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">4</span>:]</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>]</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[::<span class="dv">2</span>]</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>]</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="exercise-1-10" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.10">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 1.10
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Given a list <code>lst</code>, write a Python expression that returns the list consisting of the first and last elements of <code>lst</code>. For example, if <code>lst = [1, 2, 3, 4, 5]</code>, the expression should return <code>[1, 5]</code>.</p>
+<p>First try the expression <code>lst[0] + lst[-1]</code> (the natural translation of the string solution from Exercise 1.9) with the lists below. Explain what you get. Then write a correct expression and check it with the same lists:</p>
+<ul>
+<li><code>[1, 2, 3, 4, 5]</code></li>
+<li><code>["Hello", "World"]</code></li>
+<li><code>[[1, 2], [3, 4], [5, 6]]</code></li>
+</ul>
+</div>
+</div>
+<p>Lists can be modified by assigning new values to elements or slices:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">1</span>:<span class="dv">4</span>] <span class="op">=</span> [<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>]</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is called item assignment. Under this operation, the list is <strong>modified in place</strong>, i.e., the original list is changed, but the identity of the list remains the same (it is the same object). Data types whose objects can be modified in place are called <strong>mutable</strong>.</p>
 <div id="exercise-1-11" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.11">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -627,139 +721,35 @@ p = \frac{a + b + c}{2}.
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Write a Python expression that returns the string <code>"even"</code> if a given integer <code>x</code> is even, and <code>"odd"</code> otherwise.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="strings" class="level2">
-<h2 class="anchored" data-anchor-id="strings">6. Strings</h2>
-<p>Strings are sequences of characters. In Python, strings are represented using single quotes (<code>'</code>) or double quotes (<code>"</code>). Strings can be concatenated using the <code>+</code> operator:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s1 <span class="op">=</span> <span class="st">"Hello"</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s2 <span class="op">=</span> <span class="st">"World"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s1 <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> s2</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">'Hello World'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Multiplication of a string by an integer results in multiple concatenations:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">"Hello"</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">*</span> <span class="dv">3</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">'HelloHelloHello'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If you want to write a string that spans multiple lines, you can use triple quotes (<code>'''</code> or <code>"""</code>):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">"""This is a string</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">... that spans multiple lines."""</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">'This is a string</span><span class="ch">\n</span><span class="co">that spans multiple lines.'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Strings, as other sequences in Python, can be indexed and sliced. Indexing starts at <code>0</code>; negative indices count from the end (<code>-1</code> is the last element).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">"Python"</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">0</span>]</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">'P'</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">2</span>]</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">'t'</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">'n'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Slicing returns a subsequence of the string:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">"Python"</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">2</span>:<span class="dv">5</span>]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">'yth'</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[:<span class="dv">4</span>]</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">'Pyth'</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[<span class="dv">4</span>:]</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">'on'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Slices are specified by two indices separated by a colon. The first index is the start of the slice, and the second index is the end of the slice. The slice includes the start index but excludes the end index. If the start index is omitted, it defaults to <code>0</code>. If the end index is omitted, it defaults to the length of the sequence. You can also specify a step value, which is the third index in the slice specification:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">"Python"</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[::<span class="dv">2</span>]</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">'Pto'</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">'nohtyP'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="exercise-1-12" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.12">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.12
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Given a string <code>s</code>, write a Python expression that returns the string consisting of the first and last characters of <code>s</code>. For example, if <code>s = "Python"</code>, the expression should return <code>"Pn"</code>.</p>
-<p>Assume that the string <code>s</code> has at least two characters. Then check your expression with the following strings:</p>
-<ul>
-<li><code>"Python"</code></li>
-<li><code>"Hello, World!"</code></li>
-<li><code>"1234567890"</code></li>
-</ul>
-<p>What happens if you try to use your expression with a string that has only one character or is empty?</p>
-</div>
-</div>
-</section>
-<section id="lists" class="level2">
-<h2 class="anchored" data-anchor-id="lists">7. Lists</h2>
-<p>Lists are ordered collections of objects. Lists can contain objects of different types, including other lists. Lists are created using square brackets <code>[]</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">"Hello"</span>, <span class="fl">3.14</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">'Hello'</span>, <span class="fl">3.14</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Lists can be indexed and sliced just like strings:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">0</span>]</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">2</span>]</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">1</span>:<span class="dv">4</span>]</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[:<span class="dv">3</span>]</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">2</span>:]</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">4</span>:]</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>]</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[::<span class="dv">2</span>]</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>]</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[::<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="exercise-1-13" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.13">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.13
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Given a list <code>lst</code>, write a Python expression that returns the list consisting of the first and last elements of <code>lst</code>. For example, if <code>lst = [1, 2, 3, 4, 5]</code>, the expression should return <code>[1, 5]</code>.</p>
-<p>Assume that the list <code>lst</code> has at least two elements. Then check your expression with the following lists:</p>
-<ul>
-<li><code>[1, 2, 3, 4, 5]</code></li>
-<li><code>["Hello", "World"]</code></li>
-<li><code>[[1, 2], [3, 4], [5, 6]]</code></li>
-</ul>
-<p>What happens if you try to use your expression with a list that has only one element or is empty?</p>
-</div>
-</div>
-<p>Lists can be modified by assigning new values to elements or slices:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst[<span class="dv">1</span>:<span class="dv">4</span>] <span class="op">=</span> [<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>]</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> lst</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This is called item assignment. Under this operation, the list is <strong>modified in place</strong>, i.e., the original list is changed, but the identity of the list remains the same (it is the same object). Data types whose objects can be modified in place are called <strong>mutable</strong>.</p>
-<div id="exercise-1-14" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.14">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.14
-</div>
-</div>
-<div class="callout-body-container callout-body">
 <p>Strings are <strong>immutable</strong>, i.e., they cannot be modified in place. Try to assign a new value to an element of a string. What happens?</p>
+<p>Predict the value of <code>a</code> after each of the following fragments, then check:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> a</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> a[:]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">99</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> a</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> b <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Explain the differences.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Names are references">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Names are references
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In Python a variable is a <em>name</em> attached to an object, not a box holding a value. The assignment <code>b = a</code> does not copy anything: after it, <code>a</code> and <code>b</code> are two names for the <strong>same</strong> object. If the object is mutable (a list), a change made through <code>b</code> is visible through <code>a</code>. A slice <code>a[:]</code> creates a new list, so it is a (shallow) copy.</p>
+<p>This works like object and array references in Java. In C and C++ you cannot assign one array to another with <code>=</code> at all; the closest analogue is two pointers to the same array.</p>
 </div>
 </div>
 </section>
@@ -772,32 +762,30 @@ p = \frac{a + b + c}{2}.
 <li><code>range(start, stop, step)</code>: <code>start, start + step, start + 2*step, ...</code>, up to but <strong>not including</strong> <code>stop</code> (<code>step</code> may be negative)</li>
 </ul>
 <p>The <code>range()</code> function returns an object of the <code>range</code> type:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> r <span class="op">=</span> <span class="bu">range</span>(<span class="dv">5</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> r</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> r <span class="op">=</span> <span class="bu">range</span>(<span class="dv">5</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> r</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The numbers in the range are not stored in memory, but generated on the fly when needed. You can convert a <code>range</code> object to a list using the <code>list()</code> function:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">5</span>))</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>))</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">2</span>))</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>]</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="exercise-1-15" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">5</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">2</span>))</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>]</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="exercise-1-12" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.12">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.15
+<span class="screen-reader-only">Tip</span>Exercise 1.12
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Use the <code>range()</code> function to generate the following sequences of numbers:</p>
+<p>Use the <code>range()</code> function to generate the following sequences of numbers (all bounds are inclusive):</p>
 <ul>
-<li><span class="math inline">\(0, 1, 2, 3, 4, 5\)</span></li>
-<li><span class="math inline">\(1, 2, 3, 4, 5\)</span></li>
 <li>all even numbers from <span class="math inline">\(0\)</span> to <span class="math inline">\(10\)</span></li>
 <li>all odd numbers from <span class="math inline">\(1\)</span> to <span class="math inline">\(9\)</span></li>
 <li>all numbers from <span class="math inline">\(10\)</span> to <span class="math inline">\(1\)</span> in descending order</li>
@@ -810,40 +798,40 @@ p = \frac{a + b + c}{2}.
 <h2 class="anchored" data-anchor-id="list-comprehensions">9. List comprehensions</h2>
 <p>List comprehensions are a concise way to create lists. They consist of an expression followed by a <code>for</code> clause, then zero or more <code>for</code> or <code>if</code> clauses. The result will be a new list resulting from evaluating the expression in the context of the <code>for</code> and <code>if</code> clauses that follow it.</p>
 <p>For example, the following list comprehension creates a list of squares of numbers from <code>0</code> to <code>9</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> squares <span class="op">=</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> squares</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">25</span>, <span class="dv">36</span>, <span class="dv">49</span>, <span class="dv">64</span>, <span class="dv">81</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> squares <span class="op">=</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> squares</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>, <span class="dv">25</span>, <span class="dv">36</span>, <span class="dv">49</span>, <span class="dv">64</span>, <span class="dv">81</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You can also add conditions to filter the elements:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> even_squares <span class="op">=</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>) <span class="cf">if</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>]</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> even_squares</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">16</span>, <span class="dv">36</span>, <span class="dv">64</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> even_squares <span class="op">=</span> [x <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>) <span class="cf">if</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> even_squares</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">16</span>, <span class="dv">36</span>, <span class="dv">64</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>List comprehensions can be more complex:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [s <span class="op">+</span> t <span class="cf">for</span> s <span class="kw">in</span> <span class="st">"ab"</span> <span class="cf">for</span> t <span class="kw">in</span> <span class="st">"xyz"</span>]</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">'ax'</span>, <span class="st">'ay'</span>, <span class="st">'az'</span>, <span class="st">'bx'</span>, <span class="st">'by'</span>, <span class="st">'bz'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="exercise-1-16" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [s <span class="op">+</span> t <span class="cf">for</span> s <span class="kw">in</span> <span class="st">"ab"</span> <span class="cf">for</span> t <span class="kw">in</span> <span class="st">"xyz"</span>]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>[<span class="st">'ax'</span>, <span class="st">'ay'</span>, <span class="st">'az'</span>, <span class="st">'bx'</span>, <span class="st">'by'</span>, <span class="st">'bz'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="exercise-1-13" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.13">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.16
+<span class="screen-reader-only">Tip</span>Exercise 1.13
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Use a list comprehension to generate the following lists:</p>
 <ul>
 <li>all numbers from <span class="math inline">\(0\)</span> to <span class="math inline">\(100\)</span> which are divisible by <span class="math inline">\(3\)</span> or <span class="math inline">\(5\)</span></li>
-<li>all squares of integers not greater than <span class="math inline">\(10000\)</span></li>
+<li>all perfect squares (<span class="math inline">\(0, 1, 4, 9, \ldots\)</span>) not greater than <span class="math inline">\(10000\)</span></li>
 </ul>
 </div>
 </div>
-<div id="exercise-1-17" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.17">
+<div id="exercise-1-14" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.14">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 1.17
+<span class="screen-reader-only">Tip</span>Exercise 1.14
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -865,6 +853,35 @@ p = \frac{a + b + c}{2}.
 <li><p>using a list comprehension of list comprehensions. This should result in a list of the form</p>
 <pre><code>[[1, 2, 3, ..., 10], [2, 4, 6, ..., 20], [3, 6, 9, ..., 30], ..., [10, 20, 30, ..., 100]]</code></pre></li>
 </ul>
+</div>
+</div>
+</section>
+<section id="challenge-optional" class="level2">
+<h2 class="anchored" data-anchor-id="challenge-optional">10. Challenge (optional)</h2>
+<div id="exercise-1-15" class="callout callout-style-default callout-tip callout-titled" title="Exercise 1.15 (challenge)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 1.15 (challenge)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Solve each task with a single expression, using list comprehensions.</p>
+<ol type="1">
+<li><p><strong>Pythagorean triples.</strong> Generate the list of all triples <code>[a, b, c]</code> of positive integers with <span class="math inline">\(a^2 + b^2 = c^2\)</span> and <span class="math inline">\(c \le 30\)</span>. Make sure that each triple appears only once, i.e., <code>[3, 4, 5]</code> but not <code>[4, 3, 5]</code>. The list should start with <code>[3, 4, 5]</code>, <code>[6, 8, 10]</code>, <code>[5, 12, 13]</code>, …</p></li>
+<li><p><strong>Matrices as lists of lists.</strong> Let</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> m <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>be a <span class="math inline">\(2 \times 3\)</span> matrix stored row by row. Write expressions that return:</p>
+<ul>
+<li>the flattened matrix <code>[1, 2, 3, 4, 5, 6]</code>;</li>
+<li>the transposed matrix <code>[[1, 4], [2, 5], [3, 6]]</code>.</li>
+</ul>
+<p>The multiplication table from Exercise 1.14 is symmetric, so transposing it would not show whether your expression is correct. That is why the matrix here is not square.</p></li>
+<li><p><strong>Perfect numbers.</strong> A positive integer is <em>perfect</em> if it equals the sum of its divisors smaller than itself, e.g.&nbsp;<span class="math inline">\(6 = 1 + 2 + 3\)</span>. Generate the list of all perfect numbers smaller than <span class="math inline">\(1000\)</span> (answer: <code>[6, 28, 496]</code>). Hint: the built-in function <code>sum()</code> returns the sum of the elements of a list, e.g.&nbsp;<code>sum([1, 2, 3])</code> is <code>6</code>.</p>
+<p>Now search below <span class="math inline">\(10000\)</span>. How long does it take? How can you make your expression faster?</p></li>
+</ol>
 </div>
 </div>
 
