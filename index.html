@@ -135,8 +135,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#scope" id="toc-scope" class="nav-link active" data-scroll-target="#scope">Scope</a></li>
+  <li><a href="#assessment" id="toc-assessment" class="nav-link" data-scroll-target="#assessment">Assessment</a></li>
+  <li><a href="#literature" id="toc-literature" class="nav-link" data-scroll-target="#literature">Literature</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -166,9 +174,40 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>This course is an introduction to Python for students who already program in another language. Rather than teaching programming from scratch, it focuses on what is characteristic of Python: its data model, idioms and standard tools.</p>
 <p>Materials for the laboratory classes. New labs are published here as the semester progresses — see the <strong>Labs</strong> section in the sidebar.</p>
+<section id="scope" class="level2">
+<h2 class="anchored" data-anchor-id="scope">Scope</h2>
+<ul>
+<li>core types: numbers, booleans, strings, lists and dictionaries; slicing and comprehensions</li>
+<li>control flow, loops and iteration; console input and output</li>
+<li>working with files and text encodings</li>
+<li>functions, docstrings and <code>doctest</code></li>
+<li>exceptions, <code>assert</code> and unit testing</li>
+<li>functional style: higher-order functions, <code>lambda</code>, <code>functools</code></li>
+<li>object-oriented programming and special methods</li>
+<li>iterators and generators</li>
+</ul>
+</section>
+<section id="assessment" class="level2">
+<h2 class="anchored" data-anchor-id="assessment">Assessment</h2>
+<p>In-class written assessment, last class.</p>
+</section>
+<section id="literature" class="level2">
+<h2 class="anchored" data-anchor-id="literature">Literature</h2>
+<p>All of the following are freely available online.</p>
+<ul>
+<li><a href="https://docs.python.org/3/tutorial/index.html">The Python Tutorial</a> — the official tutorial.</li>
+<li><a href="https://diveintopython3.net/index.html">Dive Into Python 3</a> — M. Pilgrim; written for Python 3.1, but still a distinctive and demanding read.</li>
+<li><a href="https://allendowney.github.io/ThinkPython/">Think Python, 3rd ed.</a> — A. Downey; a gentle, up-to-date introduction.</li>
+<li><a href="https://www.composingprograms.com/">Composing Programs</a> — J. DeNero; the classic SICP approach to programming, in Python.</li>
+<li><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a> — A. Sweigart; practical, task-oriented.</li>
+<li><a href="https://www.fluentpython.com/">Fluent Python</a> — L. Ramalho; free extra articles and a glossary accompanying the (paid) book, for later in the course.</li>
+<li><a href="https://docs.python.org/3/index.html">Python 3 documentation</a></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -244,7 +283,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/rodakt\.github\.io\/ItP\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -258,6 +297,11 @@ ul.task-list li input[type="checkbox"] {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
