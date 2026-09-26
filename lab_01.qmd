@@ -144,6 +144,15 @@ Now try `2.0 ** 10000`. What happens? Floating-point numbers are stored in a fix
 * What is the biggest integer power of `2.0` that you can compute without an error?
 * What happens with large negative exponents, e.g., `2.0 ** -10000`?
 * What happens when you divide very large integers, e.g., `10**10000 / 10**9999` and `10**10000 / 10**1000`? Why do both operands fit, but not always the result?
+* Now compute `x = 2 ** 100000` and then display `x`. The computation succeeds, but displaying fails. Read the error message. Python limits the conversion of integers to decimal strings to 4300 digits by default (large conversions are slow). The limit can be changed with the `sys` module, which gives access to interpreter settings:
+
+  ```python
+  >>> import sys
+  >>> sys.set_int_max_str_digits(31000)
+  >>> x
+  ```
+
+  How many digits does $2^{100000}$ have? Hint: `len(str(x))`.
 * Evaluate `0.1 + 0.2` and `0.1 + 0.2 == 0.3`. Explain the result. What does this mean for comparing floats with `==`?
 
 :::
@@ -334,6 +343,8 @@ This is similar to the ternary operator in C, Java, and other languages.
 Write a Python expression that returns the string `"even"` if a given integer `x` is even, and `"odd"` otherwise.
 
 Then write an expression that returns `"negative"`, `"zero"` or `"positive"`, depending on the sign of `x`. Hint: conditional expressions can be nested.
+
+A *leap year* has 366 days instead of 365. A year is a leap year if it is divisible by 4, except for years divisible by 100 but not by 400. Write an expression that is `True` if and only if the integer `year` is a leap year. Test it with `2024` (leap), `2023` (not), `1900` (not) and `2000` (leap). Then use it in a conditional expression that returns `366` or `365`.
 
 :::
 
