@@ -1,0 +1,523 @@
+---
+title: "Lab 2"
+subtitle: "Introduction to Python for Data Science"
+author: "Tomasz Rodak"
+---
+
+## 1. Writing programs
+
+In Thonny, you write programs in the editor. A program is saved in a file with the `.py` extension. You run it by clicking the *Run* button or by pressing `F5`; the output appears in the shell. You can also run a program from the Thonny shell by typing
+
+```
+>>> %Run program_name.py
+```
+
+where `program_name.py` is the name of the file with the program. This works in the Thonny shell only. In the system shell (terminal), run the program with
+
+```
+$ python3 program_name.py
+```
+
+(on Windows the command is usually `python` or `py` instead of `python3`).
+
+Note that a Python program needs no `main()` function: the statements in the file are simply executed from top to bottom.
+
+## 2. Input and output
+
+Python provides two built-in functions for writing text to the standard output and reading text from the standard input: `print()` and `input()`.
+
+The `print()` function takes zero or more positional arguments and writes them to the standard output. The arguments can be of any type; they are converted to strings before being written.
+
+```python
+>>> print('Hello, world!')
+Hello, world!
+>>> print(42)
+42
+>>> print("The answer is", 42)
+The answer is 42
+>>> print([1, 2, 3])
+[1, 2, 3]
+```
+
+The `input()` function writes its (optional) argument as a prompt, reads a line from the standard input and returns it as a **string**, without the trailing newline.
+
+```python
+>>> name = input('What is your name? ')
+What is your name? Tom
+>>> name
+'Tom'
+```
+
+::: {.callout-tip #exercise-2-1 title="Exercise 2.1"}
+
+Write a program `greeting.py` that reads the name of a person from the standard input and writes a greeting to the standard output.
+
+The program should work as follows:
+
+```
+>>> %Run greeting.py
+What is your name? Tom
+Hello, Tom!
+```
+
+:::
+
+::: {.callout-tip #exercise-2-2 title="Exercise 2.2"}
+
+Write a program `business_card.py` that reads the name of a person from the standard input and writes a business card to the standard output.
+
+The program should work as follows:
+
+```
+>>> %Run business_card.py
+What is your name? Tom
+*******
+* Tom *
+*******
+>>> %Run business_card.py
+What is your name? Alice
+*********
+* Alice *
+*********
+```
+
+Do not use loops in this exercise. Instead, use:
+
+* concatenation and multiplication of strings;
+* the `len()` function. It takes a string or, more generally, a collection, and returns the number of its elements.
+
+:::
+
+`print()` has some optional keyword arguments that let you control the output format. The most important are:
+
+* `sep` — the string written between the arguments; the default is a single space;
+* `end` — the string written after the last argument; the default is a newline character `'\n'`.
+
+```python
+>>> print(1, 2, 3)
+1 2 3
+>>> print(1, 2, 3, sep=', ')
+1, 2, 3
+>>> print(1, 2, 3, end='; '); print(4)
+1 2 3; 4
+```
+
+The `input()` function always returns a string. If you want to read a number, you have to convert the string to a number with `int()` or `float()`:
+
+```python
+>>> n = int(input('Enter a number: '))
+Enter a number: 42
+>>> n
+42
+>>> x = float(input('Enter a number: '))
+Enter a number: 3.14
+>>> x
+3.14
+```
+
+If the argument cannot be converted, `int()` and `float()` raise a `ValueError` exception and the program stops with an error message:
+
+```python
+>>> int('3.14')
+Traceback (most recent call last):
+  ...
+ValueError: invalid literal for int() with base 10: '3.14'
+```
+
+::: {.callout-tip #exercise-2-3 title="Exercise 2.3"}
+
+Write a program `sum.py` that reads two integers from the standard input and writes their sum to the standard output.
+
+The program should work as follows:
+
+```
+>>> %Run sum.py
+Enter a number: 42
+Enter a number: 13
+42 + 13 = 55
+```
+
+:::
+
+::: {.callout-tip #exercise-2-4 title="Exercise 2.4"}
+
+Write a program `triangle_area_v0.py` that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers and that the input is correct, i.e., the side lengths are positive and the sum of the lengths of any two sides is greater than the length of the third side.
+
+Use [Heron's formula](https://en.wikipedia.org/wiki/Heron%27s_formula). The square root can be computed as `x ** 0.5`.
+
+The program should work as follows:
+
+```
+>>> %Run triangle_area_v0.py
+Enter the length of the first side: 6
+Enter the length of the second side: 8
+Enter the length of the third side: 10
+The area of the triangle is 24.0
+```
+
+:::
+
+## 3. Conditional statements
+
+Python provides the `if` statement for conditional execution. Its syntax is:
+
+```python
+if condition:
+    statement1
+    statement2
+    ...
+```
+
+The `condition` is an expression whose truth value is checked (it need not be a `bool`; see *Truthiness* in Lab 1). If it is true, the statements are executed; otherwise they are skipped.
+
+```python
+>>> x = 42
+>>> if x == 42:
+...     print('The answer to the ultimate question of life, the universe, and everything.')
+...
+The answer to the ultimate question of life, the universe, and everything.
+```
+
+In the shell, a compound statement is finished by an empty line.
+
+The statements that form the body of `if` must be indented. The standard indentation is four spaces. You can use tabs instead, but it is not recommended, and mixing tabs and spaces is an error.
+
+::: {.callout-note title="Indentation instead of braces"}
+
+In C, C++ and Java, indentation is only a matter of style and blocks are delimited by `{ }`. In Python, indentation *is* the syntax: it alone determines which statements belong to the block. Note also that the condition needs no parentheses, but the header line must end with a colon `:`.
+
+:::
+
+The `if` statement can be followed by an `else` clause:
+
+```python
+if condition:
+    statement1
+    statement2
+    ...
+else:
+    statement3
+    statement4
+    ...
+```
+
+If the condition is true, the statements after `if` are executed. Otherwise, the statements after `else` are executed.
+
+```python
+>>> x = 13
+>>> if x % 2 == 0:
+...     print('The number is even.')
+... else:
+...     print('The number is odd.')
+...
+The number is odd.
+```
+
+::: {.callout-tip #exercise-2-5 title="Exercise 2.5"}
+
+Write a program `triangle_area_v1.py` that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers. If the input is incorrect, i.e., some side is not positive or the sum of the lengths of some two sides is not greater than the length of the third side, the program should write an error message. Otherwise, the program should write the area of the triangle.
+
+Example:
+
+```
+>>> %Run triangle_area_v1.py
+Enter the length of the first side: 6
+Enter the length of the second side: 8
+Enter the length of the third side: 10
+The area of the triangle is 24.0
+>>> %Run triangle_area_v1.py
+Enter the length of the first side: 6
+Enter the length of the second side: 8
+Enter the length of the third side: 20
+The input is incorrect.
+```
+
+:::
+
+The `if` statement can be followed by zero or more `elif` clauses:
+
+```python
+if condition1:
+    statement1
+    statement2
+    ...
+elif condition2:
+    statement3
+    statement4
+    ...
+elif condition3:
+    statement5
+    statement6
+    ...
+else:
+    statement7
+    statement8
+    ...
+```
+
+`elif` is short for "else if". The conditions are checked in order; the statements after the first true condition are executed and the rest is skipped. If none of the conditions is true, the statements after `else` (if present) are executed.
+
+```python
+>>> x = 42
+>>> if x < 0:
+...     print('The number is negative.')
+... elif x == 0:
+...     print('The number is zero.')
+... else:
+...     print('The number is positive.')
+...
+The number is positive.
+```
+
+::: {.callout-tip #exercise-2-6 title="Exercise 2.6"}
+
+Write a program `grades.py` that reads a grade from the standard input and writes a description of the grade to the standard output. The grades are as follows:
+
+* A — excellent,
+* B — good,
+* C — satisfactory,
+* D — pass,
+* F — fail.
+
+For any other input, the program should write an error message.
+
+Example:
+
+```
+>>> %Run grades.py
+Enter a grade: B
+Good
+>>> %Run grades.py
+Enter a grade: F
+Fail
+```
+
+:::
+
+::: {.callout-tip #exercise-2-7 title="Exercise 2.7"}
+
+Write a program `points_to_grade.py` that reads an integer number of points from the standard input and writes a grade to the standard output. The table of grades has the following form:
+
+| Points | Grade |
+|--------|-------|
+| 0–49   | F     |
+| 50–59  | E     |
+| 60–69  | D     |
+| 70–79  | C     |
+| 80–89  | B     |
+| 90–100 | A     |
+
+Example:
+
+```
+>>> %Run points_to_grade.py
+Enter the number of points: 42
+F
+>>> %Run points_to_grade.py
+Enter the number of points: 75
+C
+```
+
+Check if the input is correct, i.e., the number of points is between 0 and 100. If the input is incorrect, write an error message.
+
+:::
+
+## 4. `while` loop
+
+Python provides the `while` statement for indefinite iteration. Its syntax is:
+
+```python
+while condition:
+    statement1
+    statement2
+    ...
+```
+
+The `condition` is checked before each pass through the loop. If it is true, the statements are executed and the condition is checked again; as soon as it is false, the loop ends and the program continues after it.
+
+```python
+>>> n = 0
+>>> while n < 5:
+...     print(n)
+...     n += 1
+...
+0
+1
+2
+3
+4
+```
+
+You may think of the `while` statement as a repeated `if` statement: `if` executes its body at most once, while `while` executes it as long as the condition stays true.
+
+Python has no `++` and `--` operators; use `n += 1` and `n -= 1` instead.
+
+::: {.callout-tip #exercise-2-8 title="Exercise 2.8"}
+
+Write a program `countdown.py` that reads a positive integer from the standard input and writes a countdown to the standard output. The countdown should start from the given number and end at 0. Instead of the final 0, the program should write the message "Start!".
+
+Example:
+
+```
+>>> %Run countdown.py
+Enter a number: 5
+5
+4
+3
+2
+1
+Start!
+```
+
+:::
+
+::: {.callout-tip #exercise-2-9 title="Exercise 2.9"}
+
+Write a program `sum_of_many.py` that reads integers from the standard input until the user enters 0. The program should then write the sum of the entered numbers to the standard output.
+
+Example:
+
+```
+>>> %Run sum_of_many.py
+Enter a number: 42
+Enter a number: 13
+Enter a number: 7
+Enter a number: -42
+Enter a number: 0
+20
+```
+
+:::
+
+::: {.callout-tip #exercise-2-10 title="Exercise 2.10"}
+
+Write a program `add_how_many.py` that reads a positive integer `n` from the standard input. Then the program writes the smallest number `k` such that the sum of the numbers from 1 to `k` is greater than or equal to `n`:
+
+$$
+1 + 2 + \ldots + k \geq n.
+$$
+
+Example:
+
+```
+>>> %Run add_how_many.py
+Enter a number: 1
+1
+>>> %Run add_how_many.py
+Enter a number: 10
+4
+>>> %Run add_how_many.py
+Enter a number: 11
+5
+```
+
+:::
+
+::: {.callout-tip #exercise-2-11 title="Exercise 2.11"}
+
+Write a game `guess_the_number.py` that draws a random integer between 1 and 100. The user has to guess the number. After each incorrect guess, the program writes "The number is too small." or "The number is too large.". When the guess is correct, the program writes "Congratulations! You guessed the number in `k` steps.", where `k` is the number of guesses.
+
+Example:
+
+```
+>>> %Run guess_the_number.py
+Enter a number: 50
+The number is too small.
+Enter a number: 75
+The number is too small.
+Enter a number: 88
+The number is too large.
+Enter a number: 80
+The number is too small.
+Enter a number: 84
+The number is too large.
+Enter a number: 82
+Congratulations! You guessed the number in 6 steps.
+```
+
+To draw a random number, use the `randint()` function from the `random` module. It takes two arguments, `a` and `b`, and returns a random integer between `a` and `b`, inclusive.
+
+```python
+>>> from random import randint
+>>> randint(1, 100)
+42
+```
+
+:::
+
+::: {.callout-tip #exercise-2-12 title="Exercise 2.12"}
+
+Write a program `guess_the_given_number.py` that guesses a number chosen by the user. The user thinks of a non-negative integer of arbitrary size and the program tries to guess it. After each try, the program reads the user's response, which is one of:
+
+* `=` — the guess is correct,
+* `<` — the number is smaller than the guess,
+* `>` — the number is larger than the guess.
+
+When the number is guessed, the program writes the number of tries.
+
+Example:
+
+```
+>>> %Run guess_the_given_number.py
+Is the number 0? >
+Is the number 1? >
+Is the number 10? >
+Is the number 100? >
+Is the number 1000? <
+Is the number 500? <
+Is the number 250? >
+Is the number 375? <
+Is the number 312? >
+Is the number 343? =
+Nice! I guessed the number in 10 tries :-)
+```
+
+First find an upper bound (here: by trying successive powers of 10), then narrow down the range by halving it (binary search).
+
+:::
+
+## 5. `break` and `continue` statements
+
+The `break` statement terminates the innermost enclosing loop (`while`, or `for` — see the next lab); the program continues with the statement after the loop.
+
+```python
+>>> n = 0
+>>> while True:
+...     print(n)
+...     n += 1
+...     if n == 5:
+...         break
+...
+0
+1
+2
+3
+4
+```
+
+The `continue` statement skips the rest of the loop body and goes on to the next iteration (for `while`, the condition is checked again).
+
+```python
+>>> n = 0
+>>> while n < 5:
+...     n += 1
+...     if n % 2 == 0:
+...         continue
+...     print(n)
+...
+1
+3
+5
+```
+
+::: {.callout-note title="No `do ... while`"}
+
+Python has no `do ... while` loop known from C, C++ and Java. A loop whose body must run at least once, e.g. "read a number, stop when it is 0", is written as `while True:` with a `break` inside.
+
+:::
+
+::: {.callout-tip #exercise-2-13 title="Exercise 2.13"}
+
+Rewrite the programs `sum_of_many.py`, `add_how_many.py`, `guess_the_number.py`, and `guess_the_given_number.py` using the infinite `while True:` loop. Use the `break` statement to terminate the loop.
+
+:::
