@@ -2,78 +2,78 @@
   {
     "objectID": "lab_02.html",
     "href": "lab_02.html",
-    "title": "Lab 2",
+    "title": "Lab 2: Control flow",
     "section": "",
     "text": "In Thonny, you write programs in the editor. A program is saved in a file with the .py extension. You run it by clicking the Run button or by pressing F5; the output appears in the shell. You can also run a program from the Thonny shell by typing\n&gt;&gt;&gt; %Run program_name.py\nwhere program_name.py is the name of the file with the program. This works in the Thonny shell only. In the system shell (terminal), run the program with\n$ python3 program_name.py\n(on Windows the command is usually python or py instead of python3).\nNote that a Python program needs no main() function: the statements in the file are simply executed from top to bottom.",
     "crumbs": [
       "Labs",
-      "Lab 2"
+      "Lab 2: Control flow"
     ]
   },
   {
     "objectID": "lab_02.html#writing-programs",
     "href": "lab_02.html#writing-programs",
-    "title": "Lab 2",
+    "title": "Lab 2: Control flow",
     "section": "",
     "text": "In Thonny, you write programs in the editor. A program is saved in a file with the .py extension. You run it by clicking the Run button or by pressing F5; the output appears in the shell. You can also run a program from the Thonny shell by typing\n&gt;&gt;&gt; %Run program_name.py\nwhere program_name.py is the name of the file with the program. This works in the Thonny shell only. In the system shell (terminal), run the program with\n$ python3 program_name.py\n(on Windows the command is usually python or py instead of python3).\nNote that a Python program needs no main() function: the statements in the file are simply executed from top to bottom.",
     "crumbs": [
       "Labs",
-      "Lab 2"
+      "Lab 2: Control flow"
     ]
   },
   {
     "objectID": "lab_02.html#input-and-output",
     "href": "lab_02.html#input-and-output",
-    "title": "Lab 2",
+    "title": "Lab 2: Control flow",
     "section": "2. Input and output",
     "text": "2. Input and output\nPython provides two built-in functions for writing text to the standard output and reading text from the standard input: print() and input().\nThe print() function takes zero or more positional arguments and writes them to the standard output. The arguments can be of any type; they are converted to strings before being written.\n&gt;&gt;&gt; print('Hello, world!')\nHello, world!\n&gt;&gt;&gt; print(42)\n42\n&gt;&gt;&gt; print(\"The answer is\", 42)\nThe answer is 42\n&gt;&gt;&gt; print([1, 2, 3])\n[1, 2, 3]\nThe input() function writes its (optional) argument as a prompt, reads a line from the standard input and returns it as a string, without the trailing newline.\n&gt;&gt;&gt; name = input('What is your name? ')\nWhat is your name? Tom\n&gt;&gt;&gt; name\n'Tom'\n\n\n\n\n\n\nTipExercise 2.1\n\n\n\nWrite a program business_card.py that reads the name of a person from the standard input and writes a business card to the standard output.\nThe program should work as follows:\n&gt;&gt;&gt; %Run business_card.py\nWhat is your name? Tom\n*******\n* Tom *\n*******\n&gt;&gt;&gt; %Run business_card.py\nWhat is your name? Alice\n*********\n* Alice *\n*********\nDo not use loops in this exercise. Instead, use:\n\nconcatenation and multiplication of strings;\nthe len() function. It takes a string or, more generally, a collection, and returns the number of its elements.\n\n\n\nprint() has some optional keyword arguments that let you control the output format. The most important are:\n\nsep — the string written between the arguments; the default is a single space;\nend — the string written after the last argument; the default is a newline character '\\n'.\n\n&gt;&gt;&gt; print(1, 2, 3)\n1 2 3\n&gt;&gt;&gt; print(1, 2, 3, sep=', ')\n1, 2, 3\n&gt;&gt;&gt; print(1, 2, 3, end='; '); print(4)\n1 2 3; 4\nThe input() function always returns a string. If you want to read a number, you have to convert the string to a number with int() or float():\n&gt;&gt;&gt; n = int(input('Enter a number: '))\nEnter a number: 42\n&gt;&gt;&gt; n\n42\n&gt;&gt;&gt; x = float(input('Enter a number: '))\nEnter a number: 3.14\n&gt;&gt;&gt; x\n3.14\nIf the argument cannot be converted, int() and float() raise a ValueError exception and the program stops with an error message:\n&gt;&gt;&gt; int('3.14')\nTraceback (most recent call last):\n  ...\nValueError: invalid literal for int() with base 10: '3.14'\nHandling such errors comes later in the course. In this lab, assume that the user always enters valid data, unless an exercise says otherwise.\n\n\n\n\n\n\nWarninginput() returns a string\n\n\n\nForgetting the conversion does not always cause an error. Sometimes the program just quietly computes something else:\n&gt;&gt;&gt; a = input('Enter a number: ')\nEnter a number: 42\n&gt;&gt;&gt; b = input('Enter a number: ')\nEnter a number: 13\n&gt;&gt;&gt; a + b\n'4213'\n&gt;&gt;&gt; '9' &gt; '10'\nTrue\n+ on strings is concatenation, and strings are compared character by character ('9' &gt; '1'). Mixing types fails only when the operation makes no sense, e.g. '9' &gt; 10 raises a TypeError.\n\n\n\nFormatted string literals (f-strings)\nA string literal prefixed with f may contain expressions in braces { }. They are evaluated and their values are inserted into the string:\n&gt;&gt;&gt; name = 'Tom'\n&gt;&gt;&gt; age = 42\n&gt;&gt;&gt; f'{name} is {age} years old.'\n'Tom is 42 years old.'\n&gt;&gt;&gt; f'Next year {name} will be {age + 1}.'\n'Next year Tom will be 43.'\nAfter a colon, you can add a format specification, which works much like the format strings of printf() in C:\n&gt;&gt;&gt; x = 2 / 3\n&gt;&gt;&gt; f'{x:.2f}'          # 2 digits after the decimal point, like %.2f\n'0.67'\n&gt;&gt;&gt; f'[{age:5d}]'       # integer, field width 5, like %5d\n'[   42]'\n&gt;&gt;&gt; f'[{name:&gt;6}]'      # right-aligned in a field of width 6\n'[   Tom]'\n&gt;&gt;&gt; f'[{name:&lt;6}]'      # left-aligned\n'[Tom   ]'\n&gt;&gt;&gt; f'[{name:^7}]'      # centred\n'[  Tom  ]'\nAn = after the expression prints both the expression and its value, which is handy for debugging:\n&gt;&gt;&gt; f'{age + 1 = }'\n'age + 1 = 43'\nThe full syntax is described in the Format Specification Mini-Language.\n\n\n\n\n\n\nTipExercise 2.2\n\n\n\nWrite a program sum.py that reads two integers from the standard input and writes their sum to the standard output. Use an f-string to build the output line.\nThe program should work as follows:\n&gt;&gt;&gt; %Run sum.py\nEnter a number: 42\nEnter a number: 13\n42 + 13 = 55\n\n\n\n\n\n\n\n\nTipExercise 2.3\n\n\n\nWrite a program triangle_area_v0.py that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers and that the input is correct, i.e., the side lengths are positive and the sum of the lengths of any two sides is greater than the length of the third side.\nUse Heron’s formula. The square root can be computed as x ** 0.5. Write the area with two digits after the decimal point.\nThe program should work as follows:\n&gt;&gt;&gt; %Run triangle_area_v0.py\nEnter the length of the first side: 6\nEnter the length of the second side: 8\nEnter the length of the third side: 10\nThe area of the triangle is 24.00\n&gt;&gt;&gt; %Run triangle_area_v0.py\nEnter the length of the first side: 3\nEnter the length of the second side: 4\nEnter the length of the third side: 6\nThe area of the triangle is 5.33",
     "crumbs": [
       "Labs",
-      "Lab 2"
+      "Lab 2: Control flow"
     ]
   },
   {
     "objectID": "lab_02.html#conditional-statements",
     "href": "lab_02.html#conditional-statements",
-    "title": "Lab 2",
+    "title": "Lab 2: Control flow",
     "section": "3. Conditional statements",
     "text": "3. Conditional statements\nPython provides the if statement for conditional execution. Its syntax is:\nif condition:\n    statement1\n    statement2\n    ...\nThe condition is an expression whose truth value is checked (it need not be a bool; see Truthiness in Lab 1). If it is true, the statements are executed; otherwise they are skipped.\n&gt;&gt;&gt; x = 42\n&gt;&gt;&gt; if x == 42:\n...     print('The answer to the ultimate question of life, the universe, and everything.')\n...\nThe answer to the ultimate question of life, the universe, and everything.\nIn the shell, a compound statement is finished by an empty line.\nThe statements that form the body of if must be indented. The standard indentation is four spaces. You can use tabs instead, but it is not recommended, and mixing tabs and spaces is an error.\n\n\n\n\n\n\nNoteIndentation instead of braces\n\n\n\nIn C, C++ and Java, indentation is only a matter of style and blocks are delimited by { }. In Python, indentation is the syntax: it alone determines which statements belong to the block. Note also that the condition needs no parentheses, but the header line must end with a colon :.\n\n\nThe if statement can be followed by an else clause:\nif condition:\n    statement1\n    statement2\n    ...\nelse:\n    statement3\n    statement4\n    ...\nIf the condition is true, the statements after if are executed. Otherwise, the statements after else are executed.\n&gt;&gt;&gt; x = 13\n&gt;&gt;&gt; if x % 2 == 0:\n...     print('The number is even.')\n... else:\n...     print('The number is odd.')\n...\nThe number is odd.\n\n\n\n\n\n\nTipExercise 2.4\n\n\n\nWrite a program triangle_area_v1.py that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers. If the input is incorrect, i.e., some side is not positive or the sum of the lengths of some two sides is not greater than the length of the third side, the program should write an error message. Otherwise, the program should write the area of the triangle.\nExample:\n&gt;&gt;&gt; %Run triangle_area_v1.py\nEnter the length of the first side: 6\nEnter the length of the second side: 8\nEnter the length of the third side: 10\nThe area of the triangle is 24.00\n&gt;&gt;&gt; %Run triangle_area_v1.py\nEnter the length of the first side: 6\nEnter the length of the second side: 8\nEnter the length of the third side: 20\nThe input is incorrect.\n\n\nThe if statement can be followed by zero or more elif clauses:\nif condition1:\n    statement1\n    statement2\n    ...\nelif condition2:\n    statement3\n    statement4\n    ...\nelif condition3:\n    statement5\n    statement6\n    ...\nelse:\n    statement7\n    statement8\n    ...\nelif is short for “else if”. The conditions are checked in order; the statements after the first true condition are executed and the rest is skipped. If none of the conditions is true, the statements after else (if present) are executed.\n&gt;&gt;&gt; x = 42\n&gt;&gt;&gt; if x &lt; 0:\n...     print('The number is negative.')\n... elif x == 0:\n...     print('The number is zero.')\n... else:\n...     print('The number is positive.')\n...\nThe number is positive.\n\n\n\n\n\n\nTipExercise 2.5\n\n\n\nWrite a program grades.py that reads a grade from the standard input and writes a description of the grade to the standard output. The grades are as follows:\n\nA — excellent,\nB — good,\nC — satisfactory,\nD — pass,\nF — fail.\n\nFor any other input, the program should write an error message.\nExample:\n&gt;&gt;&gt; %Run grades.py\nEnter a grade: B\nGood\n&gt;&gt;&gt; %Run grades.py\nEnter a grade: F\nFail\n\n\n\n\n\n\n\n\nTipExercise 2.6\n\n\n\nWrite a program points_to_grade.py that reads an integer number of points from the standard input and writes a grade to the standard output. The table of grades has the following form:\n\n\n\nPoints\nGrade\n\n\n\n\n0–49\nF\n\n\n50–59\nE\n\n\n60–69\nD\n\n\n70–79\nC\n\n\n80–89\nB\n\n\n90–100\nA\n\n\n\nExample:\n&gt;&gt;&gt; %Run points_to_grade.py\nEnter the number of points: 42\nF\n&gt;&gt;&gt; %Run points_to_grade.py\nEnter the number of points: 75\nC\nCheck if the input is correct, i.e., the number of points is between 0 and 100 (recall chained comparisons from Lab 1). If the input is incorrect, write an error message.\nOrder the elif clauses so that each of them compares points with one number only. Why is a condition such as 80 &lt;= points &lt;= 89 unnecessary there?",
     "crumbs": [
       "Labs",
-      "Lab 2"
+      "Lab 2: Control flow"
     ]
   },
   {
     "objectID": "lab_02.html#while-loop",
     "href": "lab_02.html#while-loop",
-    "title": "Lab 2",
+    "title": "Lab 2: Control flow",
     "section": "4. while loop",
     "text": "4. while loop\nPython provides the while statement for indefinite iteration. Its syntax is:\nwhile condition:\n    statement1\n    statement2\n    ...\nThe condition is checked before each pass through the loop. If it is true, the statements are executed and the condition is checked again; as soon as it is false, the loop ends and the program continues after it.\n&gt;&gt;&gt; n = 0\n&gt;&gt;&gt; while n &lt; 5:\n...     print(n)\n...     n += 1\n...\n0\n1\n2\n3\n4\nYou may think of the while statement as a repeated if statement: if executes its body at most once, while while executes it as long as the condition stays true.\nPython has no ++ and -- operators; use n += 1 and n -= 1 instead.\n\n\n\n\n\n\nWarningStopping an infinite loop\n\n\n\nIf you forget to change the variable tested in the condition (e.g. you leave out n += 1 above), the loop never ends. In Thonny, stop the program with the Stop button or Ctrl+F2; in the system terminal, press Ctrl+C.\n\n\n\n\n\n\n\n\nTipExercise 2.7\n\n\n\nWrite a program countdown.py that reads a positive integer from the standard input and writes a countdown to the standard output. The countdown should start from the given number and end at 0. Instead of the final 0, the program should write the message “Start!”.\nExample:\n&gt;&gt;&gt; %Run countdown.py\nEnter a number: 5\n5\n4\n3\n2\n1\nStart!\n\n\n\n\n\n\n\n\nTipExercise 2.8\n\n\n\nWrite a program sum_of_many.py that reads integers from the standard input until the user enters 0. The program should then write the sum of the entered numbers to the standard output.\nExample:\n&gt;&gt;&gt; %Run sum_of_many.py\nEnter a number: 42\nEnter a number: 13\nEnter a number: 7\nEnter a number: -42\nEnter a number: 0\n20\n\n\n\n\n\n\n\n\nTipExercise 2.9\n\n\n\nWrite a program add_how_many.py that reads a positive integer n from the standard input. Then the program writes the smallest number k such that the sum of the numbers from 1 to k is greater than or equal to n:\n\\[\n1 + 2 + \\ldots + k \\geq n.\n\\]\nExample:\n&gt;&gt;&gt; %Run add_how_many.py\nEnter a number: 1\n1\n&gt;&gt;&gt; %Run add_how_many.py\nEnter a number: 10\n4\n&gt;&gt;&gt; %Run add_how_many.py\nEnter a number: 11\n5\n\n\n\n\n\n\n\n\nTipExercise 2.10\n\n\n\nWrite a game guess_the_number.py that draws a random integer between 1 and 100. The user has to guess the number. After each incorrect guess, the program writes “The number is too small.” or “The number is too large.”. When the guess is correct, the program writes “Congratulations! You guessed the number in k steps.”, where k is the number of guesses. After a lucky first guess, the message should say “1 step”, not “1 steps” (use a conditional expression from Lab 1).\nExample:\n&gt;&gt;&gt; %Run guess_the_number.py\nEnter a number: 50\nThe number is too small.\nEnter a number: 75\nThe number is too small.\nEnter a number: 88\nThe number is too large.\nEnter a number: 80\nThe number is too small.\nEnter a number: 84\nThe number is too large.\nEnter a number: 82\nCongratulations! You guessed the number in 6 steps.\nTo draw a random number, use the randint() function from the random module. It takes two arguments, a and b, and returns a random integer between a and b, inclusive.\n&gt;&gt;&gt; from random import randint\n&gt;&gt;&gt; randint(1, 100)\n42\n\n\n\n\n\n\n\n\nTipExercise 2.11\n\n\n\nWrite a program guess_the_given_number.py that guesses a number chosen by the user. The user thinks of a non-negative integer of arbitrary size and the program tries to guess it. After each try, the program reads the user’s response, which is one of:\n\n= — the guess is correct,\n&lt; — the number is smaller than the guess,\n&gt; — the number is larger than the guess.\n\nWhen the number is guessed, the program writes the number of tries.\nExample:\n&gt;&gt;&gt; %Run guess_the_given_number.py\nIs the number 0? &gt;\nIs the number 1? &gt;\nIs the number 10? &gt;\nIs the number 100? &gt;\nIs the number 1000? &lt;\nIs the number 500? &lt;\nIs the number 250? &gt;\nIs the number 375? &lt;\nIs the number 312? &gt;\nIs the number 343? =\nNice! I guessed the number in 10 tries :-)\nFirst find an upper bound (here: by trying successive powers of 10), then narrow down the range by halving it (binary search).",
     "crumbs": [
       "Labs",
-      "Lab 2"
+      "Lab 2: Control flow"
     ]
   },
   {
     "objectID": "lab_02.html#break-and-continue-statements",
     "href": "lab_02.html#break-and-continue-statements",
-    "title": "Lab 2",
+    "title": "Lab 2: Control flow",
     "section": "5. break and continue statements",
     "text": "5. break and continue statements\nThe break statement terminates the innermost enclosing loop (while, or for — see the next lab); the program continues with the statement after the loop.\n&gt;&gt;&gt; n = 0\n&gt;&gt;&gt; while True:\n...     print(n)\n...     n += 1\n...     if n == 5:\n...         break\n...\n0\n1\n2\n3\n4\nThe continue statement skips the rest of the loop body and goes on to the next iteration (for while, the condition is checked again).\n&gt;&gt;&gt; n = 0\n&gt;&gt;&gt; while n &lt; 5:\n...     n += 1\n...     if n % 2 == 0:\n...         continue\n...     print(n)\n...\n1\n3\n5\n\n\n\n\n\n\nNoteNo do ... while\n\n\n\nPython has no do ... while loop known from C, C++ and Java. A loop whose body must run at least once, e.g. “read a number, stop when it is 0”, is written as while True: with a break inside.\n\n\n\nelse clause of a loop\nA while loop may have an else clause. Its body is executed when the loop ends normally, i.e. because the condition became false, but not when the loop is left with break:\nn = 91\nd = 2\nwhile d * d &lt;= n:\n    if n % d == 0:\n        print(n, 'is divisible by', d)\n        break\n    d += 1\nelse:\n    print(n, 'is prime')\nFor n = 91 the program writes 91 is divisible by 7; for n = 97 it writes 97 is prime.\n\n\n\n\n\n\nNoteLoop else instead of a flag\n\n\n\nC, C++ and Java have no such construct; there you would typically introduce a Boolean flag (found = false;), set it before break and test it after the loop. In Python, the loop else does this for you. The name is admittedly confusing: read it as “no break”.\n\n\n\n\n\n\n\n\nTipExercise 2.12\n\n\n\n\nRewrite sum_of_many.py using the infinite while True: loop. Use the break statement to terminate the loop.\nWrite guess_the_number_limited.py, a version of guess_the_number.py in which the user has at most 7 guesses. If all of them are wrong, the program writes “You lost! The number was x.”. Use the else clause of the loop, without any extra flag variable.\n\nIs 7 guesses enough to always win if you play well? Why?",
     "crumbs": [
       "Labs",
-      "Lab 2"
+      "Lab 2: Control flow"
     ]
   },
   {
     "objectID": "lab_02.html#challenge-optional",
     "href": "lab_02.html#challenge-optional",
-    "title": "Lab 2",
+    "title": "Lab 2: Control flow",
     "section": "6. Challenge (optional)",
     "text": "6. Challenge (optional)\n\n\n\n\n\n\nTipExercise 2.13 (challenge)\n\n\n\nSolve Exercise 2.9 without a loop. Since \\(1 + 2 + \\ldots + k = k(k+1)/2\\), the answer can be computed directly from n by solving a quadratic inequality.\n\nWrite add_how_many_formula.py using ** 0.5 and check that it gives the same answers as add_how_many.py for all n from 1 to 10000 (write a loop that compares them, not by hand).\nTry n = 10**40 and n = 10**400. Check that the result k really satisfies the conditions: \\(k(k+1)/2 \\geq n\\) and \\((k-1)k/2 &lt; n\\). What goes wrong, and why?\nFix the program so that it is exact for every n. Hint: math.isqrt(m) from the math module returns the integer square root of m, i.e. the largest integer whose square is at most m, and it works on integers of any size.",
     "crumbs": [
       "Labs",
-      "Lab 2"
+      "Lab 2: Control flow"
     ]
   },
   {
@@ -119,122 +119,122 @@
   {
     "objectID": "lab_01.html",
     "href": "lab_01.html",
-    "title": "Lab 1",
+    "title": "Lab 1: Basic types",
     "section": "",
     "text": "Thonny is a beginner-friendly Integrated Development Environment (IDE) for Python. By default its window has two panes: the editor and the shell. Additional views (e.g. Variables) can be turned on from the View menu.\n\n\nThe editor is where you write your code. It has a number of features that help you write code, such as syntax highlighting, code completion, and error highlighting.\nThe editor is the upper pane in the Thonny window.\n\n\n\nThe shell is where you can interact with the Python interpreter in the so-called Read-Eval-Print Loop (REPL) mode. REPL is a simple interactive programming environment that takes single user inputs, evaluates them, and returns the result to the user. The shell is useful for testing out small pieces of code or for experimenting with the Python language.\nThe shell is the lower pane in the Thonny window.\nHere’s a simple example of using Python’s REPL:\n&gt;&gt;&gt; 2 + 2\n4\n&gt;&gt;&gt; print(\"Hello, World!\")\nHello, World!\n&gt;&gt;&gt; x = 10\n&gt;&gt;&gt; x * 5\n50\nEach line beginning with &gt;&gt;&gt; represents user input. The line(s) following show the output of that input.",
     "crumbs": [
       "Labs",
-      "Lab 1"
+      "Lab 1: Basic types"
     ]
   },
   {
     "objectID": "lab_01.html#thonny-ide",
     "href": "lab_01.html#thonny-ide",
-    "title": "Lab 1",
+    "title": "Lab 1: Basic types",
     "section": "",
     "text": "Thonny is a beginner-friendly Integrated Development Environment (IDE) for Python. By default its window has two panes: the editor and the shell. Additional views (e.g. Variables) can be turned on from the View menu.\n\n\nThe editor is where you write your code. It has a number of features that help you write code, such as syntax highlighting, code completion, and error highlighting.\nThe editor is the upper pane in the Thonny window.\n\n\n\nThe shell is where you can interact with the Python interpreter in the so-called Read-Eval-Print Loop (REPL) mode. REPL is a simple interactive programming environment that takes single user inputs, evaluates them, and returns the result to the user. The shell is useful for testing out small pieces of code or for experimenting with the Python language.\nThe shell is the lower pane in the Thonny window.\nHere’s a simple example of using Python’s REPL:\n&gt;&gt;&gt; 2 + 2\n4\n&gt;&gt;&gt; print(\"Hello, World!\")\nHello, World!\n&gt;&gt;&gt; x = 10\n&gt;&gt;&gt; x * 5\n50\nEach line beginning with &gt;&gt;&gt; represents user input. The line(s) following show the output of that input.",
     "crumbs": [
       "Labs",
-      "Lab 1"
+      "Lab 1: Basic types"
     ]
   },
   {
     "objectID": "lab_01.html#basic-arithmetic-operations",
     "href": "lab_01.html#basic-arithmetic-operations",
-    "title": "Lab 1",
+    "title": "Lab 1: Basic types",
     "section": "2. Basic arithmetic operations",
     "text": "2. Basic arithmetic operations\nPython supports the following basic arithmetic operations:\n\naddition: +\nsubtraction: -\nmultiplication: *\ndivision: /\ninteger division: //\nremainder: %\nexponentiation: **\n\nThe order of operations is the same as in mathematics. Round brackets can be used to change the order of operations.\n\n\n\n\n\n\nTipExercise 1.1\n\n\n\nCalculate the following expressions. Use the shell in Thonny.\n\n\\(7 \\div 3\\)\n\\(7 \\div 3\\) (integer division)\n\\(7 \\mod 3\\)\n\\(2 + 3 \\times 4\\)\n\\((2 + 3) \\times 4\\)\n\\(2^{10} \\mod 3\\)\n\nNow compute -7 // 2 and -7 % 3. Predict the results first. If you know C, C++ or Java, compare with what -7 / 2 and -7 % 3 give there. What rule does Python use for integer division of negative numbers? Check that a == (a // b) * b + a % b holds for a = -7, b = 3.",
     "crumbs": [
       "Labs",
-      "Lab 1"
+      "Lab 1: Basic types"
     ]
   },
   {
     "objectID": "lab_01.html#variables-assignment-and-data-types",
     "href": "lab_01.html#variables-assignment-and-data-types",
-    "title": "Lab 1",
+    "title": "Lab 1: Basic types",
     "section": "3. Variables, assignment, and data types",
     "text": "3. Variables, assignment, and data types\nIn Python, a variable is a name that refers to a value stored in memory.\nVariables are created by assignment, using the = operator. (A few other statements, such as for, def and import, also bind names, but we will meet them later.)\nExamples of variable assignment:\n&gt;&gt;&gt; x = 10\n&gt;&gt;&gt; x = x + 1\n&gt;&gt;&gt; x\n11\n&gt;&gt;&gt; y = 3.14\n&gt;&gt;&gt; 2 * y\n6.28\n&gt;&gt;&gt; z = \"Hello, World!\"\n&gt;&gt;&gt; z + \" \" + z\n'Hello, World! Hello, World!'\n&gt;&gt;&gt; w = [1, 2, 3, 4, 5]\n&gt;&gt;&gt; w[2]\n3\nVariables in Python have no declared type. The same variable can hold values of different types at different times.\n&gt;&gt;&gt; x = 10\n&gt;&gt;&gt; type(x)\n&lt;class 'int'&gt;\n&gt;&gt;&gt; x = 3.14\n&gt;&gt;&gt; type(x)\n&lt;class 'float'&gt;\n&gt;&gt;&gt; x = \"Hello, World!\"\n&gt;&gt;&gt; type(x)\n&lt;class 'str'&gt;\nValues, on the other hand, are typed. The type() function returns the type of a value.",
     "crumbs": [
       "Labs",
-      "Lab 1"
+      "Lab 1: Basic types"
     ]
   },
   {
     "objectID": "lab_01.html#numeric-types",
     "href": "lab_01.html#numeric-types",
-    "title": "Lab 1",
+    "title": "Lab 1: Basic types",
     "section": "4. Numeric types",
     "text": "4. Numeric types\nPython supports three built-in numeric types:\n\nintegers (int)\nfloating-point numbers (float)\ncomplex numbers (complex)\n\n\n\n\n\n\n\nTipExercise 1.2\n\n\n\nType of an object returned by an operation may depend on the types of the operands. Experiment with the following operations in Python and determine the type of the result in each case:\n\n5 + 3\n5 + 3.0\n5 / 2\n6 / 3\n5 // 2\n2 ** -1\n100 ** 0.5\n4 ** (-1/2)\n(-8) ** (1/3)\n\nFor each operation:\n\nPredict the result and its type before running the code.\nUse the Python interpreter to perform the operation.\nUse the type() function to check the actual type of the result.\nExplain why the result has that particular type.\n\nHow does 6 / 3 differ from the same expression in C, C++ or Java?\n\n\n\n\n\n\n\n\nTipExercise 1.3\n\n\n\nCompute \\(2^{1000}\\), \\(2^{10000}\\) and \\(2^{2^{10}}\\). Integers in Python can be arbitrarily large (arbitrary-precision arithmetic); compare this with int or long in C.\nNow try 2.0 ** 10000. What happens? Floating-point numbers are stored in a fixed number of bits (64, IEEE 754 double precision), just like double in C.\n\nWhat is the biggest integer power of 2.0 that you can compute without an error?\nWhat happens with large negative exponents, e.g., 2.0 ** -10000?\nWhat happens when you divide very large integers, e.g., 10**10000 / 10**9999 and 10**10000 / 10**1000? Why do both operands fit, but not always the result?\nNow compute x = 2 ** 100000 and then display x. The computation succeeds, but displaying fails. Read the error message. Python limits the conversion of integers to decimal strings to 4300 digits by default (large conversions are slow). The limit can be changed with the sys module, which gives access to interpreter settings:\n&gt;&gt;&gt; import sys\n&gt;&gt;&gt; sys.set_int_max_str_digits(31000)\n&gt;&gt;&gt; x\nHow many digits does \\(2^{100000}\\) have? Hint: len(str(x)).\nEvaluate 0.1 + 0.2 and 0.1 + 0.2 == 0.3. Explain the result. What does this mean for comparing floats with ==?\n\n\n\n\n\n\n\n\n\nTipExercise 1.4\n\n\n\nLet \\(T\\) be a triangle with sides of lengths \\(a=3\\), \\(b=4\\), and \\(c=5\\). The area of \\(T\\) can be calculated using Heron’s formula:\n\\[\n\\text{area}(T) = \\sqrt{p(p-a)(p-b)(p-c)},\n\\]\nwhere \\(p\\) is the semiperimeter of \\(T\\):\n\\[\np = \\frac{a + b + c}{2}.\n\\]\nCalculate the area of \\(T\\) using Python. Define variables a, b, and c with the given values, then define p and finally calculate the area of \\(T\\) (answer: \\(6\\)). Hint: \\(\\sqrt{x} = x^{1/2}\\).\nDo the same for triangles with sides:\n\n\\(a=5\\), \\(b=12\\), \\(c=13\\) (answer: \\(30\\)),\n\\(a=1\\), \\(b=1\\), \\(c=1\\) (answer: \\(\\sqrt{3}/4 \\approx 0.433\\)).",
     "crumbs": [
       "Labs",
-      "Lab 1"
+      "Lab 1: Basic types"
     ]
   },
   {
     "objectID": "lab_01.html#booleans",
     "href": "lab_01.html#booleans",
-    "title": "Lab 1",
+    "title": "Lab 1: Basic types",
     "section": "5. Booleans",
     "text": "5. Booleans\nPython has a built-in type for Boolean values: bool. There are two Boolean values: True and False.\nBoolean values are used to represent the truth values of logical expressions. Python supports the following logical operators:\n\nand\nor\nnot\n\nThe and operator returns True if both operands are True, otherwise it returns False. The or operator returns True if at least one of the operands is True, otherwise it returns False. The not operator returns True if the operand is False, and vice versa.\nPython supports the following comparison operators:\n\n== (equal)\n!= (not equal)\n&gt; (greater than)\n&lt; (less than)\n&gt;= (greater than or equal)\n&lt;= (less than or equal)\n\nComparison operators return Boolean values.\nComparisons and logical operators can be combined to form more complex expressions:\n&gt;&gt;&gt; x = 10\n&gt;&gt;&gt; y = 20\n&gt;&gt;&gt; x &gt; 5 and y &lt; 30\nTrue\n&gt;&gt;&gt; x &lt; 5 or y &gt; 30\nFalse\n&gt;&gt;&gt; not (x &gt; 5)\nFalse\nComparisons can be chained: a &lt; b &lt; c means a &lt; b and b &lt; c.\n&gt;&gt;&gt; x = 7\n&gt;&gt;&gt; 1 &lt;= x &lt;= 10\nTrue\n\n\n\n\n\n\nTipExercise 1.5\n\n\n\nDetermine the truth value of the following logical expressions. Try to predict the result before running the code.\n\n(2 + 2 &gt; 4) or not (3 * 4 == 12)\nFalse and True or True\nFalse and (True or True)\nTrue or True and False\n1 &lt; 5 &lt; 10\n3 &lt; 2 &lt; 1\n\nWhat is the precedence of and compared to or?\nIn C and C++, 3 &lt; 2 &lt; 1 compiles and is true. Why? (In Java it does not compile at all.)\n\n\n\n\n\n\n\n\nNoteExpression vs. statement\n\n\n\nAn expression is a piece of code that evaluates to a value: 2 + 2, x &gt; 5 and y &lt; 30, not p. You can type it into the shell and it prints the result, or use it anywhere a value is expected, e.g. on the right-hand side of =.\nA statement is an instruction that does something but has no value itself, e.g. an assignment x = 10, or if, for, while, def.\n(If you know C, C++ or Java, note the difference: there an assignment is an expression, x = 10 has the value 10, and you can write y = (x = 10) + 1. In Python this is a syntax error.)\nWhen an exercise asks you to write an expression, the answer is a single expression, not a program. For example, an expression that is True when x is between 1 and 10 is\nx &gt;= 1 and x &lt;= 10\nand not\nif x &gt;= 1 and x &lt;= 10:\n    result = True\nelse:\n    result = False\nTo test your expression, assign values to the variables in the shell and then type the expression:\n&gt;&gt;&gt; p = True\n&gt;&gt;&gt; q = False\n&gt;&gt;&gt; &lt;your expression&gt;\n\n\n\n\n\n\n\n\nTipExercise 1.6\n\n\n\nGiven two Boolean variables p and q:\n\nwrite a single expression for the XOR operation (exclusive OR) using only p, q, and the logical operators and, or, and not. The XOR operation returns True if exactly one of the operands is True, otherwise it returns False.\nwrite a single expression for the implication operation using only p, q, and the logical operators and, or, and not. The implication operation returns False if the first operand is True and the second operand is False, otherwise it returns True.\n\nFor Boolean p and q, XOR can also be written with a single comparison operator. Which one?\n\n\n\nTruthiness\nLogical operators in Python have some interesting behavior when used with non-Boolean operands.\nThe not operator first converts its operand to a Boolean value, then negates it. The following values are treated as False in a Boolean context:\n\nNone\n0\n0.0\n\"\" (empty string)\n[] (empty list)\n() (empty tuple)\n{} (empty dictionary)\n\nThe and and or operators, on the other hand, do not always return a Boolean value. Instead, they return one of their operands—the first one that determines the outcome of the operation. Evaluation stops as soon as the outcome is known (short-circuit evaluation).\n\n\n\n\n\n\nTipExercise 1.7\n\n\n\nExplain the rationale behind the expression not not x. What does it evaluate to? Which built-in function gives the same result?\nPredict the results of the following expressions before running them:\n\n0 and 5\n5 and 0\n3 and 5\n0 or 5\n3 or 5\n\"\" or \"default\"\n\nWhat is the result of the code below, and why doesn’t it raise ZeroDivisionError?\n&gt;&gt;&gt; count = 0\n&gt;&gt;&gt; count and 100 / count\n\n\n\n\nConditional expression\nThe conditional expression a if condition else b evaluates to a if condition is true, and to b otherwise:\n&gt;&gt;&gt; x = 10\n&gt;&gt;&gt; \"positive\" if x &gt; 0 else \"non-positive\"\n'positive'\n&gt;&gt;&gt; x = -10\n&gt;&gt;&gt; \"positive\" if x &gt; 0 else \"non-positive\"\n'non-positive'\nThis is similar to the ternary operator in C, Java, and other languages.\n\n\n\n\n\n\nTipExercise 1.8\n\n\n\nWrite a Python expression that returns the string \"even\" if a given integer x is even, and \"odd\" otherwise.\nThen write an expression that returns \"negative\", \"zero\" or \"positive\", depending on the sign of x. Hint: conditional expressions can be nested.\nA leap year has 366 days instead of 365. A year is a leap year if it is divisible by 4, except for years divisible by 100 but not by 400. Write an expression that is True if and only if the integer year is a leap year. Test it with 2024 (leap), 2023 (not), 1900 (not) and 2000 (leap). Then use it in a conditional expression that returns 366 or 365.",
     "crumbs": [
       "Labs",
-      "Lab 1"
+      "Lab 1: Basic types"
     ]
   },
   {
     "objectID": "lab_01.html#strings",
     "href": "lab_01.html#strings",
-    "title": "Lab 1",
+    "title": "Lab 1: Basic types",
     "section": "6. Strings",
     "text": "6. Strings\nStrings are sequences of characters. In Python, strings are represented using single quotes (') or double quotes (\"). Strings can be concatenated using the + operator:\n&gt;&gt;&gt; s1 = \"Hello\"\n&gt;&gt;&gt; s2 = \"World\"\n&gt;&gt;&gt; s1 + \" \" + s2\n'Hello World'\nMultiplication of a string by an integer results in multiple concatenations:\n&gt;&gt;&gt; s = \"Hello\"\n&gt;&gt;&gt; s * 3\n'HelloHelloHello'\nIf you want to write a string that spans multiple lines, you can use triple quotes (''' or \"\"\"):\n&gt;&gt;&gt; s = \"\"\"This is a string\n... that spans multiple lines.\"\"\"\n&gt;&gt;&gt; s\n'This is a string\\nthat spans multiple lines.'\nStrings, as other sequences in Python, can be indexed and sliced. Indexing starts at 0; negative indices count from the end (-1 is the last element).\n&gt;&gt;&gt; s = \"Python\"\n&gt;&gt;&gt; s[0]\n'P'\n&gt;&gt;&gt; s[2]\n't'\n&gt;&gt;&gt; s[-1]\n'n'\nSlicing returns a subsequence of the string:\n&gt;&gt;&gt; s = \"Python\"\n&gt;&gt;&gt; s[2:5]\n'yth'\n&gt;&gt;&gt; s[:4]\n'Pyth'\n&gt;&gt;&gt; s[4:]\n'on'\nSlices are specified by two indices separated by a colon. The first index is the start of the slice, and the second index is the end of the slice. The slice includes the start index but excludes the end index. If the start index is omitted, it defaults to 0. If the end index is omitted, it defaults to the length of the sequence. You can also specify a step value, which is the third index in the slice specification:\n&gt;&gt;&gt; s = \"Python\"\n&gt;&gt;&gt; s[::2]\n'Pto'\n&gt;&gt;&gt; s[::-1]\n'nohtyP'\n\n\n\n\n\n\nTipExercise 1.9\n\n\n\nGiven a string s, write Python expressions that return:\n\nthe string consisting of the first and last characters of s (for s = \"Python\": \"Pn\");\ns without its first and last characters (for s = \"Python\": \"ytho\");\nTrue if s is a palindrome (reads the same backwards), and False otherwise. Test it with \"kayak\", \"level\", \"Python\".\n\nCheck the first expression with \"Python\", \"Hello, World!\" and \"1234567890\". What happens with a string that has only one character or is empty? Can you write a version, using slices only, that works for the empty string as well?",
     "crumbs": [
       "Labs",
-      "Lab 1"
+      "Lab 1: Basic types"
     ]
   },
   {
     "objectID": "lab_01.html#lists",
     "href": "lab_01.html#lists",
-    "title": "Lab 1",
+    "title": "Lab 1: Basic types",
     "section": "7. Lists",
     "text": "7. Lists\nLists are ordered collections of objects. Lists can contain objects of different types, including other lists. Lists are created using square brackets []:\n&gt;&gt;&gt; lst = [1, 2, 3, 4, 5]\n&gt;&gt;&gt; lst\n[1, 2, 3, 4, 5]\n&gt;&gt;&gt; lst = [1, 2, \"Hello\", 3.14, [1, 2, 3]]\n&gt;&gt;&gt; lst\n[1, 2, 'Hello', 3.14, [1, 2, 3]]\nLists can be indexed and sliced just like strings:\n&gt;&gt;&gt; lst = [1, 2, 3, 4, 5]\n&gt;&gt;&gt; lst[0]\n1\n&gt;&gt;&gt; lst[2]\n3\n&gt;&gt;&gt; lst[-1]\n5\n&gt;&gt;&gt; lst[1:4]\n[2, 3, 4]\n&gt;&gt;&gt; lst[:3]\n[1, 2, 3]\n&gt;&gt;&gt; lst[2:]\n[3, 4, 5]\n&gt;&gt;&gt; lst[4:]\n[5]\n&gt;&gt;&gt; lst[::2]\n[1, 3, 5]\n&gt;&gt;&gt; lst[::-1]\n[5, 4, 3, 2, 1]\n\n\n\n\n\n\nTipExercise 1.10\n\n\n\nGiven a list lst, write a Python expression that returns the list consisting of the first and last elements of lst. For example, if lst = [1, 2, 3, 4, 5], the expression should return [1, 5].\nFirst try the expression lst[0] + lst[-1] (the natural translation of the string solution from Exercise 1.9) with the lists below. Explain what you get. Then write a correct expression and check it with the same lists:\n\n[1, 2, 3, 4, 5]\n[\"Hello\", \"World\"]\n[[1, 2], [3, 4], [5, 6]]\n\n\n\nLists can be modified by assigning new values to elements or slices:\n&gt;&gt;&gt; lst = [1, 2, 3, 4, 5]\n&gt;&gt;&gt; lst[0] = 10\n&gt;&gt;&gt; lst\n[10, 2, 3, 4, 5]\n&gt;&gt;&gt; lst[1:4] = [20, 30, 40]\n&gt;&gt;&gt; lst\n[10, 20, 30, 40, 5]\nThis is called item assignment. Under this operation, the list is modified in place, i.e., the original list is changed, but the identity of the list remains the same (it is the same object). Data types whose objects can be modified in place are called mutable.\n\n\n\n\n\n\nTipExercise 1.11\n\n\n\nStrings are immutable, i.e., they cannot be modified in place. Try to assign a new value to an element of a string. What happens?\nPredict the value of a after each of the following fragments, then check:\n&gt;&gt;&gt; a = [1, 2, 3]\n&gt;&gt;&gt; b = a\n&gt;&gt;&gt; b[0] = 99\n&gt;&gt;&gt; a\n&gt;&gt;&gt; a = [1, 2, 3]\n&gt;&gt;&gt; b = a[:]\n&gt;&gt;&gt; b[0] = 99\n&gt;&gt;&gt; a\n&gt;&gt;&gt; a = 5\n&gt;&gt;&gt; b = a\n&gt;&gt;&gt; b = b + 1\n&gt;&gt;&gt; a\nExplain the differences.\n\n\n\n\n\n\n\n\nNoteNames are references\n\n\n\nIn Python a variable is a name attached to an object, not a box holding a value. The assignment b = a does not copy anything: after it, a and b are two names for the same object. If the object is mutable (a list), a change made through b is visible through a. A slice a[:] creates a new list, so it is a (shallow) copy.\nThis works like object and array references in Java. In C and C++ you cannot assign one array to another with = at all; the closest analogue is two pointers to the same array.",
     "crumbs": [
       "Labs",
-      "Lab 1"
+      "Lab 1: Basic types"
     ]
   },
   {
     "objectID": "lab_01.html#range-function",
     "href": "lab_01.html#range-function",
-    "title": "Lab 1",
+    "title": "Lab 1: Basic types",
     "section": "8. range() function",
     "text": "8. range() function\nThe range() function generates a sequence of numbers. It can be called with one, two, or three arguments:\n\nrange(stop): 0, 1, ..., stop - 1\nrange(start, stop): start, start + 1, ..., stop - 1\nrange(start, stop, step): start, start + step, start + 2*step, ..., up to but not including stop (step may be negative)\n\nThe range() function returns an object of the range type:\n&gt;&gt;&gt; r = range(5)\n&gt;&gt;&gt; r\nrange(0, 5)\nThe numbers in the range are not stored in memory, but generated on the fly when needed. You can convert a range object to a list using the list() function:\n&gt;&gt;&gt; list(range(5))\n[0, 1, 2, 3, 4]\n&gt;&gt;&gt; list(range(1, 5))\n[1, 2, 3, 4]\n&gt;&gt;&gt; list(range(0, 10, 2))\n[0, 2, 4, 6, 8]\n&gt;&gt;&gt; list(range(10, 0, -1))\n[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]\n\n\n\n\n\n\nTipExercise 1.12\n\n\n\nUse the range() function to generate the following sequences of numbers (all bounds are inclusive):\n\nall even numbers from \\(0\\) to \\(10\\)\nall odd numbers from \\(1\\) to \\(9\\)\nall numbers from \\(10\\) to \\(1\\) in descending order\nall numbers divisible by \\(3\\) from \\(0\\) to \\(30\\)",
     "crumbs": [
       "Labs",
-      "Lab 1"
+      "Lab 1: Basic types"
     ]
   },
   {
     "objectID": "lab_01.html#list-comprehensions",
     "href": "lab_01.html#list-comprehensions",
-    "title": "Lab 1",
+    "title": "Lab 1: Basic types",
     "section": "9. List comprehensions",
     "text": "9. List comprehensions\nList comprehensions are a concise way to create lists. They consist of an expression followed by a for clause, then zero or more for or if clauses. The result will be a new list resulting from evaluating the expression in the context of the for and if clauses that follow it.\nFor example, the following list comprehension creates a list of squares of numbers from 0 to 9:\n&gt;&gt;&gt; squares = [x ** 2 for x in range(10)]\n&gt;&gt;&gt; squares\n[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]\nYou can also add conditions to filter the elements:\n&gt;&gt;&gt; even_squares = [x ** 2 for x in range(10) if x % 2 == 0]\n&gt;&gt;&gt; even_squares\n[0, 4, 16, 36, 64]\nList comprehensions can be more complex:\n&gt;&gt;&gt; [s + t for s in \"ab\" for t in \"xyz\"]\n['ax', 'ay', 'az', 'bx', 'by', 'bz']\n\n\n\n\n\n\nTipExercise 1.13\n\n\n\nUse a list comprehension to generate the following lists:\n\nall numbers from \\(0\\) to \\(100\\) which are divisible by \\(3\\) or \\(5\\)\nall perfect squares (\\(0, 1, 4, 9, \\ldots\\)) not greater than \\(10000\\)\n\n\n\n\n\n\n\n\n\nTipExercise 1.14\n\n\n\nUse a list comprehension to generate the values from the multiplication table:\n1    2    3    4    5    6    7    8    9   10\n2    4    6    8   10   12   14   16   18   20\n3    6    9   12   15   18   21   24   27   30\n4    8   12   16   20   24   28   32   36   40\n5   10   15   20   25   30   35   40   45   50\n6   12   18   24   30   36   42   48   54   60\n7   14   21   28   35   42   49   56   63   70\n8   16   24   32   40   48   56   64   72   80\n9   18   27   36   45   54   63   72   81   90\n10  20   30   40   50   60   70   80   90  100\nDo this in two ways:\n\nusing a list comprehension with a nested for loop. This should result in a list of the form\n[1, 2, 3, ..., 10, 2, 4, 6, ..., 20, 3, 6, 9, ..., 30, ..., 100]\nusing a list comprehension of list comprehensions. This should result in a list of the form\n[[1, 2, 3, ..., 10], [2, 4, 6, ..., 20], [3, 6, 9, ..., 30], ..., [10, 20, 30, ..., 100]]",
     "crumbs": [
       "Labs",
-      "Lab 1"
+      "Lab 1: Basic types"
     ]
   },
   {
     "objectID": "lab_01.html#challenge-optional",
     "href": "lab_01.html#challenge-optional",
-    "title": "Lab 1",
+    "title": "Lab 1: Basic types",
     "section": "10. Challenge (optional)",
     "text": "10. Challenge (optional)\n\n\n\n\n\n\nTipExercise 1.15 (challenge)\n\n\n\nSolve each task with a single expression, using list comprehensions.\n\nPythagorean triples. Generate the list of all triples [a, b, c] of positive integers with \\(a^2 + b^2 = c^2\\) and \\(c \\le 30\\). Make sure that each triple appears only once, i.e., [3, 4, 5] but not [4, 3, 5]. The list should start with [3, 4, 5], [6, 8, 10], [5, 12, 13], …\nMatrices as lists of lists. Let\n&gt;&gt;&gt; m = [[1, 2, 3], [4, 5, 6]]\nbe a \\(2 \\times 3\\) matrix stored row by row. Write expressions that return:\n\nthe flattened matrix [1, 2, 3, 4, 5, 6];\nthe transposed matrix [[1, 4], [2, 5], [3, 6]].\n\nThe multiplication table from Exercise 1.14 is symmetric, so transposing it would not show whether your expression is correct. That is why the matrix here is not square.\nPerfect numbers. A positive integer is perfect if it equals the sum of its divisors smaller than itself, e.g. \\(6 = 1 + 2 + 3\\). Generate the list of all perfect numbers smaller than \\(1000\\) (answer: [6, 28, 496]). Hint: the built-in function sum() returns the sum of the elements of a list, e.g. sum([1, 2, 3]) is 6.\nNow search below \\(10000\\). How long does it take? How can you make your expression faster?",
     "crumbs": [
       "Labs",
-      "Lab 1"
+      "Lab 1: Basic types"
     ]
   }
 ]
