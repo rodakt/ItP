@@ -1,5 +1,5 @@
 ---
-title: "Lab 1"
+title: "Lab 1: Basic types"
 subtitle: "Introduction to Python for Data Science"
 author: "Tomasz Rodak"
 ---
