@@ -50,20 +50,6 @@ What is your name? Tom
 
 ::: {.callout-tip #exercise-2-1 title="Exercise 2.1"}
 
-Write a program `greeting.py` that reads the name of a person from the standard input and writes a greeting to the standard output.
-
-The program should work as follows:
-
-```
->>> %Run greeting.py
-What is your name? Tom
-Hello, Tom!
-```
-
-:::
-
-::: {.callout-tip #exercise-2-2 title="Exercise 2.2"}
-
 Write a program `business_card.py` that reads the name of a person from the standard input and writes a business card to the standard output.
 
 The program should work as follows:
@@ -124,9 +110,68 @@ Traceback (most recent call last):
 ValueError: invalid literal for int() with base 10: '3.14'
 ```
 
-::: {.callout-tip #exercise-2-3 title="Exercise 2.3"}
+Handling such errors comes later in the course. In this lab, assume that the user always enters valid data, unless an exercise says otherwise.
 
-Write a program `sum.py` that reads two integers from the standard input and writes their sum to the standard output.
+::: {.callout-warning title="`input()` returns a string"}
+
+Forgetting the conversion does not always cause an error. Sometimes the program just quietly computes something else:
+
+```python
+>>> a = input('Enter a number: ')
+Enter a number: 42
+>>> b = input('Enter a number: ')
+Enter a number: 13
+>>> a + b
+'4213'
+>>> '9' > '10'
+True
+```
+
+`+` on strings is concatenation, and strings are compared character by character (`'9' > '1'`). Mixing types fails only when the operation makes no sense, e.g. `'9' > 10` raises a `TypeError`.
+
+:::
+
+### Formatted string literals (f-strings)
+
+A string literal prefixed with `f` may contain expressions in braces `{ }`. They are evaluated and their values are inserted into the string:
+
+```python
+>>> name = 'Tom'
+>>> age = 42
+>>> f'{name} is {age} years old.'
+'Tom is 42 years old.'
+>>> f'Next year {name} will be {age + 1}.'
+'Next year Tom will be 43.'
+```
+
+After a colon, you can add a *format specification*, which works much like the format strings of `printf()` in C:
+
+```python
+>>> x = 2 / 3
+>>> f'{x:.2f}'          # 2 digits after the decimal point, like %.2f
+'0.67'
+>>> f'[{age:5d}]'       # integer, field width 5, like %5d
+'[   42]'
+>>> f'[{name:>6}]'      # right-aligned in a field of width 6
+'[   Tom]'
+>>> f'[{name:<6}]'      # left-aligned
+'[Tom   ]'
+>>> f'[{name:^7}]'      # centred
+'[  Tom  ]'
+```
+
+An `=` after the expression prints both the expression and its value, which is handy for debugging:
+
+```python
+>>> f'{age + 1 = }'
+'age + 1 = 43'
+```
+
+The full syntax is described in the [Format Specification Mini-Language](https://docs.python.org/3/library/string.html#formatspec).
+
+::: {.callout-tip #exercise-2-2 title="Exercise 2.2"}
+
+Write a program `sum.py` that reads two integers from the standard input and writes their sum to the standard output. Use an f-string to build the output line.
 
 The program should work as follows:
 
@@ -139,11 +184,11 @@ Enter a number: 13
 
 :::
 
-::: {.callout-tip #exercise-2-4 title="Exercise 2.4"}
+::: {.callout-tip #exercise-2-3 title="Exercise 2.3"}
 
 Write a program `triangle_area_v0.py` that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers and that the input is correct, i.e., the side lengths are positive and the sum of the lengths of any two sides is greater than the length of the third side.
 
-Use [Heron's formula](https://en.wikipedia.org/wiki/Heron%27s_formula). The square root can be computed as `x ** 0.5`.
+Use [Heron's formula](https://en.wikipedia.org/wiki/Heron%27s_formula). The square root can be computed as `x ** 0.5`. Write the area with two digits after the decimal point.
 
 The program should work as follows:
 
@@ -152,7 +197,12 @@ The program should work as follows:
 Enter the length of the first side: 6
 Enter the length of the second side: 8
 Enter the length of the third side: 10
-The area of the triangle is 24.0
+The area of the triangle is 24.00
+>>> %Run triangle_area_v0.py
+Enter the length of the first side: 3
+Enter the length of the second side: 4
+Enter the length of the third side: 6
+The area of the triangle is 5.33
 ```
 
 :::
@@ -213,7 +263,7 @@ If the condition is true, the statements after `if` are executed. Otherwise, the
 The number is odd.
 ```
 
-::: {.callout-tip #exercise-2-5 title="Exercise 2.5"}
+::: {.callout-tip #exercise-2-4 title="Exercise 2.4"}
 
 Write a program `triangle_area_v1.py` that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers. If the input is incorrect, i.e., some side is not positive or the sum of the lengths of some two sides is not greater than the length of the third side, the program should write an error message. Otherwise, the program should write the area of the triangle.
 
@@ -224,7 +274,7 @@ Example:
 Enter the length of the first side: 6
 Enter the length of the second side: 8
 Enter the length of the third side: 10
-The area of the triangle is 24.0
+The area of the triangle is 24.00
 >>> %Run triangle_area_v1.py
 Enter the length of the first side: 6
 Enter the length of the second side: 8
@@ -269,7 +319,7 @@ else:
 The number is positive.
 ```
 
-::: {.callout-tip #exercise-2-6 title="Exercise 2.6"}
+::: {.callout-tip #exercise-2-5 title="Exercise 2.5"}
 
 Write a program `grades.py` that reads a grade from the standard input and writes a description of the grade to the standard output. The grades are as follows:
 
@@ -294,7 +344,7 @@ Fail
 
 :::
 
-::: {.callout-tip #exercise-2-7 title="Exercise 2.7"}
+::: {.callout-tip #exercise-2-6 title="Exercise 2.6"}
 
 Write a program `points_to_grade.py` that reads an integer number of points from the standard input and writes a grade to the standard output. The table of grades has the following form:
 
@@ -318,7 +368,9 @@ Enter the number of points: 75
 C
 ```
 
-Check if the input is correct, i.e., the number of points is between 0 and 100. If the input is incorrect, write an error message.
+Check if the input is correct, i.e., the number of points is between 0 and 100 (recall chained comparisons from Lab 1). If the input is incorrect, write an error message.
+
+Order the `elif` clauses so that each of them compares `points` with **one** number only. Why is a condition such as `80 <= points <= 89` unnecessary there?
 
 :::
 
@@ -352,7 +404,13 @@ You may think of the `while` statement as a repeated `if` statement: `if` execut
 
 Python has no `++` and `--` operators; use `n += 1` and `n -= 1` instead.
 
-::: {.callout-tip #exercise-2-8 title="Exercise 2.8"}
+::: {.callout-warning title="Stopping an infinite loop"}
+
+If you forget to change the variable tested in the condition (e.g. you leave out `n += 1` above), the loop never ends. In Thonny, stop the program with the *Stop* button or `Ctrl+F2`; in the system terminal, press `Ctrl+C`.
+
+:::
+
+::: {.callout-tip #exercise-2-7 title="Exercise 2.7"}
 
 Write a program `countdown.py` that reads a positive integer from the standard input and writes a countdown to the standard output. The countdown should start from the given number and end at 0. Instead of the final 0, the program should write the message "Start!".
 
@@ -371,7 +429,7 @@ Start!
 
 :::
 
-::: {.callout-tip #exercise-2-9 title="Exercise 2.9"}
+::: {.callout-tip #exercise-2-8 title="Exercise 2.8"}
 
 Write a program `sum_of_many.py` that reads integers from the standard input until the user enters 0. The program should then write the sum of the entered numbers to the standard output.
 
@@ -389,7 +447,7 @@ Enter a number: 0
 
 :::
 
-::: {.callout-tip #exercise-2-10 title="Exercise 2.10"}
+::: {.callout-tip #exercise-2-9 title="Exercise 2.9"}
 
 Write a program `add_how_many.py` that reads a positive integer `n` from the standard input. Then the program writes the smallest number `k` such that the sum of the numbers from 1 to `k` is greater than or equal to `n`:
 
@@ -413,9 +471,9 @@ Enter a number: 11
 
 :::
 
-::: {.callout-tip #exercise-2-11 title="Exercise 2.11"}
+::: {.callout-tip #exercise-2-10 title="Exercise 2.10"}
 
-Write a game `guess_the_number.py` that draws a random integer between 1 and 100. The user has to guess the number. After each incorrect guess, the program writes "The number is too small." or "The number is too large.". When the guess is correct, the program writes "Congratulations! You guessed the number in `k` steps.", where `k` is the number of guesses.
+Write a game `guess_the_number.py` that draws a random integer between 1 and 100. The user has to guess the number. After each incorrect guess, the program writes "The number is too small." or "The number is too large.". When the guess is correct, the program writes "Congratulations! You guessed the number in `k` steps.", where `k` is the number of guesses. After a lucky first guess, the message should say "1 step", not "1 steps" (use a conditional expression from Lab 1).
 
 Example:
 
@@ -445,7 +503,7 @@ To draw a random number, use the `randint()` function from the `random` module. 
 
 :::
 
-::: {.callout-tip #exercise-2-12 title="Exercise 2.12"}
+::: {.callout-tip #exercise-2-11 title="Exercise 2.11"}
 
 Write a program `guess_the_given_number.py` that guesses a number chosen by the user. The user thinks of a non-negative integer of arbitrary size and the program tries to guess it. After each try, the program reads the user's response, which is one of:
 
@@ -516,8 +574,47 @@ Python has no `do ... while` loop known from C, C++ and Java. A loop whose body 
 
 :::
 
-::: {.callout-tip #exercise-2-13 title="Exercise 2.13"}
+### `else` clause of a loop
 
-Rewrite the programs `sum_of_many.py`, `add_how_many.py`, `guess_the_number.py`, and `guess_the_given_number.py` using the infinite `while True:` loop. Use the `break` statement to terminate the loop.
+A `while` loop may have an `else` clause. Its body is executed when the loop ends normally, i.e. because the condition became false, but **not** when the loop is left with `break`:
+
+```python
+n = 91
+d = 2
+while d * d <= n:
+    if n % d == 0:
+        print(n, 'is divisible by', d)
+        break
+    d += 1
+else:
+    print(n, 'is prime')
+```
+
+For `n = 91` the program writes `91 is divisible by 7`; for `n = 97` it writes `97 is prime`.
+
+::: {.callout-note title="Loop `else` instead of a flag"}
+
+C, C++ and Java have no such construct; there you would typically introduce a Boolean flag (`found = false;`), set it before `break` and test it after the loop. In Python, the loop `else` does this for you. The name is admittedly confusing: read it as "no break".
+
+:::
+
+::: {.callout-tip #exercise-2-12 title="Exercise 2.12"}
+
+1. Rewrite `sum_of_many.py` using the infinite `while True:` loop. Use the `break` statement to terminate the loop.
+2. Write `guess_the_number_limited.py`, a version of `guess_the_number.py` in which the user has at most 7 guesses. If all of them are wrong, the program writes "You lost! The number was `x`.". Use the `else` clause of the loop, without any extra flag variable.
+
+Is 7 guesses enough to always win if you play well? Why?
+
+:::
+
+## 6. Challenge (optional)
+
+::: {.callout-tip #exercise-2-13 title="Exercise 2.13 (challenge)"}
+
+Solve Exercise 2.9 without a loop. Since $1 + 2 + \ldots + k = k(k+1)/2$, the answer can be computed directly from `n` by solving a quadratic inequality.
+
+1. Write `add_how_many_formula.py` using `** 0.5` and check that it gives the same answers as `add_how_many.py` for all `n` from 1 to 10000 (write a loop that compares them, not by hand).
+2. Try `n = 10**40` and `n = 10**400`. Check that the result `k` really satisfies the conditions: $k(k+1)/2 \geq n$ and $(k-1)k/2 < n$. What goes wrong, and why?
+3. Fix the program so that it is exact for every `n`. Hint: `math.isqrt(m)` from the `math` module returns the integer square root of `m`, i.e. the largest integer whose square is at most `m`, and it works on integers of any size.
 
 :::
