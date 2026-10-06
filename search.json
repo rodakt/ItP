@@ -1,5 +1,122 @@
 [
   {
+    "objectID": "lab_02.html",
+    "href": "lab_02.html",
+    "title": "Lab 2",
+    "section": "",
+    "text": "In Thonny, you write programs in the editor. A program is saved in a file with the .py extension. You run it by clicking the Run button or by pressing F5; the output appears in the shell. You can also run a program from the Thonny shell by typing\n&gt;&gt;&gt; %Run program_name.py\nwhere program_name.py is the name of the file with the program. This works in the Thonny shell only. In the system shell (terminal), run the program with\n$ python3 program_name.py\n(on Windows the command is usually python or py instead of python3).\nNote that a Python program needs no main() function: the statements in the file are simply executed from top to bottom.",
+    "crumbs": [
+      "Labs",
+      "Lab 2"
+    ]
+  },
+  {
+    "objectID": "lab_02.html#writing-programs",
+    "href": "lab_02.html#writing-programs",
+    "title": "Lab 2",
+    "section": "",
+    "text": "In Thonny, you write programs in the editor. A program is saved in a file with the .py extension. You run it by clicking the Run button or by pressing F5; the output appears in the shell. You can also run a program from the Thonny shell by typing\n&gt;&gt;&gt; %Run program_name.py\nwhere program_name.py is the name of the file with the program. This works in the Thonny shell only. In the system shell (terminal), run the program with\n$ python3 program_name.py\n(on Windows the command is usually python or py instead of python3).\nNote that a Python program needs no main() function: the statements in the file are simply executed from top to bottom.",
+    "crumbs": [
+      "Labs",
+      "Lab 2"
+    ]
+  },
+  {
+    "objectID": "lab_02.html#input-and-output",
+    "href": "lab_02.html#input-and-output",
+    "title": "Lab 2",
+    "section": "2. Input and output",
+    "text": "2. Input and output\nPython provides two built-in functions for writing text to the standard output and reading text from the standard input: print() and input().\nThe print() function takes zero or more positional arguments and writes them to the standard output. The arguments can be of any type; they are converted to strings before being written.\n&gt;&gt;&gt; print('Hello, world!')\nHello, world!\n&gt;&gt;&gt; print(42)\n42\n&gt;&gt;&gt; print(\"The answer is\", 42)\nThe answer is 42\n&gt;&gt;&gt; print([1, 2, 3])\n[1, 2, 3]\nThe input() function writes its (optional) argument as a prompt, reads a line from the standard input and returns it as a string, without the trailing newline.\n&gt;&gt;&gt; name = input('What is your name? ')\nWhat is your name? Tom\n&gt;&gt;&gt; name\n'Tom'\n\n\n\n\n\n\nTipExercise 2.1\n\n\n\nWrite a program business_card.py that reads the name of a person from the standard input and writes a business card to the standard output.\nThe program should work as follows:\n&gt;&gt;&gt; %Run business_card.py\nWhat is your name? Tom\n*******\n* Tom *\n*******\n&gt;&gt;&gt; %Run business_card.py\nWhat is your name? Alice\n*********\n* Alice *\n*********\nDo not use loops in this exercise. Instead, use:\n\nconcatenation and multiplication of strings;\nthe len() function. It takes a string or, more generally, a collection, and returns the number of its elements.\n\n\n\nprint() has some optional keyword arguments that let you control the output format. The most important are:\n\nsep — the string written between the arguments; the default is a single space;\nend — the string written after the last argument; the default is a newline character '\\n'.\n\n&gt;&gt;&gt; print(1, 2, 3)\n1 2 3\n&gt;&gt;&gt; print(1, 2, 3, sep=', ')\n1, 2, 3\n&gt;&gt;&gt; print(1, 2, 3, end='; '); print(4)\n1 2 3; 4\nThe input() function always returns a string. If you want to read a number, you have to convert the string to a number with int() or float():\n&gt;&gt;&gt; n = int(input('Enter a number: '))\nEnter a number: 42\n&gt;&gt;&gt; n\n42\n&gt;&gt;&gt; x = float(input('Enter a number: '))\nEnter a number: 3.14\n&gt;&gt;&gt; x\n3.14\nIf the argument cannot be converted, int() and float() raise a ValueError exception and the program stops with an error message:\n&gt;&gt;&gt; int('3.14')\nTraceback (most recent call last):\n  ...\nValueError: invalid literal for int() with base 10: '3.14'\nHandling such errors comes later in the course. In this lab, assume that the user always enters valid data, unless an exercise says otherwise.\n\n\n\n\n\n\nWarninginput() returns a string\n\n\n\nForgetting the conversion does not always cause an error. Sometimes the program just quietly computes something else:\n&gt;&gt;&gt; a = input('Enter a number: ')\nEnter a number: 42\n&gt;&gt;&gt; b = input('Enter a number: ')\nEnter a number: 13\n&gt;&gt;&gt; a + b\n'4213'\n&gt;&gt;&gt; '9' &gt; '10'\nTrue\n+ on strings is concatenation, and strings are compared character by character ('9' &gt; '1'). Mixing types fails only when the operation makes no sense, e.g. '9' &gt; 10 raises a TypeError.\n\n\n\nFormatted string literals (f-strings)\nA string literal prefixed with f may contain expressions in braces { }. They are evaluated and their values are inserted into the string:\n&gt;&gt;&gt; name = 'Tom'\n&gt;&gt;&gt; age = 42\n&gt;&gt;&gt; f'{name} is {age} years old.'\n'Tom is 42 years old.'\n&gt;&gt;&gt; f'Next year {name} will be {age + 1}.'\n'Next year Tom will be 43.'\nAfter a colon, you can add a format specification, which works much like the format strings of printf() in C:\n&gt;&gt;&gt; x = 2 / 3\n&gt;&gt;&gt; f'{x:.2f}'          # 2 digits after the decimal point, like %.2f\n'0.67'\n&gt;&gt;&gt; f'[{age:5d}]'       # integer, field width 5, like %5d\n'[   42]'\n&gt;&gt;&gt; f'[{name:&gt;6}]'      # right-aligned in a field of width 6\n'[   Tom]'\n&gt;&gt;&gt; f'[{name:&lt;6}]'      # left-aligned\n'[Tom   ]'\n&gt;&gt;&gt; f'[{name:^7}]'      # centred\n'[  Tom  ]'\nAn = after the expression prints both the expression and its value, which is handy for debugging:\n&gt;&gt;&gt; f'{age + 1 = }'\n'age + 1 = 43'\nThe full syntax is described in the Format Specification Mini-Language.\n\n\n\n\n\n\nTipExercise 2.2\n\n\n\nWrite a program sum.py that reads two integers from the standard input and writes their sum to the standard output. Use an f-string to build the output line.\nThe program should work as follows:\n&gt;&gt;&gt; %Run sum.py\nEnter a number: 42\nEnter a number: 13\n42 + 13 = 55\n\n\n\n\n\n\n\n\nTipExercise 2.3\n\n\n\nWrite a program triangle_area_v0.py that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers and that the input is correct, i.e., the side lengths are positive and the sum of the lengths of any two sides is greater than the length of the third side.\nUse Heron’s formula. The square root can be computed as x ** 0.5. Write the area with two digits after the decimal point.\nThe program should work as follows:\n&gt;&gt;&gt; %Run triangle_area_v0.py\nEnter the length of the first side: 6\nEnter the length of the second side: 8\nEnter the length of the third side: 10\nThe area of the triangle is 24.00\n&gt;&gt;&gt; %Run triangle_area_v0.py\nEnter the length of the first side: 3\nEnter the length of the second side: 4\nEnter the length of the third side: 6\nThe area of the triangle is 5.33",
+    "crumbs": [
+      "Labs",
+      "Lab 2"
+    ]
+  },
+  {
+    "objectID": "lab_02.html#conditional-statements",
+    "href": "lab_02.html#conditional-statements",
+    "title": "Lab 2",
+    "section": "3. Conditional statements",
+    "text": "3. Conditional statements\nPython provides the if statement for conditional execution. Its syntax is:\nif condition:\n    statement1\n    statement2\n    ...\nThe condition is an expression whose truth value is checked (it need not be a bool; see Truthiness in Lab 1). If it is true, the statements are executed; otherwise they are skipped.\n&gt;&gt;&gt; x = 42\n&gt;&gt;&gt; if x == 42:\n...     print('The answer to the ultimate question of life, the universe, and everything.')\n...\nThe answer to the ultimate question of life, the universe, and everything.\nIn the shell, a compound statement is finished by an empty line.\nThe statements that form the body of if must be indented. The standard indentation is four spaces. You can use tabs instead, but it is not recommended, and mixing tabs and spaces is an error.\n\n\n\n\n\n\nNoteIndentation instead of braces\n\n\n\nIn C, C++ and Java, indentation is only a matter of style and blocks are delimited by { }. In Python, indentation is the syntax: it alone determines which statements belong to the block. Note also that the condition needs no parentheses, but the header line must end with a colon :.\n\n\nThe if statement can be followed by an else clause:\nif condition:\n    statement1\n    statement2\n    ...\nelse:\n    statement3\n    statement4\n    ...\nIf the condition is true, the statements after if are executed. Otherwise, the statements after else are executed.\n&gt;&gt;&gt; x = 13\n&gt;&gt;&gt; if x % 2 == 0:\n...     print('The number is even.')\n... else:\n...     print('The number is odd.')\n...\nThe number is odd.\n\n\n\n\n\n\nTipExercise 2.4\n\n\n\nWrite a program triangle_area_v1.py that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers. If the input is incorrect, i.e., some side is not positive or the sum of the lengths of some two sides is not greater than the length of the third side, the program should write an error message. Otherwise, the program should write the area of the triangle.\nExample:\n&gt;&gt;&gt; %Run triangle_area_v1.py\nEnter the length of the first side: 6\nEnter the length of the second side: 8\nEnter the length of the third side: 10\nThe area of the triangle is 24.00\n&gt;&gt;&gt; %Run triangle_area_v1.py\nEnter the length of the first side: 6\nEnter the length of the second side: 8\nEnter the length of the third side: 20\nThe input is incorrect.\n\n\nThe if statement can be followed by zero or more elif clauses:\nif condition1:\n    statement1\n    statement2\n    ...\nelif condition2:\n    statement3\n    statement4\n    ...\nelif condition3:\n    statement5\n    statement6\n    ...\nelse:\n    statement7\n    statement8\n    ...\nelif is short for “else if”. The conditions are checked in order; the statements after the first true condition are executed and the rest is skipped. If none of the conditions is true, the statements after else (if present) are executed.\n&gt;&gt;&gt; x = 42\n&gt;&gt;&gt; if x &lt; 0:\n...     print('The number is negative.')\n... elif x == 0:\n...     print('The number is zero.')\n... else:\n...     print('The number is positive.')\n...\nThe number is positive.\n\n\n\n\n\n\nTipExercise 2.5\n\n\n\nWrite a program grades.py that reads a grade from the standard input and writes a description of the grade to the standard output. The grades are as follows:\n\nA — excellent,\nB — good,\nC — satisfactory,\nD — pass,\nF — fail.\n\nFor any other input, the program should write an error message.\nExample:\n&gt;&gt;&gt; %Run grades.py\nEnter a grade: B\nGood\n&gt;&gt;&gt; %Run grades.py\nEnter a grade: F\nFail\n\n\n\n\n\n\n\n\nTipExercise 2.6\n\n\n\nWrite a program points_to_grade.py that reads an integer number of points from the standard input and writes a grade to the standard output. The table of grades has the following form:\n\n\n\nPoints\nGrade\n\n\n\n\n0–49\nF\n\n\n50–59\nE\n\n\n60–69\nD\n\n\n70–79\nC\n\n\n80–89\nB\n\n\n90–100\nA\n\n\n\nExample:\n&gt;&gt;&gt; %Run points_to_grade.py\nEnter the number of points: 42\nF\n&gt;&gt;&gt; %Run points_to_grade.py\nEnter the number of points: 75\nC\nCheck if the input is correct, i.e., the number of points is between 0 and 100 (recall chained comparisons from Lab 1). If the input is incorrect, write an error message.\nOrder the elif clauses so that each of them compares points with one number only. Why is a condition such as 80 &lt;= points &lt;= 89 unnecessary there?",
+    "crumbs": [
+      "Labs",
+      "Lab 2"
+    ]
+  },
+  {
+    "objectID": "lab_02.html#while-loop",
+    "href": "lab_02.html#while-loop",
+    "title": "Lab 2",
+    "section": "4. while loop",
+    "text": "4. while loop\nPython provides the while statement for indefinite iteration. Its syntax is:\nwhile condition:\n    statement1\n    statement2\n    ...\nThe condition is checked before each pass through the loop. If it is true, the statements are executed and the condition is checked again; as soon as it is false, the loop ends and the program continues after it.\n&gt;&gt;&gt; n = 0\n&gt;&gt;&gt; while n &lt; 5:\n...     print(n)\n...     n += 1\n...\n0\n1\n2\n3\n4\nYou may think of the while statement as a repeated if statement: if executes its body at most once, while while executes it as long as the condition stays true.\nPython has no ++ and -- operators; use n += 1 and n -= 1 instead.\n\n\n\n\n\n\nWarningStopping an infinite loop\n\n\n\nIf you forget to change the variable tested in the condition (e.g. you leave out n += 1 above), the loop never ends. In Thonny, stop the program with the Stop button or Ctrl+F2; in the system terminal, press Ctrl+C.\n\n\n\n\n\n\n\n\nTipExercise 2.7\n\n\n\nWrite a program countdown.py that reads a positive integer from the standard input and writes a countdown to the standard output. The countdown should start from the given number and end at 0. Instead of the final 0, the program should write the message “Start!”.\nExample:\n&gt;&gt;&gt; %Run countdown.py\nEnter a number: 5\n5\n4\n3\n2\n1\nStart!\n\n\n\n\n\n\n\n\nTipExercise 2.8\n\n\n\nWrite a program sum_of_many.py that reads integers from the standard input until the user enters 0. The program should then write the sum of the entered numbers to the standard output.\nExample:\n&gt;&gt;&gt; %Run sum_of_many.py\nEnter a number: 42\nEnter a number: 13\nEnter a number: 7\nEnter a number: -42\nEnter a number: 0\n20\n\n\n\n\n\n\n\n\nTipExercise 2.9\n\n\n\nWrite a program add_how_many.py that reads a positive integer n from the standard input. Then the program writes the smallest number k such that the sum of the numbers from 1 to k is greater than or equal to n:\n\\[\n1 + 2 + \\ldots + k \\geq n.\n\\]\nExample:\n&gt;&gt;&gt; %Run add_how_many.py\nEnter a number: 1\n1\n&gt;&gt;&gt; %Run add_how_many.py\nEnter a number: 10\n4\n&gt;&gt;&gt; %Run add_how_many.py\nEnter a number: 11\n5\n\n\n\n\n\n\n\n\nTipExercise 2.10\n\n\n\nWrite a game guess_the_number.py that draws a random integer between 1 and 100. The user has to guess the number. After each incorrect guess, the program writes “The number is too small.” or “The number is too large.”. When the guess is correct, the program writes “Congratulations! You guessed the number in k steps.”, where k is the number of guesses. After a lucky first guess, the message should say “1 step”, not “1 steps” (use a conditional expression from Lab 1).\nExample:\n&gt;&gt;&gt; %Run guess_the_number.py\nEnter a number: 50\nThe number is too small.\nEnter a number: 75\nThe number is too small.\nEnter a number: 88\nThe number is too large.\nEnter a number: 80\nThe number is too small.\nEnter a number: 84\nThe number is too large.\nEnter a number: 82\nCongratulations! You guessed the number in 6 steps.\nTo draw a random number, use the randint() function from the random module. It takes two arguments, a and b, and returns a random integer between a and b, inclusive.\n&gt;&gt;&gt; from random import randint\n&gt;&gt;&gt; randint(1, 100)\n42\n\n\n\n\n\n\n\n\nTipExercise 2.11\n\n\n\nWrite a program guess_the_given_number.py that guesses a number chosen by the user. The user thinks of a non-negative integer of arbitrary size and the program tries to guess it. After each try, the program reads the user’s response, which is one of:\n\n= — the guess is correct,\n&lt; — the number is smaller than the guess,\n&gt; — the number is larger than the guess.\n\nWhen the number is guessed, the program writes the number of tries.\nExample:\n&gt;&gt;&gt; %Run guess_the_given_number.py\nIs the number 0? &gt;\nIs the number 1? &gt;\nIs the number 10? &gt;\nIs the number 100? &gt;\nIs the number 1000? &lt;\nIs the number 500? &lt;\nIs the number 250? &gt;\nIs the number 375? &lt;\nIs the number 312? &gt;\nIs the number 343? =\nNice! I guessed the number in 10 tries :-)\nFirst find an upper bound (here: by trying successive powers of 10), then narrow down the range by halving it (binary search).",
+    "crumbs": [
+      "Labs",
+      "Lab 2"
+    ]
+  },
+  {
+    "objectID": "lab_02.html#break-and-continue-statements",
+    "href": "lab_02.html#break-and-continue-statements",
+    "title": "Lab 2",
+    "section": "5. break and continue statements",
+    "text": "5. break and continue statements\nThe break statement terminates the innermost enclosing loop (while, or for — see the next lab); the program continues with the statement after the loop.\n&gt;&gt;&gt; n = 0\n&gt;&gt;&gt; while True:\n...     print(n)\n...     n += 1\n...     if n == 5:\n...         break\n...\n0\n1\n2\n3\n4\nThe continue statement skips the rest of the loop body and goes on to the next iteration (for while, the condition is checked again).\n&gt;&gt;&gt; n = 0\n&gt;&gt;&gt; while n &lt; 5:\n...     n += 1\n...     if n % 2 == 0:\n...         continue\n...     print(n)\n...\n1\n3\n5\n\n\n\n\n\n\nNoteNo do ... while\n\n\n\nPython has no do ... while loop known from C, C++ and Java. A loop whose body must run at least once, e.g. “read a number, stop when it is 0”, is written as while True: with a break inside.\n\n\n\nelse clause of a loop\nA while loop may have an else clause. Its body is executed when the loop ends normally, i.e. because the condition became false, but not when the loop is left with break:\nn = 91\nd = 2\nwhile d * d &lt;= n:\n    if n % d == 0:\n        print(n, 'is divisible by', d)\n        break\n    d += 1\nelse:\n    print(n, 'is prime')\nFor n = 91 the program writes 91 is divisible by 7; for n = 97 it writes 97 is prime.\n\n\n\n\n\n\nNoteLoop else instead of a flag\n\n\n\nC, C++ and Java have no such construct; there you would typically introduce a Boolean flag (found = false;), set it before break and test it after the loop. In Python, the loop else does this for you. The name is admittedly confusing: read it as “no break”.\n\n\n\n\n\n\n\n\nTipExercise 2.12\n\n\n\n\nRewrite sum_of_many.py using the infinite while True: loop. Use the break statement to terminate the loop.\nWrite guess_the_number_limited.py, a version of guess_the_number.py in which the user has at most 7 guesses. If all of them are wrong, the program writes “You lost! The number was x.”. Use the else clause of the loop, without any extra flag variable.\n\nIs 7 guesses enough to always win if you play well? Why?",
+    "crumbs": [
+      "Labs",
+      "Lab 2"
+    ]
+  },
+  {
+    "objectID": "lab_02.html#challenge-optional",
+    "href": "lab_02.html#challenge-optional",
+    "title": "Lab 2",
+    "section": "6. Challenge (optional)",
+    "text": "6. Challenge (optional)\n\n\n\n\n\n\nTipExercise 2.13 (challenge)\n\n\n\nSolve Exercise 2.9 without a loop. Since \\(1 + 2 + \\ldots + k = k(k+1)/2\\), the answer can be computed directly from n by solving a quadratic inequality.\n\nWrite add_how_many_formula.py using ** 0.5 and check that it gives the same answers as add_how_many.py for all n from 1 to 10000 (write a loop that compares them, not by hand).\nTry n = 10**40 and n = 10**400. Check that the result k really satisfies the conditions: \\(k(k+1)/2 \\geq n\\) and \\((k-1)k/2 &lt; n\\). What goes wrong, and why?\nFix the program so that it is exact for every n. Hint: math.isqrt(m) from the math module returns the integer square root of m, i.e. the largest integer whose square is at most m, and it works on integers of any size.",
+    "crumbs": [
+      "Labs",
+      "Lab 2"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction to Python for Data Science",
+    "section": "",
+    "text": "This course is an introduction to Python for students who already program in another language. Rather than teaching programming from scratch, it focuses on what is characteristic of Python: its data model, idioms and standard tools.\nMaterials for the laboratory classes. New labs are published here as the semester progresses — see the Labs section in the sidebar.",
+    "crumbs": [
+      "Introduction to Python for Data Science"
+    ]
+  },
+  {
+    "objectID": "index.html#scope",
+    "href": "index.html#scope",
+    "title": "Introduction to Python for Data Science",
+    "section": "Scope",
+    "text": "Scope\n\ncore types: numbers, booleans, strings, lists and dictionaries; slicing and comprehensions\ncontrol flow, loops and iteration; console input and output\nworking with files and text encodings\nfunctions, docstrings and doctest\nexceptions, assert and unit testing\nfunctional style: higher-order functions, lambda, functools\nobject-oriented programming and special methods\niterators and generators",
+    "crumbs": [
+      "Introduction to Python for Data Science"
+    ]
+  },
+  {
+    "objectID": "index.html#assessment",
+    "href": "index.html#assessment",
+    "title": "Introduction to Python for Data Science",
+    "section": "Assessment",
+    "text": "Assessment\nIn-class written assessment, last class.",
+    "crumbs": [
+      "Introduction to Python for Data Science"
+    ]
+  },
+  {
+    "objectID": "index.html#literature",
+    "href": "index.html#literature",
+    "title": "Introduction to Python for Data Science",
+    "section": "Literature",
+    "text": "Literature\nAll of the following are freely available online.\n\nThe Python Tutorial — the official tutorial.\nDive Into Python 3 — M. Pilgrim; written for Python 3.1, but still a distinctive and demanding read.\nThink Python, 3rd ed. — A. Downey; a gentle, up-to-date introduction.\nComposing Programs — J. DeNero; the classic SICP approach to programming, in Python.\nAutomate the Boring Stuff with Python — A. Sweigart; practical, task-oriented.\nFluent Python — L. Ramalho; free extra articles and a glossary accompanying the (paid) book, for later in the course.\nPython 3 documentation",
+    "crumbs": [
+      "Introduction to Python for Data Science"
+    ]
+  },
+  {
     "objectID": "lab_01.html",
     "href": "lab_01.html",
     "title": "Lab 1",
@@ -118,46 +235,6 @@
     "crumbs": [
       "Labs",
       "Lab 1"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Introduction to Python for Data Science",
-    "section": "",
-    "text": "This course is an introduction to Python for students who already program in another language. Rather than teaching programming from scratch, it focuses on what is characteristic of Python: its data model, idioms and standard tools.\nMaterials for the laboratory classes. New labs are published here as the semester progresses — see the Labs section in the sidebar.",
-    "crumbs": [
-      "Introduction to Python for Data Science"
-    ]
-  },
-  {
-    "objectID": "index.html#scope",
-    "href": "index.html#scope",
-    "title": "Introduction to Python for Data Science",
-    "section": "Scope",
-    "text": "Scope\n\ncore types: numbers, booleans, strings, lists and dictionaries; slicing and comprehensions\ncontrol flow, loops and iteration; console input and output\nworking with files and text encodings\nfunctions, docstrings and doctest\nexceptions, assert and unit testing\nfunctional style: higher-order functions, lambda, functools\nobject-oriented programming and special methods\niterators and generators",
-    "crumbs": [
-      "Introduction to Python for Data Science"
-    ]
-  },
-  {
-    "objectID": "index.html#assessment",
-    "href": "index.html#assessment",
-    "title": "Introduction to Python for Data Science",
-    "section": "Assessment",
-    "text": "Assessment\nIn-class written assessment, last class.",
-    "crumbs": [
-      "Introduction to Python for Data Science"
-    ]
-  },
-  {
-    "objectID": "index.html#literature",
-    "href": "index.html#literature",
-    "title": "Introduction to Python for Data Science",
-    "section": "Literature",
-    "text": "Literature\nAll of the following are freely available online.\n\nThe Python Tutorial — the official tutorial.\nDive Into Python 3 — M. Pilgrim; written for Python 3.1, but still a distinctive and demanding read.\nThink Python, 3rd ed. — A. Downey; a gentle, up-to-date introduction.\nComposing Programs — J. DeNero; the classic SICP approach to programming, in Python.\nAutomate the Boring Stuff with Python — A. Sweigart; practical, task-oriented.\nFluent Python — L. Ramalho; free extra articles and a glossary accompanying the (paid) book, for later in the course.\nPython 3 documentation",
-    "crumbs": [
-      "Introduction to Python for Data Science"
     ]
   }
 ]

@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tomasz Rodak">
+
+<title>Lab 2 – Introduction to Python for Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-cec3fa0c02eace5643b7c7d4552d2e15.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lab_01.html">Labs</a></li><li class="breadcrumb-item"><a href="./lab_02.html">Lab 2</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Python for Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Python for Data Science</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Labs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_02.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lab 2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#writing-programs" id="toc-writing-programs" class="nav-link active" data-scroll-target="#writing-programs">1. Writing programs</a></li>
+  <li><a href="#input-and-output" id="toc-input-and-output" class="nav-link" data-scroll-target="#input-and-output">2. Input and output</a>
+  <ul class="collapse">
+  <li><a href="#formatted-string-literals-f-strings" id="toc-formatted-string-literals-f-strings" class="nav-link" data-scroll-target="#formatted-string-literals-f-strings">Formatted string literals (f-strings)</a></li>
+  </ul></li>
+  <li><a href="#conditional-statements" id="toc-conditional-statements" class="nav-link" data-scroll-target="#conditional-statements">3. Conditional statements</a></li>
+  <li><a href="#while-loop" id="toc-while-loop" class="nav-link" data-scroll-target="#while-loop">4. <code>while</code> loop</a></li>
+  <li><a href="#break-and-continue-statements" id="toc-break-and-continue-statements" class="nav-link" data-scroll-target="#break-and-continue-statements">5. <code>break</code> and <code>continue</code> statements</a>
+  <ul class="collapse">
+  <li><a href="#else-clause-of-a-loop" id="toc-else-clause-of-a-loop" class="nav-link" data-scroll-target="#else-clause-of-a-loop"><code>else</code> clause of a loop</a></li>
+  </ul></li>
+  <li><a href="#challenge-optional" id="toc-challenge-optional" class="nav-link" data-scroll-target="#challenge-optional">6. Challenge (optional)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lab_01.html">Labs</a></li><li class="breadcrumb-item"><a href="./lab_02.html">Lab 2</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Lab 2</h1>
+<p class="subtitle lead">Introduction to Python for Data Science</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tomasz Rodak </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="writing-programs" class="level2">
+<h2 class="anchored" data-anchor-id="writing-programs">1. Writing programs</h2>
+<p>In Thonny, you write programs in the editor. A program is saved in a file with the <code>.py</code> extension. You run it by clicking the <em>Run</em> button or by pressing <code>F5</code>; the output appears in the shell. You can also run a program from the Thonny shell by typing</p>
+<pre><code>&gt;&gt;&gt; %Run program_name.py</code></pre>
+<p>where <code>program_name.py</code> is the name of the file with the program. This works in the Thonny shell only. In the system shell (terminal), run the program with</p>
+<pre><code>$ python3 program_name.py</code></pre>
+<p>(on Windows the command is usually <code>python</code> or <code>py</code> instead of <code>python3</code>).</p>
+<p>Note that a Python program needs no <code>main()</code> function: the statements in the file are simply executed from top to bottom.</p>
+</section>
+<section id="input-and-output" class="level2">
+<h2 class="anchored" data-anchor-id="input-and-output">2. Input and output</h2>
+<p>Python provides two built-in functions for writing text to the standard output and reading text from the standard input: <code>print()</code> and <code>input()</code>.</p>
+<p>The <code>print()</code> function takes zero or more positional arguments and writes them to the standard output. The arguments can be of any type; they are converted to strings before being written.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">'Hello, world!'</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Hello, world<span class="op">!</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="dv">42</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dv">42</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="st">"The answer is"</span>, <span class="dv">42</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>The answer <span class="kw">is</span> <span class="dv">42</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>input()</code> function writes its (optional) argument as a prompt, reads a line from the standard input and returns it as a <strong>string</strong>, without the trailing newline.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> name <span class="op">=</span> <span class="bu">input</span>(<span class="st">'What is your name? '</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>What <span class="kw">is</span> your name? Tom</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> name</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">'Tom'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="exercise-2-1" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>business_card.py</code> that reads the name of a person from the standard input and writes a business card to the standard output.</p>
+<p>The program should work as follows:</p>
+<pre><code>&gt;&gt;&gt; %Run business_card.py
+What is your name? Tom
+*******
+* Tom *
+*******
+&gt;&gt;&gt; %Run business_card.py
+What is your name? Alice
+*********
+* Alice *
+*********</code></pre>
+<p>Do not use loops in this exercise. Instead, use:</p>
+<ul>
+<li>concatenation and multiplication of strings;</li>
+<li>the <code>len()</code> function. It takes a string or, more generally, a collection, and returns the number of its elements.</li>
+</ul>
+</div>
+</div>
+<p><code>print()</code> has some optional keyword arguments that let you control the output format. The most important are:</p>
+<ul>
+<li><code>sep</code> — the string written between the arguments; the default is a single space;</li>
+<li><code>end</code> — the string written after the last argument; the default is a newline character <code>'\n'</code>.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, sep<span class="op">=</span><span class="st">', '</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, end<span class="op">=</span><span class="st">'; '</span>)<span class="op">;</span> <span class="bu">print</span>(<span class="dv">4</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span><span class="op">;</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>input()</code> function always returns a string. If you want to read a number, you have to convert the string to a number with <code>int()</code> or <code>float()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Enter a number: '</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Enter a number: <span class="dv">42</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> n</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dv">42</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Enter a number: '</span>))</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>Enter a number: <span class="fl">3.14</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fl">3.14</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the argument cannot be converted, <code>int()</code> and <code>float()</code> raise a <code>ValueError</code> exception and the program stops with an error message:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">int</span>(<span class="st">'3.14'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: invalid literal <span class="cf">for</span> <span class="bu">int</span>() <span class="cf">with</span> base <span class="dv">10</span>: <span class="st">'3.14'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Handling such errors comes later in the course. In this lab, assume that the user always enters valid data, unless an exercise says otherwise.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="`input()` returns a string">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span><code>input()</code> returns a string
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Forgetting the conversion does not always cause an error. Sometimes the program just quietly computes something else:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Enter a number: '</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Enter a number: <span class="dv">42</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Enter a number: '</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>Enter a number: <span class="dv">13</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> a <span class="op">+</span> b</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">'4213'</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">'9'</span> <span class="op">&gt;</span> <span class="st">'10'</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>+</code> on strings is concatenation, and strings are compared character by character (<code>'9' &gt; '1'</code>). Mixing types fails only when the operation makes no sense, e.g.&nbsp;<code>'9' &gt; 10</code> raises a <code>TypeError</code>.</p>
+</div>
+</div>
+<section id="formatted-string-literals-f-strings" class="level3">
+<h3 class="anchored" data-anchor-id="formatted-string-literals-f-strings">Formatted string literals (f-strings)</h3>
+<p>A string literal prefixed with <code>f</code> may contain expressions in braces <code>{ }</code>. They are evaluated and their values are inserted into the string:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> name <span class="op">=</span> <span class="st">'Tom'</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> age <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f'</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> is </span><span class="sc">{</span>age<span class="sc">}</span><span class="ss"> years old.'</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">'Tom is 42 years old.'</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f'Next year </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> will be </span><span class="sc">{</span>age <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">.'</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">'Next year Tom will be 43.'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>After a colon, you can add a <em>format specification</em>, which works much like the format strings of <code>printf()</code> in C:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">2</span> <span class="op">/</span> <span class="dv">3</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f'</span><span class="sc">{</span>x<span class="sc">:.2f}</span><span class="ss">'</span>          <span class="co"># 2 digits after the decimal point, like %.2f</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">'0.67'</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f'[</span><span class="sc">{</span>age<span class="sc">:5d}</span><span class="ss">]'</span>       <span class="co"># integer, field width 5, like %5d</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">'[   42]'</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f'[</span><span class="sc">{</span>name<span class="sc">:&gt;6}</span><span class="ss">]'</span>      <span class="co"># right-aligned in a field of width 6</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">'[   Tom]'</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f'[</span><span class="sc">{</span>name<span class="sc">:&lt;6}</span><span class="ss">]'</span>      <span class="co"># left-aligned</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">'[Tom   ]'</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f'[</span><span class="sc">{</span>name<span class="sc">:^7}</span><span class="ss">]'</span>      <span class="co"># centred</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">'[  Tom  ]'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>An <code>=</code> after the expression prints both the expression and its value, which is handy for debugging:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="ss">f'</span><span class="sc">{</span>age <span class="op">+</span> <span class="dv">1</span> <span class="op">=</span> <span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">'age + 1 = 43'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The full syntax is described in the <a href="https://docs.python.org/3/library/string.html#formatspec">Format Specification Mini-Language</a>.</p>
+<div id="exercise-2-2" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>sum.py</code> that reads two integers from the standard input and writes their sum to the standard output. Use an f-string to build the output line.</p>
+<p>The program should work as follows:</p>
+<pre><code>&gt;&gt;&gt; %Run sum.py
+Enter a number: 42
+Enter a number: 13
+42 + 13 = 55</code></pre>
+</div>
+</div>
+<div id="exercise-2-3" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>triangle_area_v0.py</code> that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers and that the input is correct, i.e., the side lengths are positive and the sum of the lengths of any two sides is greater than the length of the third side.</p>
+<p>Use <a href="https://en.wikipedia.org/wiki/Heron%27s_formula">Heron’s formula</a>. The square root can be computed as <code>x ** 0.5</code>. Write the area with two digits after the decimal point.</p>
+<p>The program should work as follows:</p>
+<pre><code>&gt;&gt;&gt; %Run triangle_area_v0.py
+Enter the length of the first side: 6
+Enter the length of the second side: 8
+Enter the length of the third side: 10
+The area of the triangle is 24.00
+&gt;&gt;&gt; %Run triangle_area_v0.py
+Enter the length of the first side: 3
+Enter the length of the second side: 4
+Enter the length of the third side: 6
+The area of the triangle is 5.33</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="conditional-statements" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-statements">3. Conditional statements</h2>
+<p>Python provides the <code>if</code> statement for conditional execution. Its syntax is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> condition:</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    statement1</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    statement2</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>condition</code> is an expression whose truth value is checked (it need not be a <code>bool</code>; see <em>Truthiness</em> in Lab 1). If it is true, the statements are executed; otherwise they are skipped.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">if</span> x <span class="op">==</span> <span class="dv">42</span>:</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">'The answer to the ultimate question of life, the universe, and everything.'</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>The answer to the ultimate question of life, the universe, <span class="kw">and</span> everything.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In the shell, a compound statement is finished by an empty line.</p>
+<p>The statements that form the body of <code>if</code> must be indented. The standard indentation is four spaces. You can use tabs instead, but it is not recommended, and mixing tabs and spaces is an error.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Indentation instead of braces">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Indentation instead of braces
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In C, C++ and Java, indentation is only a matter of style and blocks are delimited by <code>{ }</code>. In Python, indentation <em>is</em> the syntax: it alone determines which statements belong to the block. Note also that the condition needs no parentheses, but the header line must end with a colon <code>:</code>.</p>
+</div>
+</div>
+<p>The <code>if</code> statement can be followed by an <code>else</code> clause:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> condition:</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    statement1</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    statement2</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    statement3</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    statement4</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the condition is true, the statements after <code>if</code> are executed. Otherwise, the statements after <code>else</code> are executed.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">13</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">if</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">'The number is even.'</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>... <span class="cf">else</span>:</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">'The number is odd.'</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>The number <span class="kw">is</span> odd.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="exercise-2-4" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>triangle_area_v1.py</code> that reads the side lengths of a triangle from the standard input and writes its area to the standard output. Assume that the side lengths are floating-point numbers. If the input is incorrect, i.e., some side is not positive or the sum of the lengths of some two sides is not greater than the length of the third side, the program should write an error message. Otherwise, the program should write the area of the triangle.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run triangle_area_v1.py
+Enter the length of the first side: 6
+Enter the length of the second side: 8
+Enter the length of the third side: 10
+The area of the triangle is 24.00
+&gt;&gt;&gt; %Run triangle_area_v1.py
+Enter the length of the first side: 6
+Enter the length of the second side: 8
+Enter the length of the third side: 20
+The input is incorrect.</code></pre>
+</div>
+</div>
+<p>The <code>if</code> statement can be followed by zero or more <code>elif</code> clauses:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> condition1:</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    statement1</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    statement2</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> condition2:</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    statement3</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    statement4</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> condition3:</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    statement5</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    statement6</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    statement7</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    statement8</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>elif</code> is short for “else if”. The conditions are checked in order; the statements after the first true condition are executed and the rest is skipped. If none of the conditions is true, the statements after <code>else</code> (if present) are executed.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">'The number is negative.'</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>... <span class="cf">elif</span> x <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">'The number is zero.'</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>... <span class="cf">else</span>:</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">'The number is positive.'</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>The number <span class="kw">is</span> positive.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="exercise-2-5" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>grades.py</code> that reads a grade from the standard input and writes a description of the grade to the standard output. The grades are as follows:</p>
+<ul>
+<li>A — excellent,</li>
+<li>B — good,</li>
+<li>C — satisfactory,</li>
+<li>D — pass,</li>
+<li>F — fail.</li>
+</ul>
+<p>For any other input, the program should write an error message.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run grades.py
+Enter a grade: B
+Good
+&gt;&gt;&gt; %Run grades.py
+Enter a grade: F
+Fail</code></pre>
+</div>
+</div>
+<div id="exercise-2-6" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>points_to_grade.py</code> that reads an integer number of points from the standard input and writes a grade to the standard output. The table of grades has the following form:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Points</th>
+<th>Grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0–49</td>
+<td>F</td>
+</tr>
+<tr class="even">
+<td>50–59</td>
+<td>E</td>
+</tr>
+<tr class="odd">
+<td>60–69</td>
+<td>D</td>
+</tr>
+<tr class="even">
+<td>70–79</td>
+<td>C</td>
+</tr>
+<tr class="odd">
+<td>80–89</td>
+<td>B</td>
+</tr>
+<tr class="even">
+<td>90–100</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run points_to_grade.py
+Enter the number of points: 42
+F
+&gt;&gt;&gt; %Run points_to_grade.py
+Enter the number of points: 75
+C</code></pre>
+<p>Check if the input is correct, i.e., the number of points is between 0 and 100 (recall chained comparisons from Lab 1). If the input is incorrect, write an error message.</p>
+<p>Order the <code>elif</code> clauses so that each of them compares <code>points</code> with <strong>one</strong> number only. Why is a condition such as <code>80 &lt;= points &lt;= 89</code> unnecessary there?</p>
+</div>
+</div>
+</section>
+<section id="while-loop" class="level2">
+<h2 class="anchored" data-anchor-id="while-loop">4. <code>while</code> loop</h2>
+<p>Python provides the <code>while</code> statement for indefinite iteration. Its syntax is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> condition:</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    statement1</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    statement2</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>condition</code> is checked before each pass through the loop. If it is true, the statements are executed and the condition is checked again; as soon as it is false, the loop ends and the program continues after it.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">while</span> n <span class="op">&lt;</span> <span class="dv">5</span>:</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(n)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>...     n <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You may think of the <code>while</code> statement as a repeated <code>if</code> statement: <code>if</code> executes its body at most once, while <code>while</code> executes it as long as the condition stays true.</p>
+<p>Python has no <code>++</code> and <code>--</code> operators; use <code>n += 1</code> and <code>n -= 1</code> instead.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Stopping an infinite loop">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Stopping an infinite loop
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you forget to change the variable tested in the condition (e.g.&nbsp;you leave out <code>n += 1</code> above), the loop never ends. In Thonny, stop the program with the <em>Stop</em> button or <code>Ctrl+F2</code>; in the system terminal, press <code>Ctrl+C</code>.</p>
+</div>
+</div>
+<div id="exercise-2-7" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.7">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>countdown.py</code> that reads a positive integer from the standard input and writes a countdown to the standard output. The countdown should start from the given number and end at 0. Instead of the final 0, the program should write the message “Start!”.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run countdown.py
+Enter a number: 5
+5
+4
+3
+2
+1
+Start!</code></pre>
+</div>
+</div>
+<div id="exercise-2-8" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.8">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.8
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>sum_of_many.py</code> that reads integers from the standard input until the user enters 0. The program should then write the sum of the entered numbers to the standard output.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run sum_of_many.py
+Enter a number: 42
+Enter a number: 13
+Enter a number: 7
+Enter a number: -42
+Enter a number: 0
+20</code></pre>
+</div>
+</div>
+<div id="exercise-2-9" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.9">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.9
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>add_how_many.py</code> that reads a positive integer <code>n</code> from the standard input. Then the program writes the smallest number <code>k</code> such that the sum of the numbers from 1 to <code>k</code> is greater than or equal to <code>n</code>:</p>
+<p><span class="math display">\[
+1 + 2 + \ldots + k \geq n.
+\]</span></p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run add_how_many.py
+Enter a number: 1
+1
+&gt;&gt;&gt; %Run add_how_many.py
+Enter a number: 10
+4
+&gt;&gt;&gt; %Run add_how_many.py
+Enter a number: 11
+5</code></pre>
+</div>
+</div>
+<div id="exercise-2-10" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.10">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.10
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a game <code>guess_the_number.py</code> that draws a random integer between 1 and 100. The user has to guess the number. After each incorrect guess, the program writes “The number is too small.” or “The number is too large.”. When the guess is correct, the program writes “Congratulations! You guessed the number in <code>k</code> steps.”, where <code>k</code> is the number of guesses. After a lucky first guess, the message should say “1 step”, not “1 steps” (use a conditional expression from Lab 1).</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run guess_the_number.py
+Enter a number: 50
+The number is too small.
+Enter a number: 75
+The number is too small.
+Enter a number: 88
+The number is too large.
+Enter a number: 80
+The number is too small.
+Enter a number: 84
+The number is too large.
+Enter a number: 82
+Congratulations! You guessed the number in 6 steps.</code></pre>
+<p>To draw a random number, use the <code>randint()</code> function from the <code>random</code> module. It takes two arguments, <code>a</code> and <code>b</code>, and returns a random integer between <code>a</code> and <code>b</code>, inclusive.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> random <span class="im">import</span> randint</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> randint(<span class="dv">1</span>, <span class="dv">100</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="dv">42</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="exercise-2-11" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.11">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.11
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>guess_the_given_number.py</code> that guesses a number chosen by the user. The user thinks of a non-negative integer of arbitrary size and the program tries to guess it. After each try, the program reads the user’s response, which is one of:</p>
+<ul>
+<li><code>=</code> — the guess is correct,</li>
+<li><code>&lt;</code> — the number is smaller than the guess,</li>
+<li><code>&gt;</code> — the number is larger than the guess.</li>
+</ul>
+<p>When the number is guessed, the program writes the number of tries.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run guess_the_given_number.py
+Is the number 0? &gt;
+Is the number 1? &gt;
+Is the number 10? &gt;
+Is the number 100? &gt;
+Is the number 1000? &lt;
+Is the number 500? &lt;
+Is the number 250? &gt;
+Is the number 375? &lt;
+Is the number 312? &gt;
+Is the number 343? =
+Nice! I guessed the number in 10 tries :-)</code></pre>
+<p>First find an upper bound (here: by trying successive powers of 10), then narrow down the range by halving it (binary search).</p>
+</div>
+</div>
+</section>
+<section id="break-and-continue-statements" class="level2">
+<h2 class="anchored" data-anchor-id="break-and-continue-statements">5. <code>break</code> and <code>continue</code> statements</h2>
+<p>The <code>break</code> statement terminates the innermost enclosing loop (<code>while</code>, or <code>for</code> — see the next lab); the program continues with the statement after the loop.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(n)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>...     n <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">if</span> n <span class="op">==</span> <span class="dv">5</span>:</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>...         <span class="cf">break</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>continue</code> statement skips the rest of the loop body and goes on to the next iteration (for <code>while</code>, the condition is checked again).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">while</span> n <span class="op">&lt;</span> <span class="dv">5</span>:</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>...     n <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">if</span> n <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>...         <span class="cf">continue</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(n)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled" title="No `do ... while`">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>No <code>do ... while</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Python has no <code>do ... while</code> loop known from C, C++ and Java. A loop whose body must run at least once, e.g.&nbsp;“read a number, stop when it is 0”, is written as <code>while True:</code> with a <code>break</code> inside.</p>
+</div>
+</div>
+<section id="else-clause-of-a-loop" class="level3">
+<h3 class="anchored" data-anchor-id="else-clause-of-a-loop"><code>else</code> clause of a loop</h3>
+<p>A <code>while</code> loop may have an <code>else</code> clause. Its body is executed when the loop ends normally, i.e.&nbsp;because the condition became false, but <strong>not</strong> when the loop is left with <code>break</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">91</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> d <span class="op">*</span> d <span class="op">&lt;=</span> n:</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n <span class="op">%</span> d <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(n, <span class="st">'is divisible by'</span>, d)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    d <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(n, <span class="st">'is prime'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For <code>n = 91</code> the program writes <code>91 is divisible by 7</code>; for <code>n = 97</code> it writes <code>97 is prime</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Loop `else` instead of a flag">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Loop <code>else</code> instead of a flag
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>C, C++ and Java have no such construct; there you would typically introduce a Boolean flag (<code>found = false;</code>), set it before <code>break</code> and test it after the loop. In Python, the loop <code>else</code> does this for you. The name is admittedly confusing: read it as “no break”.</p>
+</div>
+</div>
+<div id="exercise-2-12" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.12">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.12
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Rewrite <code>sum_of_many.py</code> using the infinite <code>while True:</code> loop. Use the <code>break</code> statement to terminate the loop.</li>
+<li>Write <code>guess_the_number_limited.py</code>, a version of <code>guess_the_number.py</code> in which the user has at most 7 guesses. If all of them are wrong, the program writes “You lost! The number was <code>x</code>.”. Use the <code>else</code> clause of the loop, without any extra flag variable.</li>
+</ol>
+<p>Is 7 guesses enough to always win if you play well? Why?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="challenge-optional" class="level2">
+<h2 class="anchored" data-anchor-id="challenge-optional">6. Challenge (optional)</h2>
+<div id="exercise-2-13" class="callout callout-style-default callout-tip callout-titled" title="Exercise 2.13 (challenge)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 2.13 (challenge)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Solve Exercise 2.9 without a loop. Since <span class="math inline">\(1 + 2 + \ldots + k = k(k+1)/2\)</span>, the answer can be computed directly from <code>n</code> by solving a quadratic inequality.</p>
+<ol type="1">
+<li>Write <code>add_how_many_formula.py</code> using <code>** 0.5</code> and check that it gives the same answers as <code>add_how_many.py</code> for all <code>n</code> from 1 to 10000 (write a loop that compares them, not by hand).</li>
+<li>Try <code>n = 10**40</code> and <code>n = 10**400</code>. Check that the result <code>k</code> really satisfies the conditions: <span class="math inline">\(k(k+1)/2 \geq n\)</span> and <span class="math inline">\((k-1)k/2 &lt; n\)</span>. What goes wrong, and why?</li>
+<li>Fix the program so that it is exact for every <code>n</code>. Hint: <code>math.isqrt(m)</code> from the <code>math</code> module returns the integer square root of <code>m</code>, i.e.&nbsp;the largest integer whose square is at most <code>m</code>, and it works on integers of any size.</li>
+</ol>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/rodakt\.github\.io\/ItP\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
