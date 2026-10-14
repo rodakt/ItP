@@ -1,0 +1,391 @@
+---
+title: "Lab 3: Loops and strings"
+subtitle: "Introduction to Python for Data Science"
+author: "Tomasz Rodak"
+---
+
+## 1. `for` loop
+
+The `for` loop iterates over the items of a sequence (a list, a string, a `range`, ...), one by one, and executes the block of code inside the loop for each item:
+
+```python
+for item in sequence:
+    statement1
+    statement2
+    ...
+```
+
+For example, the following code prints the numbers from 1 to 5:
+
+```python
+>>> for i in range(1, 6):
+...     print(i)
+...
+1
+2
+3
+4
+5
+```
+
+The loop variable may be anything the sequence contains, not only an integer:
+
+```python
+>>> for word in ['spam', 'eggs', 'ham']:
+...     print(word, len(word))
+...
+spam 4
+eggs 4
+ham 3
+>>> for c in 'abc':
+...     print(c.upper(), end=' ')
+...
+A B C
+```
+
+::: {.callout-note title="No C-style `for`"}
+
+Python has no `for (i = 0; i < n; i++)` loop. The Python `for` is a *for-each* loop, like `for (int x : v)` in C++ or `for (int x : arr)` in Java; the counting loop is obtained by iterating over a `range()`. In particular, assigning to the loop variable inside the body does **not** change the course of the loop:
+
+```python
+>>> for i in range(5):
+...     i = 100
+...     print(i, end=' ')
+...
+100 100 100 100 100
+```
+
+:::
+
+If you need both the index and the item, use `enumerate()`:
+
+```python
+>>> for i, c in enumerate('abc'):
+...     print(i, c)
+...
+0 a
+1 b
+2 c
+```
+
+Loops can be nested. The inner loop runs to completion for every single iteration of the outer loop:
+
+```python
+>>> for i in range(1, 4):
+...     for j in range(1, 4):
+...         print(i * j, end=' ')
+...     print()
+...
+1 2 3
+2 4 6
+3 6 9
+```
+
+The `break`, `continue` and `else` statements from the previous lab work in a `for` loop exactly as in a `while` loop: `break` leaves the innermost loop, `continue` goes to the next item, and the `else` block runs if the loop was not left by `break`.
+
+::: {.callout-tip #exercise-3-1 title="Exercise 3.1"}
+
+Write a program `print_numbers.py` that prints the numbers from 1 to 10 in one line, separated by spaces.
+
+*Hint*: Use the `end` parameter of the `print()` function.
+
+:::
+
+::: {.callout-tip #exercise-3-2 title="Exercise 3.2"}
+
+Write a program `print_table.py` that prints on the screen the following table:
+
+```
+11 12 13 14 15 16 17 18 19
+21 22 23 24 25 26 27 28 29
+31 32 33 34 35 36 37 38 39
+41 42 43 44 45 46 47 48 49
+51 52 53 54 55 56 57 58 59
+61 62 63 64 65 66 67 68 69
+71 72 73 74 75 76 77 78 79
+81 82 83 84 85 86 87 88 89
+91 92 93 94 95 96 97 98 99
+```
+
+Use two nested loops.
+
+:::
+
+::: {.callout-tip #exercise-3-3 title="Exercise 3.3"}
+
+Write a program `multiplication_table.py`. The program should ask the user for a number `n` and print the multiplication table of size `n`.
+
+Example:
+
+```
+>>> %Run multiplication_table.py
+Enter a number: 9
+1  2  3  4  5  6  7  8  9
+2  4  6  8 10 12 14 16 18
+3  6  9 12 15 18 21 24 27
+4  8 12 16 20 24 28 32 36
+5 10 15 20 25 30 35 40 45
+6 12 18 24 30 36 42 48 54
+7 14 21 28 35 42 49 56 63
+8 16 24 32 40 48 56 64 72
+9 18 27 36 45 54 63 72 81
+```
+
+*Hint*: Align the numbers with an f-string format specification (`f'{x:2d}'`) or with the `str.rjust()` method. Make the width depend on `n`: for `n = 12` the largest entry has three digits.
+
+:::
+
+::: {.callout-tip #exercise-3-4 title="Exercise 3.4"}
+
+Write a program `fizzbuzz.py`. The program should read a number `n` from the user and then for each number from `1` to `n` (inclusive) print:
+
+* `Fizz` if the number is divisible by 3,
+* `Buzz` if the number is divisible by 5,
+* `FizzBuzz` if the number is divisible by both 3 and 5,
+* the number itself otherwise.
+
+Example:
+
+```
+>>> %Run fizzbuzz.py
+Enter a number: 15
+1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 FizzBuzz
+```
+
+:::
+
+::: {.callout-tip #exercise-3-5 title="Exercise 3.5"}
+
+The aim of this exercise is to write a program `monte_carlo_pi.py` that estimates the value of π using the Monte Carlo method.
+
+The idea of the Monte Carlo method is to use random numbers to estimate the value of some quantity. Imagine a square with side length 2 and a circle with diameter 2 inscribed in it. The area of the square is 4 and the area of the circle is π (draw a picture). If we randomly choose points in the square, then the ratio of the number of points inside the circle to the total number of points should be approximately equal to the ratio of the areas, i.e. π/4. Therefore:
+
+1. Generate a large number of random points in the square.
+2. For each point, check if it is inside the circle.
+3. Estimate π as 4 times the ratio of the number of points inside the circle to the total number of points.
+
+The program should ask the user for the number of points to generate and then print the estimate of π and the relative error of the estimate, $|\text{estimate} - \pi| / \pi$. The exact value is available as `math.pi` after `import math`.
+
+Generate points using the `random` module (your numbers will differ):
+
+```python
+>>> import random
+>>> x = random.uniform(-1, 1)
+>>> y = random.uniform(-1, 1)
+>>> x, y
+(0.5786150069757865, -0.9089731426425768)
+```
+
+Run the program for 100, 10 000 and 1 000 000 points. How does the error change?
+
+:::
+
+## 2. String methods
+
+Strings have many *methods*: functions attached to the object, called with the dot notation `s.method(...)`. The most useful are listed below. Note that none of them changes the string `s` itself — strings in Python are **immutable** — each method returns a *new* string (or another value) and leaves `s` as it was.
+
+```python
+>>> s = '  Hello, World!  '
+>>> s.strip()                  # remove leading and trailing whitespace
+'Hello, World!'
+>>> s                          # s is unchanged
+'  Hello, World!  '
+>>> s.lower()
+'  hello, world!  '
+>>> s.upper()
+'  HELLO, WORLD!  '
+>>> s.replace('l', 'L')        # replace all occurrences
+'  HeLLo, WorLd!  '
+>>> s.count('l')
+3
+>>> s.find('World')            # index of the first occurrence, -1 if absent
+9
+>>> s.find('Python')
+-1
+>>> s.strip().startswith('Hello')
+True
+>>> s.strip().endswith('!')
+True
+```
+
+Methods can be chained, as in `s.strip().lower()`, since each call returns a string. To check whether a substring occurs at all, the `in` operator is simpler than `find()`:
+
+```python
+>>> 'World' in s
+True
+>>> 'world' in s
+False
+```
+
+Two methods convert between a string and a list of strings. `str.split()` cuts a string into words; without arguments it splits on any run of whitespace, with an argument it splits on exactly that separator:
+
+```python
+>>> 'Lorem ipsum   dolor sit amet'.split()
+['Lorem', 'ipsum', 'dolor', 'sit', 'amet']
+>>> '2026-10-14'.split('-')
+['2026', '10', '14']
+```
+
+`str.join()` is the inverse: it glues a list of strings together, using the string it is called on as the separator:
+
+```python
+>>> words = ['Lorem', 'ipsum', 'dolor']
+>>> ' '.join(words)
+'Lorem ipsum dolor'
+>>> '-'.join(words)
+'Lorem-ipsum-dolor'
+>>> ''.join(['a', 'b', 'c'])
+'abc'
+```
+
+Finally, a few methods test what a string consists of:
+
+```python
+>>> 'abc'.isalpha(), 'ab1'.isalpha()
+(True, False)
+>>> '123'.isdigit(), '12.3'.isdigit()
+(True, False)
+>>> 'a'.islower(), 'A'.isupper()
+(True, True)
+```
+
+The full list is in the documentation: [String Methods](https://docs.python.org/3/library/stdtypes.html#string-methods).
+
+::: {.callout-warning title="Strings are immutable"}
+
+In C a string is an array of `char` and you can write `s[0] = 'J'`. In Python this is an error:
+
+```python
+>>> s = 'hello'
+>>> s[0] = 'J'
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object does not support item assignment
+```
+
+A "modified" string is always a new string. Build it from pieces (`'J' + s[1:]`), with a method (`s.replace('h', 'J')`), or — in a loop — by appending to a result string with `+=` or by collecting the pieces in a list and calling `''.join()` at the end.
+
+:::
+
+::: {.callout-tip #exercise-3-6 title="Exercise 3.6"}
+
+Let `s = 'beer'`. Write two expressions that turn it into `'bear'`: one using `str.replace()`, one using slicing and `+`. Then, for `s = 'Hello, World!'`, write expressions that return:
+
+* `'HELLO, WORLD!'`
+* `'Hello World'` (no comma, no exclamation mark)
+* the number of `'o'` characters in `s`
+* the list `['Hello', 'World!']`
+* `'Hello,-World!'`
+
+:::
+
+::: {.callout-tip #exercise-3-7 title="Exercise 3.7"}
+
+Write a program `word_count.py` that reads a line of text from the user and prints the number of words, the longest word, and the average word length (two digits after the decimal point). Words are separated by whitespace; ignore punctuation attached to a word.
+
+```
+>>> %Run word_count.py
+Enter text:   The quick brown fox jumps over the lazy dog
+Words: 9
+Longest word: quick
+Average length: 3.89
+```
+
+:::
+
+::: {.callout-tip #exercise-3-8 title="Exercise 3.8"}
+
+Write a program `clean_names.py` that reads lines from the user until an empty line is entered. Each line contains a name typed carelessly, e.g. `  jOHN smith `. The program should print each name cleaned up: surrounding whitespace removed, every word capitalised (`str.capitalize()`), words separated by a single space.
+
+```
+>>> %Run clean_names.py
+Name:   jOHN    smith
+John Smith
+Name: ANNA de  la   CRUZ
+Anna De La Cruz
+Name:
+```
+
+Then write `is_palindrome.py` that reads a sentence and decides whether it is a palindrome, ignoring case and all characters that are not letters: `A man, a plan, a canal: Panama` is a palindrome. *Hint*: first build a string of lowercase letters only (a loop with `str.isalpha()`, or a list comprehension and `''.join()`), then compare it with its reverse.
+
+:::
+
+## 3. `ord()` and `chr()` functions
+
+Each character has a number: its Unicode *code point*. For the English letters, digits and punctuation these are the ASCII codes you know from C. The `ord()` function returns the code point of a one-character string, and `chr()` is its inverse:
+
+```python
+>>> ord('A')
+65
+>>> chr(65)
+'A'
+>>> ord('a') - ord('A')
+32
+>>> chr(ord('A') + 1)
+'B'
+>>> ord('ł')
+322
+```
+
+Letter arithmetic in Python is therefore done through `ord()` and `chr()`: unlike in C, `'A' + 1` is an error, since a one-character string is still a string, not a number.
+
+::: {.callout-tip #exercise-3-9 title="Exercise 3.9"}
+
+Write an expression that creates a string containing all printable ASCII characters, i.e. the characters with codes from 32 (space) to 126 (`~`). Printed, it should look like this:
+
+```
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+```
+
+Use `str.join()` with a list comprehension; check the length of the result.
+
+:::
+
+::: {.callout-tip #exercise-3-10 title="Exercise 3.10"}
+
+Write a program `caesar_cipher.py` that reads a string and an integer `n` from the user and prints the Caesar cipher encoding of the string. The Caesar cipher replaces each letter in the input string with the letter `n` positions ahead in the alphabet. For example, if `n` is 3, `A` is replaced with `D`, `B` with `E`, and so on. The case of a letter is preserved: `a` is replaced with `d`, `b` with `e`. If the new position goes beyond the end of the alphabet, it wraps around to the beginning (`Z` with `n = 3` becomes `C`). Non-alphabetic characters, such as spaces, digits or punctuation marks, are left unchanged.
+
+Example:
+
+```
+>>> %Run caesar_cipher.py
+Enter a string: Hello, World!
+Enter a number: 3
+Khoor, Zruog!
+>>> %Run caesar_cipher.py
+Enter a string: Khoor, Zruog!
+Enter a number: -3
+Hello, World!
+```
+
+*Hint*: for a lowercase letter `c`, the shifted letter is `chr((ord(c) - ord('a') + n) % 26 + ord('a'))`. The `%` operator takes care of the wrap-around, also for negative `n` (check `-3 % 26` in the shell).
+
+:::
+
+::: {.callout-tip #exercise-3-11 title="Exercise 3.11"}
+
+The *ROT13* cipher is the Caesar cipher with `n = 13`. Write a program `rot13.py` that reads a string and prints its ROT13 encoding.
+
+```
+>>> %Run rot13.py
+Enter a string: Hello, World!
+Uryyb, Jbeyq!
+```
+
+Why is a second run of the program on its own output enough to decode the message? Check it.
+
+:::
+
+## 4. Challenge (optional)
+
+::: {.callout-tip #exercise-3-12 title="Exercise 3.12 (challenge)"}
+
+A Caesar cipher has only 25 meaningful keys, so it can be broken by trying all of them. Write a program `break_caesar.py` that reads an encrypted text and prints all 25 decodings, one per line, each preceded by the key. Test it on
+
+```
+Wkh txlfn eurzq ira mxpsv ryhu wkh odcb grj
+```
+
+Then automate the choice: the most frequent letter in English text is `e`. For each key, count the `e` characters in the decoded text and print only the decoding with the largest count. On what kind of input does this heuristic fail?
+
+:::
