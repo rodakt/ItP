@@ -131,7 +131,7 @@ Enter a number: 9
 9 18 27 36 45 54 63 72 81
 ```
 
-*Hint*: Align the numbers with an f-string format specification (`f'{x:2d}'`) or with the `str.rjust()` method. Make the width depend on `n`: for `n = 12` the largest entry has three digits.
+*Hint*: Align the numbers with an f-string format specification (`f'{x:2d}'`) or with the `str.rjust()` method. The width of a column should be the number of digits of the largest entry, `n * n`; you can get it as `len(str(n * n))`.
 
 :::
 
