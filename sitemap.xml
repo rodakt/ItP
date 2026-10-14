@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rodakt.github.io/ItP/lab_02.html</loc>
+    <loc>https://rodakt.github.io/ItP/lab_03.html</loc>
+    <lastmod>2026-10-14T05:29:53.171Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rodakt.github.io/ItP/lab_01.html</loc>
     <lastmod>2026-10-06T20:53:43.509Z</lastmod>
   </url>
   <url>
@@ -9,7 +13,7 @@
     <lastmod>2026-09-25T08:42:59.959Z</lastmod>
   </url>
   <url>
-    <loc>https://rodakt.github.io/ItP/lab_01.html</loc>
+    <loc>https://rodakt.github.io/ItP/lab_02.html</loc>
     <lastmod>2026-10-06T20:53:43.509Z</lastmod>
   </url>
 </urlset>
