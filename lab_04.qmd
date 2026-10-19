@@ -1,0 +1,470 @@
+---
+title: "Lab 4: Files and dictionaries"
+subtitle: "Introduction to Python for Data Science"
+author: "Tomasz Rodak"
+---
+
+## 1. Working with files
+
+Python provides a built-in `open()` function to open a file. Its most important arguments are:
+
+* the string `file`: the path to the file to open, i.e. its name, optionally preceded by the directory;
+* the string `mode`: the mode in which the file is opened;
+* the string `encoding`: the text encoding of the file (see [Section 3](#text-encoding)).
+
+The most common modes are:
+
+| Mode  | Meaning                                                          |
+|-------|------------------------------------------------------------------|
+| `'r'` | read (the default); the file must exist                          |
+| `'w'` | write; the file is created, or **emptied** if it already exists  |
+| `'a'` | append; writing goes to the end of the file, which is created if it does not exist |
+| `'x'` | create; like `'w'`, but fails if the file already exists         |
+
+Adding `'b'` to the mode (e.g. `'rb'`) opens the file in binary mode, where you work with bytes instead of characters. In this lab we use text mode only.
+
+The function returns a *file object*. Depending on the mode, the file object can be used to read from or write to the file. When you are done with the file, close it with the `close()` method of the file object.
+
+Assume we want to create a file `example.txt` with the following content:
+
+```
+Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+```
+
+The following code creates the file and writes the content to it. The `write()` method returns the number of characters written, which the shell displays:
+
+```python
+>>> f = open('example.txt', 'w', encoding='utf-8')
+>>> f.write('Lorem ipsum dolor sit amet, consectetur adipiscing elit,\n')
+57
+>>> f.write('sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n')
+67
+>>> f.write('Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris\n')
+67
+>>> f.write('nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in\n')
+66
+>>> f.write('reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla\n')
+68
+>>> f.write('pariatur. Excepteur sint occaecat cupidatat non proident, sunt in\n')
+66
+>>> f.write('culpa qui officia deserunt mollit anim id est laborum.\n')
+55
+>>> f.close()
+```
+
+Note that, unlike `print()`, `write()` does not add a newline: you have to write `'\n'` yourself.
+
+Then the following code reads the contents of the file and prints it on the screen:
+
+```python
+>>> f = open('example.txt', encoding='utf-8')
+>>> text = f.read()
+>>> f.close()
+>>> print(text)
+Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+```
+
+In the example above:
+
+* `f` is the file object,
+* `f.write()` writes a string to the file (the file was opened with mode `'w'`),
+* `f.read()` reads the contents of the entire file into a string (no mode given, so the default `'r'` is used),
+* `f.close()` closes the file.
+
+Data written to a file is buffered, so it may not reach the disk before the file is closed. It is easy to forget `close()`, and the call is skipped when an error stops the program before it. The `with` statement closes the file automatically when its block ends, and it is the recommended way to work with files:
+
+```python
+>>> with open('example.txt', encoding='utf-8') as f:
+...     text = f.read()
+...
+>>> len(text)
+446
+```
+
+How `with` works, and why it closes the file even after an error, is explained in Lab 6. From now on, use `with` in your programs.
+
+::: {.callout-tip #exercise-4-1 title="Exercise 4.1"}
+
+Check the above code in the Python shell. Then:
+
+1. Open `example.txt` in mode `'a'`, write one more line and close the file. Read the file again and print it.
+2. Open `example.txt` in mode `'w'` and close it immediately, without writing anything. What does the file contain now?
+3. Try to open a file that does not exist in mode `'r'`, and `example.txt` in mode `'x'`. Read the error messages.
+
+:::
+
+## 2. Working directory
+
+You may have noticed that the code above does not specify the full path to the file. Such a *relative* path is resolved against the *working directory* of the program: `open('example.txt')` looks for the file in the working directory, and `open('data/example.txt')` in its subdirectory `data`. An *absolute* path such as `'C:/Users/John/Documents/example.txt'` (Windows) or `'/home/john/example.txt'` (Linux, macOS) does not depend on the working directory.
+
+When Thonny runs a program, it first changes the working directory to the directory containing the program file. So a program and the data files it opens by a bare name should be kept in the same directory. You can check the working directory by running the following code:
+
+```python
+>>> import os
+>>> print(os.getcwd())
+```
+
+You can change the working directory using the `os.chdir()` function:
+
+```python
+>>> os.chdir('C:/Users/John/Documents')
+```
+
+::: {.callout-warning title="Backslashes in Windows paths"}
+
+In a string literal the backslash starts an escape sequence, as in C: `'\n'` is a newline and `'\t'` a tab. So `'C:\new\table.txt'` is not the path you meant, and `'C:\Users\John'` is even a syntax error (`\U` starts a Unicode escape). On Windows, either write paths with forward slashes, `'C:/Users/John'`, which Python accepts, or use a *raw string*, `r'C:\Users\John'`, in which the backslash has no special meaning.
+
+:::
+
+## 3. Text encoding {#text-encoding}
+
+A file stores bytes, not characters. A text *encoding* is a mapping between characters and byte sequences, and different encodings do it in different ways. The most common encodings are:
+
+* **ASCII**: uses 7 bits per character. It can encode 128 characters: English letters, digits, punctuation and some control characters.
+* **UTF-8**: a variable-width encoding that can represent every character in the Unicode character set. It uses one to four bytes per character, and the ASCII characters are encoded as in ASCII, in one byte. It is the standard encoding on the web and on Linux and macOS.
+* **UTF-16**: another variable-width Unicode encoding, using two or four bytes per character.
+* **ISO-8859-1** (Latin-1): uses 8 bits per character and can encode 256 characters, enough for Western European languages but not for Polish.
+* **ISO-8859-2** (Latin-2) and **Windows-1250** (`cp1250`): 8-bit encodings for Central European languages, including Polish. Older Polish text files on Windows are often in `cp1250`.
+
+In Python, a string is converted to bytes by the `str.encode()` method, and bytes back to a string by `bytes.decode()`. A `bytes` literal is written with the `b` prefix:
+
+```python
+>>> s = 'zażółć'
+>>> len(s)
+6
+>>> b = s.encode('utf-8')
+>>> b
+b'za\xc5\xbc\xc3\xb3\xc5\x82\xc4\x87'
+>>> len(b)
+10
+>>> b.decode('utf-8')
+'zażółć'
+>>> s.encode('cp1250')
+b'za\xbf\xf3\xb3\xe6'
+```
+
+Decoding with the wrong encoding either fails or, worse, silently produces garbage (*mojibake*):
+
+```python
+>>> b.decode('cp1250')
+'zaĹĽĂłĹ‚Ä‡'
+>>> b.decode('ascii')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xc5 in position 2: ordinal not in range(128)
+```
+
+When reading and writing text files, Python does exactly this behind the scenes, using the encoding given by the `encoding` parameter of `open()`. If you omit it, Python uses a default that depends on the operating system and its settings (on Polish Windows typically `cp1250`); only from Python 3.15 on is the default UTF-8 everywhere. A program that works on your computer may then fail on another one. Always pass `encoding` explicitly.
+
+::: {.callout-tip #exercise-4-2 title="Exercise 4.2"}
+
+Write a program `read_file.py`. The program should ask the user for the name and encoding of the file to read. Then the program should read the contents of the file and print them on the screen.
+
+In Thonny, create a text file `polish.txt` containing a line with Polish letters, e.g. `Zażółć gęślą jaźń`, and save it (Thonny saves files in UTF-8). Run the program on this file with the encodings `utf-8`, `cp1250`, `latin-1` and `ascii`. Which of them work, which fail, and which give wrong characters? Explain why.
+
+:::
+
+::: {.callout-tip #exercise-4-3 title="Exercise 4.3"}
+
+Write a program `typewriter.py`. The program should ask the user for the name and encoding of the file to write. Then the program reads text from the user line by line and writes each line, followed by a newline character, to the file. The program should stop when the user enters an empty line (which is not written). When the program finishes, it should print the number of characters written to the file.
+
+Run the program and check if it writes the contents of the file correctly. Note that an existing file with the given name is overwritten.
+
+Example:
+
+```
+>>> %Run typewriter.py
+Enter the name of the file: example.txt
+Enter the encoding of the file: utf-8
+Enter the text to write to the file (empty line to finish):
+Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+Written 446 characters to example.txt
+```
+
+Then write some Polish text to a file with the encoding `utf-8` and the same text to another file with `cp1250`. The program reports the same number of characters for both. Compare the sizes of the files in bytes (in a file manager, or with `os.path.getsize('example.txt')`) and explain the difference.
+
+:::
+
+## 4. Reading text files
+
+The `open()` function, when used with a text mode, returns a file object of the `TextIOWrapper` class. This is a stream object: it remembers the current position in the file, and each read continues from where the previous one ended.
+
+The most common methods for reading from a file are `read()`, `readline()`, and `readlines()`, and they have the following meanings in text mode:
+
+* `read()`: reads the rest of the file into a string (optionally, you can specify the number of characters to read),
+* `readline()`: reads a single line from the file into a string, including the terminating `'\n'`; at the end of the file it returns the empty string `''`,
+* `readlines()`: reads all the remaining lines from the file into a list of strings.
+
+For reading line by line, the `for` loop can be used. It is the usual way to process a text file, since only one line is held in memory at a time:
+
+```python
+>>> with open('example.txt', encoding='utf-8') as f:
+...     for line in f:
+...         print(line, end='')
+...
+Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+```
+
+Each `line` ends with `'\n'` (except possibly the last line of the file), so `print(line)` would print an extra empty line after each line. Use `print(line, end='')`, or remove the newline with `line.rstrip('\n')`.
+
+::: {.callout-note title="Line endings"}
+
+Windows terminates lines in text files with two characters, `'\r\n'`, while Linux and macOS use `'\n'` alone. In text mode Python translates both to `'\n'` when reading, so your program sees the same strings on every system.
+
+:::
+
+For the next set of exercises, download the novel [The Three Musketeers](https://www.gutenberg.org/ebooks/1257) by Alexandre Dumas from the Project Gutenberg website, in the *Plain Text UTF-8* format. Save the file as `three_musketeers.txt` in the directory of your programs. The file begins and ends with Project Gutenberg's notes and license, which you may ignore in the exercises.
+
+::: {.callout-tip #exercise-4-4 title="Exercise 4.4"}
+
+Answer the following questions about the `three_musketeers.txt` file, using the Python shell:
+
+* A line is a sequence of characters terminated by a newline character. How many lines are there in the file?
+* A word is a sequence of characters separated by whitespace. How many words are in the file?
+* How many characters are in the file? Compare this number with the size of the file in bytes, `os.path.getsize('three_musketeers.txt')`. Why are the numbers different? (There are two reasons.)
+* What is the longest word in the file (in terms of the number of characters)?
+* What is the longest sentence in the file (in terms of the number of characters)? A sentence is defined as a sequence of characters ending with a period (`.`), exclamation mark (`!`), or question mark (`?`). *Hint*: `str.split()` accepts only one separator, but you can first replace `!` and `?` with `.`.
+
+:::
+
+::: {.callout-tip #exercise-4-5 title="Exercise 4.5"}
+
+Write a program `text_file_stats.py`. The program should ask the user for the name and encoding of a text file and then print the following statistics about the file:
+
+* the number of lines,
+* the number of words,
+* the number of English letters (upper and lower case letters are counted alike),
+* the number of vowels (`a`, `e`, `i`, `o`, `u`, again in either case).
+
+Read the file line by line with a `for` loop. *Hint*: `str.isalpha()` is not enough here, since it is `True` also for letters such as `é` or `ł`; check instead whether the lowercase character is in the string `'abcdefghijklmnopqrstuvwxyz'`.
+
+Check the program on some simple text files and on the `three_musketeers.txt` file.
+
+Example output:
+
+```
+>>> %Run text_file_stats.py
+Enter the name of the file: example.txt
+Enter the encoding of the file: utf-8
+Number of lines: 7
+Number of words: 69
+Number of letters: 369
+Number of vowels: 167
+```
+
+:::
+
+## 5. Dictionaries
+
+A dictionary (type `dict`) is a collection of key-value pairs: each key is associated with a value, and the value is looked up by its key. The keys must be unique and immutable (strings, numbers, or tuples of those; strictly speaking, *hashable*). The values can be of any type. Dictionaries are mutable: pairs can be added, changed and removed. Since Python 3.7, a dictionary remembers the order in which the keys were inserted.
+
+A dictionary is implemented as a hash table, so looking up a key takes constant time on average, however large the dictionary. It corresponds to `std::unordered_map` in C++ and `HashMap` in Java, but it is built into the language and has its own syntax.
+
+You can create a dictionary by placing a comma-separated list of key-value pairs within curly braces `{}`. The syntax for a key-value pair is `key: value`. For example:
+
+```python
+>>> d = {'name': 'John', 'age': 30, 'city': 'New York'}
+>>> d
+{'name': 'John', 'age': 30, 'city': 'New York'}
+>>> len(d)
+3
+```
+
+The empty dictionary is `{}`. You can access the value associated with a key by using the key in square brackets. A missing key is an error; the `get()` method returns a default value instead (`None` if no default is given):
+
+```python
+>>> d['name']
+'John'
+>>> d['email']
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 'email'
+>>> d.get('email', 'unknown')
+'unknown'
+>>> d.get('name', 'unknown')
+'John'
+```
+
+The `in` operator checks whether a key (not a value) is in the dictionary:
+
+```python
+>>> 'age' in d
+True
+>>> 'John' in d
+False
+```
+
+You can add a new key-value pair by assigning a value to a new key; assigning to an existing key replaces its value. The `del` statement removes a pair:
+
+```python
+>>> d['married'] = True
+>>> d['age'] = 31
+>>> d
+{'name': 'John', 'age': 31, 'city': 'New York', 'married': True}
+>>> del d['city']
+>>> d
+{'name': 'John', 'age': 31, 'married': True}
+```
+
+Here is an example of how to store the frequency of each character of a string in a dictionary:
+
+```python
+>>> text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+>>> freq = {}
+>>> for char in text:
+...     if char in freq:
+...         freq[char] += 1
+...     else:
+...         freq[char] = 1
+...
+>>> freq
+{'L': 1, 'o': 4, 'r': 3, 'e': 5, 'm': 3, ' ': 7, 'i': 6, 'p': 2, 's': 4, 'u': 2, 'd': 2, 'l': 2, 't': 5, 'a': 2, ',': 1, 'c': 3, 'n': 2, 'g': 1, '.': 1}
+```
+
+With `get()`, the body of the loop is a single line: `freq[char] = freq.get(char, 0) + 1`.
+
+Accessing the keys, values, and key-value pairs of a dictionary can be done using the `keys()`, `values()`, and `items()` methods, respectively:
+
+```python
+>>> freq.keys()
+dict_keys(['L', 'o', 'r', 'e', 'm', ' ', 'i', 'p', 's', 'u', 'd', 'l', 't', 'a', ',', 'c', 'n', 'g', '.'])
+>>> freq.values()
+dict_values([1, 4, 3, 5, 3, 7, 6, 2, 4, 2, 2, 2, 5, 2, 1, 3, 2, 1, 1])
+>>> freq.items()
+dict_items([('L', 1), ('o', 4), ('r', 3), ('e', 5), ('m', 3), (' ', 7), ('i', 6), ('p', 2), ('s', 4), ('u', 2), ('d', 2), ('l', 2), ('t', 5), ('a', 2), (',', 1), ('c', 3), ('n', 2), ('g', 1), ('.', 1)])
+```
+
+A `for` loop over a dictionary goes over its keys; to get both the key and the value, iterate over `items()`:
+
+```python
+>>> for key, value in d.items():
+...     print(f'{key}: {value}')
+...
+name: John
+age: 31
+married: True
+```
+
+### Tuples and sorting
+
+The pairs returned by `items()`, such as `('L', 1)`, are *tuples*. A tuple is an immutable sequence, written in round brackets: it can be indexed and sliced like a list, but not modified. A tuple can be *unpacked* into several variables, `key, value = ('L', 1)`, which is what happens in `for key, value in d.items()` (and in `for i, c in enumerate(...)` from Lab 3). Tuples are compared lexicographically, like strings: first by the first element, and if these are equal, by the second, and so on:
+
+```python
+>>> (2, 'b') < (3, 'a')
+True
+>>> (2, 'b') < (2, 'c')
+True
+```
+
+Assume we want to see the characters of the text sorted by frequency. To this end, we can swap the keys and values, store them in a list, and then sort the list:
+
+```python
+>>> freq_list = [(value, key) for key, value in freq.items()]
+>>> freq_list.sort(reverse=True)
+>>> freq_list
+[(7, ' '), (6, 'i'), (5, 't'), (5, 'e'), (4, 's'), (4, 'o'), (3, 'r'), (3, 'm'), (3, 'c'), (2, 'u'), (2, 'p'), (2, 'n'), (2, 'l'), (2, 'd'), (2, 'a'), (1, 'g'), (1, 'L'), (1, '.'), (1, ',')]
+```
+
+Here:
+
+* `[(value, key) for key, value in freq.items()]` is a list comprehension that creates a list of tuples `(value, key)` from the key-value pairs in the dictionary `freq`.
+* `freq_list.sort(reverse=True)` sorts the list in place in descending order (the default is ascending order). Since the tuples are compared lexicographically, they are sorted by frequency first; characters with the same frequency are sorted by the character, also in descending order: `(5, 't')` comes before `(5, 'e')`.
+
+The built-in function `sorted()` works like `sort()`, but returns a new sorted list and leaves the original unchanged. More about sorting in Lab 7.
+
+::: {.callout-tip #exercise-4-6 title="Exercise 4.6"}
+
+Let `prices = {'apple': 2.5, 'bread': 4.0, 'milk': 3.2}`. Predict the result of each of the following, then check in the shell (each line starts from the original `prices`):
+
+* `prices['milk']`, `prices['eggs']`, `prices.get('eggs')`, `prices.get('eggs', 0)`
+* `'bread' in prices`, `4.0 in prices`, `4.0 in prices.values()`
+* `len(prices)` after `prices['apple'] = 3.0`, and after `prices['eggs'] = 1.2`
+* `sum(prices.values())`, `max(prices.values())`
+* `[name for name, price in prices.items() if price > 3]`
+* `{1: 'a', 1.0: 'b', True: 'c'}` (why?)
+* `{[1, 2]: 'a'}` (why?)
+
+Then write an expression that returns the total cost of the shopping list `cart = {'apple': 4, 'milk': 2}` (product and quantity) with the prices from `prices`.
+
+:::
+
+::: {.callout-tip #exercise-4-7 title="Exercise 4.7"}
+
+Write a program `frequency_table.py`. The program asks the user for the name of a text file and its encoding. Then the program creates a frequency table of the English letters in the file (upper and lower case are counted alike). The table should have the form of a Markdown table with two columns, the letter and its frequency, sorted in descending order of frequency; letters with the same frequency should be sorted alphabetically.
+
+For example, for a file containing the text `Abracadabra`, the table should look as follows:
+
+```
+| Letter | Frequency |
+|--------|-----------|
+| a      |         5 |
+| b      |         2 |
+| r      |         2 |
+| c      |         1 |
+| d      |         1 |
+```
+
+*Hint*: sorting `(value, key)` pairs in reverse order puts letters with the same frequency in reverse alphabetical order. Sort `(-value, key)` pairs in ascending order instead. Align the columns with f-strings.
+
+Check the program on some simple text files and on the `three_musketeers.txt` file. Which letter is the most frequent in the novel?
+
+You may paste the table into an online Markdown previewer like [this one](https://markdownlivepreview.com/).
+
+:::
+
+::: {.callout-tip #exercise-4-8 title="Exercise 4.8"}
+
+Write a program `word_frequency.py`. The program asks the user for the name and encoding of a text file and a number `n`. It counts how many times each word occurs in the file, prints the `n` most frequent words with their counts, and writes the full table of all words, in the format of Exercise 4.7, to the file `word_frequency.md`.
+
+Words are separated by whitespace. Before counting, convert a word to lowercase and remove the punctuation at its beginning and end with `word.strip(chars)`, which removes all the characters in the string `chars` from both ends of `word`. The string `string.punctuation` from the `string` module contains the ASCII punctuation characters:
+
+```python
+>>> import string
+>>> string.punctuation
+'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+>>> '"Hello!",'.strip(string.punctuation)
+'Hello'
+```
+
+Skip the words that become empty after stripping.
+
+Run the program on `three_musketeers.txt`. The novel uses typographic quotation marks and dashes (`“ ” ‘ ’ —`), which are not in `string.punctuation`; check what happens to the words next to them and correct the program. Which of the four heroes, d’Artagnan, Athos, Porthos and Aramis, is mentioned most often?
+
+:::
+
+## 6. Challenge (optional)
+
+::: {.callout-tip #exercise-4-9 title="Exercise 4.9 (challenge)"}
+
+Exercise 3.12 broke the Caesar cipher by counting the letter `e` alone, which fails on short texts. A better method compares the frequencies of all letters with those of a typical English text.
+
+1. Write a program `caesar_file.py` that reads a file name, its encoding, a key `n` and the name of an output file, and writes the Caesar encoding (Exercise 3.10) of the whole file to the output file. Encode a few paragraphs of `three_musketeers.txt` with a key of your choice.
+2. Write a program `break_caesar_file.py` that reads an encrypted file and finds the key. As the reference, compute the relative frequency $p_c$ of each letter $c$ in `three_musketeers.txt` (its count divided by the number of all letters). For each of the 26 candidate keys, decode the text and compute the score $\sum_c n_c \, p_c$, where $n_c$ is the number of occurrences of letter $c$ in the decoded text. The key with the largest score is the most probable one. Print the key and write the decoded text to a file.
+3. Compare the method with the one from Exercise 3.12 on short texts, e.g. single sentences. How short can the text be for the method to still work?
+
+:::
