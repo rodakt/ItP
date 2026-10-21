@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tomasz Rodak">
+
+<title>Lab 4: Files and dictionaries – Introduction to Python for Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-cec3fa0c02eace5643b7c7d4552d2e15.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lab_01.html">Labs</a></li><li class="breadcrumb-item"><a href="./lab_04.html">Lab 4: Files and dictionaries</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Python for Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Python for Data Science</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Labs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 1: Basic types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 2: Control flow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 3: Loops and strings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_04.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lab 4: Files and dictionaries</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#working-with-files" id="toc-working-with-files" class="nav-link active" data-scroll-target="#working-with-files">1. Working with files</a></li>
+  <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory">2. Working directory</a></li>
+  <li><a href="#text-encoding" id="toc-text-encoding" class="nav-link" data-scroll-target="#text-encoding">3. Text encoding</a></li>
+  <li><a href="#reading-text-files" id="toc-reading-text-files" class="nav-link" data-scroll-target="#reading-text-files">4. Reading text files</a></li>
+  <li><a href="#dictionaries" id="toc-dictionaries" class="nav-link" data-scroll-target="#dictionaries">5. Dictionaries</a>
+  <ul class="collapse">
+  <li><a href="#tuples-and-sorting" id="toc-tuples-and-sorting" class="nav-link" data-scroll-target="#tuples-and-sorting">Tuples and sorting</a></li>
+  </ul></li>
+  <li><a href="#challenge-optional" id="toc-challenge-optional" class="nav-link" data-scroll-target="#challenge-optional">6. Challenge (optional)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lab_01.html">Labs</a></li><li class="breadcrumb-item"><a href="./lab_04.html">Lab 4: Files and dictionaries</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Lab 4: Files and dictionaries</h1>
+<p class="subtitle lead">Introduction to Python for Data Science</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tomasz Rodak </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="working-with-files" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-files">1. Working with files</h2>
+<p>Python provides a built-in <code>open()</code> function to open a file. Its most important arguments are:</p>
+<ul>
+<li>the string <code>file</code>: the path to the file to open, i.e.&nbsp;its name, optionally preceded by the directory;</li>
+<li>the string <code>mode</code>: the mode in which the file is opened;</li>
+<li>the string <code>encoding</code>: the text encoding of the file (see <a href="#text-encoding">Section 3</a>).</li>
+</ul>
+<p>The most common modes are:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 90%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>'r'</code></td>
+<td>read (the default); the file must exist</td>
+</tr>
+<tr class="even">
+<td><code>'w'</code></td>
+<td>write; the file is created, or <strong>emptied</strong> if it already exists</td>
+</tr>
+<tr class="odd">
+<td><code>'a'</code></td>
+<td>append; writing goes to the end of the file, which is created if it does not exist</td>
+</tr>
+<tr class="even">
+<td><code>'x'</code></td>
+<td>create; like <code>'w'</code>, but fails if the file already exists</td>
+</tr>
+</tbody>
+</table>
+<p>Adding <code>'b'</code> to the mode (e.g.&nbsp;<code>'rb'</code>) opens the file in binary mode, where you work with bytes instead of characters. In this lab we use text mode only.</p>
+<p>The function returns a <em>file object</em>. Depending on the mode, the file object can be used to read from or write to the file. When you are done with the file, close it with the <code>close()</code> method of the file object.</p>
+<p>Assume we want to create a file <code>example.txt</code> with the following content:</p>
+<pre><code>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.</code></pre>
+<p>The following code creates the file and writes the content to it. The <code>write()</code> method returns the number of characters written, which the shell displays:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'example.txt'</span>, <span class="st">'w'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">'Lorem ipsum dolor sit amet, consectetur adipiscing elit,</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dv">57</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dv">67</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dv">67</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">'nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="dv">66</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dv">68</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">'pariatur. Excepteur sint occaecat cupidatat non proident, sunt in</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="dv">66</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.write(<span class="st">'culpa qui officia deserunt mollit anim id est laborum.</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dv">55</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note that, unlike <code>print()</code>, <code>write()</code> does not add a newline: you have to write <code>'\n'</code> yourself.</p>
+<p>Then the following code reads the contents of the file and prints it on the screen:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'example.txt'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> text <span class="op">=</span> f.read()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> f.close()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(text)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor <span class="kw">in</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>reprehenderit <span class="kw">in</span> voluptate velit esse cillum dolore eu fugiat nulla</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>pariatur. Excepteur sint occaecat cupidatat non proident, sunt <span class="kw">in</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>culpa qui officia deserunt mollit anim <span class="bu">id</span> est laborum.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In the example above:</p>
+<ul>
+<li><code>f</code> is the file object,</li>
+<li><code>f.write()</code> writes a string to the file (the file was opened with mode <code>'w'</code>),</li>
+<li><code>f.read()</code> reads the contents of the entire file into a string (no mode given, so the default <code>'r'</code> is used),</li>
+<li><code>f.close()</code> closes the file.</li>
+</ul>
+<p>Data written to a file is buffered, so it may not reach the disk before the file is closed. It is easy to forget <code>close()</code>, and the call is skipped when an error stops the program before it. The <code>with</code> statement closes the file automatically when its block ends, and it is the recommended way to work with files:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">with</span> <span class="bu">open</span>(<span class="st">'example.txt'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> f:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>...     text <span class="op">=</span> f.read()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(text)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="dv">446</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>How <code>with</code> works, and why it closes the file even after an error, is explained in Lab 6. From now on, use <code>with</code> in your programs.</p>
+<div id="exercise-4-1" class="callout callout-style-default callout-tip callout-titled" title="Exercise 4.1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 4.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Check the above code in the Python shell. Then:</p>
+<ol type="1">
+<li>Open <code>example.txt</code> in mode <code>'a'</code>, write one more line and close the file. Read the file again and print it.</li>
+<li>Open <code>example.txt</code> in mode <code>'w'</code> and close it immediately, without writing anything. What does the file contain now?</li>
+<li>Try to open a file that does not exist in mode <code>'r'</code>, and <code>example.txt</code> in mode <code>'x'</code>. Read the error messages.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="working-directory" class="level2">
+<h2 class="anchored" data-anchor-id="working-directory">2. Working directory</h2>
+<p>You may have noticed that the code above does not specify the full path to the file. Such a <em>relative</em> path is resolved against the <em>working directory</em> of the program: <code>open('example.txt')</code> looks for the file in the working directory, and <code>open('data/example.txt')</code> in its subdirectory <code>data</code>. An <em>absolute</em> path such as <code>'C:/Users/John/Documents/example.txt'</code> (Windows) or <code>'/home/john/example.txt'</code> (Linux, macOS) does not depend on the working directory.</p>
+<p>When Thonny runs a program, it first changes the working directory to the directory containing the program file. So a program and the data files it opens by a bare name should be kept in the same directory. You can check the working directory by running the following code:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> os</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">print</span>(os.getcwd())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can change the working directory using the <code>os.chdir()</code> function:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> os.chdir(<span class="st">'C:/Users/John/Documents'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Backslashes in Windows paths">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Backslashes in Windows paths
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In a string literal the backslash starts an escape sequence, as in C: <code>'\n'</code> is a newline and <code>'\t'</code> a tab. So <code>'C:\new\table.txt'</code> is not the path you meant, and <code>'C:\Users\John'</code> is even a syntax error (<code>\U</code> starts a Unicode escape). On Windows, either write paths with forward slashes, <code>'C:/Users/John'</code>, which Python accepts, or use a <em>raw string</em>, <code>r'C:\Users\John'</code>, in which the backslash has no special meaning.</p>
+</div>
+</div>
+</section>
+<section id="text-encoding" class="level2">
+<h2 class="anchored" data-anchor-id="text-encoding">3. Text encoding</h2>
+<p>A file stores bytes, not characters. A text <em>encoding</em> is a mapping between characters and byte sequences, and different encodings do it in different ways. The most common encodings are:</p>
+<ul>
+<li><strong>ASCII</strong>: uses 7 bits per character. It can encode 128 characters: English letters, digits, punctuation and some control characters.</li>
+<li><strong>UTF-8</strong>: a variable-width encoding that can represent every character in the Unicode character set. It uses one to four bytes per character, and the ASCII characters are encoded as in ASCII, in one byte. It is the standard encoding on the web and on Linux and macOS.</li>
+<li><strong>UTF-16</strong>: another variable-width Unicode encoding, using two or four bytes per character.</li>
+<li><strong>ISO-8859-1</strong> (Latin-1): uses 8 bits per character and can encode 256 characters, enough for Western European languages but not for Polish.</li>
+<li><strong>ISO-8859-2</strong> (Latin-2) and <strong>Windows-1250</strong> (<code>cp1250</code>): 8-bit encodings for Central European languages, including Polish. Older Polish text files on Windows are often in <code>cp1250</code>.</li>
+</ul>
+<p>In Python, a string is converted to bytes by the <code>str.encode()</code> method, and bytes back to a string by <code>bytes.decode()</code>. A <code>bytes</code> literal is written with the <code>b</code> prefix:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s <span class="op">=</span> <span class="st">'zażółć'</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(s)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b <span class="op">=</span> s.encode(<span class="st">'utf-8'</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">b'za</span><span class="ch">\xc5\xbc\xc3\xb3\xc5\x82\xc4\x87</span><span class="st">'</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(b)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b.decode(<span class="st">'utf-8'</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">'zażółć'</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> s.encode(<span class="st">'cp1250'</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="st">b'za</span><span class="ch">\xbf\xf3\xb3\xe6</span><span class="st">'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Decoding with the wrong encoding either fails or, worse, silently produces garbage (<em>mojibake</em>):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b.decode(<span class="st">'cp1250'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">'zaĹĽĂłĹ‚Ä‡'</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> b.decode(<span class="st">'ascii'</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  File <span class="st">"&lt;stdin&gt;"</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="pp">UnicodeDecodeError</span>: <span class="st">'ascii'</span> codec can<span class="st">'t decode byte 0xc5 in position 2: ordinal not in range(128)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When reading and writing text files, Python does exactly this behind the scenes, using the encoding given by the <code>encoding</code> parameter of <code>open()</code>. If you omit it, Python uses a default that depends on the operating system and its settings (on Polish Windows typically <code>cp1250</code>); only from Python 3.15 on is the default UTF-8 everywhere. A program that works on your computer may then fail on another one. Always pass <code>encoding</code> explicitly.</p>
+<div id="exercise-4-2" class="callout callout-style-default callout-tip callout-titled" title="Exercise 4.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 4.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>read_file.py</code>. The program should ask the user for the name and encoding of the file to read. Then the program should read the contents of the file and print them on the screen.</p>
+<p>In Thonny, create a text file <code>polish.txt</code> containing a line with Polish letters, e.g.&nbsp;<code>Zażółć gęślą jaźń</code>, and save it (Thonny saves files in UTF-8). Run the program on this file with the encodings <code>utf-8</code>, <code>cp1250</code>, <code>latin-1</code> and <code>ascii</code>. Which of them work, which fail, and which give wrong characters? Explain why.</p>
+</div>
+</div>
+<div id="exercise-4-3" class="callout callout-style-default callout-tip callout-titled" title="Exercise 4.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 4.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>typewriter.py</code>. The program should ask the user for the name and encoding of the file to write. Then the program reads text from the user line by line and writes each line, followed by a newline character, to the file. The program should stop when the user enters an empty line (which is not written). When the program finishes, it should print the number of characters written to the file.</p>
+<p>Run the program and check if it writes the contents of the file correctly. Note that an existing file with the given name is overwritten.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run typewriter.py
+Enter the name of the file: example.txt
+Enter the encoding of the file: utf-8
+Enter the text to write to the file (empty line to finish):
+Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.
+
+Written 446 characters to example.txt</code></pre>
+<p>Then write some Polish text to a file with the encoding <code>utf-8</code> and the same text to another file with <code>cp1250</code>. The program reports the same number of characters for both. Compare the sizes of the files in bytes (in a file manager, or with <code>os.path.getsize('example.txt')</code>) and explain the difference.</p>
+</div>
+</div>
+</section>
+<section id="reading-text-files" class="level2">
+<h2 class="anchored" data-anchor-id="reading-text-files">4. Reading text files</h2>
+<p>The <code>open()</code> function, when used with a text mode, returns a file object of the <code>TextIOWrapper</code> class. This is a stream object: it remembers the current position in the file, and each read continues from where the previous one ended.</p>
+<p>The most common methods for reading from a file are <code>read()</code>, <code>readline()</code>, and <code>readlines()</code>, and they have the following meanings in text mode:</p>
+<ul>
+<li><code>read()</code>: reads the rest of the file into a string (optionally, you can specify the number of characters to read),</li>
+<li><code>readline()</code>: reads a single line from the file into a string, including the terminating <code>'\n'</code>; at the end of the file it returns the empty string <code>''</code>,</li>
+<li><code>readlines()</code>: reads all the remaining lines from the file into a list of strings.</li>
+</ul>
+<p>For reading line by line, the <code>for</code> loop can be used. It is the usual way to process a text file, since only one line is held in memory at a time:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">with</span> <span class="bu">open</span>(<span class="st">'example.txt'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> f:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>...         <span class="bu">print</span>(line, end<span class="op">=</span><span class="st">''</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor <span class="kw">in</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>reprehenderit <span class="kw">in</span> voluptate velit esse cillum dolore eu fugiat nulla</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>pariatur. Excepteur sint occaecat cupidatat non proident, sunt <span class="kw">in</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>culpa qui officia deserunt mollit anim <span class="bu">id</span> est laborum.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each <code>line</code> ends with <code>'\n'</code> (except possibly the last line of the file), so <code>print(line)</code> would print an extra empty line after each line. Use <code>print(line, end='')</code>, or remove the newline with <code>line.rstrip('\n')</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Line endings">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Line endings
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Windows terminates lines in text files with two characters, <code>'\r\n'</code>, while Linux and macOS use <code>'\n'</code> alone. In text mode Python translates both to <code>'\n'</code> when reading, so your program sees the same strings on every system.</p>
+</div>
+</div>
+<p>For the next set of exercises, download the novel <a href="https://www.gutenberg.org/ebooks/1257">The Three Musketeers</a> by Alexandre Dumas from the Project Gutenberg website, in the <em>Plain Text UTF-8</em> format. Save the file as <code>three_musketeers.txt</code> in the directory of your programs. The file begins and ends with Project Gutenberg’s notes and license, which you may ignore in the exercises.</p>
+<div id="exercise-4-4" class="callout callout-style-default callout-tip callout-titled" title="Exercise 4.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 4.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Answer the following questions about the <code>three_musketeers.txt</code> file, using the Python shell:</p>
+<ul>
+<li>A line is a sequence of characters terminated by a newline character. How many lines are there in the file?</li>
+<li>A word is a sequence of characters separated by whitespace. How many words are in the file?</li>
+<li>How many characters are in the file? Compare this number with the size of the file in bytes, <code>os.path.getsize('three_musketeers.txt')</code>. Why are the numbers different? (There are two reasons.)</li>
+<li>What is the longest word in the file (in terms of the number of characters)?</li>
+<li>What is the longest sentence in the file (in terms of the number of characters)? A sentence is defined as a sequence of characters ending with a period (<code>.</code>), exclamation mark (<code>!</code>), or question mark (<code>?</code>). <em>Hint</em>: <code>str.split()</code> accepts only one separator, but you can first replace <code>!</code> and <code>?</code> with <code>.</code>.</li>
+</ul>
+</div>
+</div>
+<div id="exercise-4-5" class="callout callout-style-default callout-tip callout-titled" title="Exercise 4.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 4.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>text_file_stats.py</code>. The program should ask the user for the name and encoding of a text file and then print the following statistics about the file:</p>
+<ul>
+<li>the number of lines,</li>
+<li>the number of words,</li>
+<li>the number of English letters (upper and lower case letters are counted alike),</li>
+<li>the number of vowels (<code>a</code>, <code>e</code>, <code>i</code>, <code>o</code>, <code>u</code>, again in either case).</li>
+</ul>
+<p>Read the file line by line with a <code>for</code> loop. <em>Hint</em>: <code>str.isalpha()</code> is not enough here, since it is <code>True</code> also for letters such as <code>é</code> or <code>ł</code>; check instead whether the lowercase character is in the string <code>'abcdefghijklmnopqrstuvwxyz'</code>.</p>
+<p>Check the program on some simple text files and on the <code>three_musketeers.txt</code> file.</p>
+<p>Example output:</p>
+<pre><code>&gt;&gt;&gt; %Run text_file_stats.py
+Enter the name of the file: example.txt
+Enter the encoding of the file: utf-8
+Number of lines: 7
+Number of words: 69
+Number of letters: 369
+Number of vowels: 167</code></pre>
+</div>
+</div>
+</section>
+<section id="dictionaries" class="level2">
+<h2 class="anchored" data-anchor-id="dictionaries">5. Dictionaries</h2>
+<p>A dictionary (type <code>dict</code>) is a collection of key-value pairs: each key is associated with a value, and the value is looked up by its key. The keys must be unique and immutable (strings, numbers, or tuples of those; strictly speaking, <em>hashable</em>). The values can be of any type. Dictionaries are mutable: pairs can be added, changed and removed. Since Python 3.7, a dictionary remembers the order in which the keys were inserted.</p>
+<p>A dictionary is implemented as a hash table, so looking up a key takes constant time on average, however large the dictionary. It corresponds to <code>std::unordered_map</code> in C++ and <code>HashMap</code> in Java, but it is built into the language and has its own syntax.</p>
+<p>You can create a dictionary by placing a comma-separated list of key-value pairs within curly braces <code>{}</code>. The syntax for a key-value pair is <code>key: value</code>. For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d <span class="op">=</span> {<span class="st">'name'</span>: <span class="st">'John'</span>, <span class="st">'age'</span>: <span class="dv">30</span>, <span class="st">'city'</span>: <span class="st">'New York'</span>}</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>{<span class="st">'name'</span>: <span class="st">'John'</span>, <span class="st">'age'</span>: <span class="dv">30</span>, <span class="st">'city'</span>: <span class="st">'New York'</span>}</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">len</span>(d)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The empty dictionary is <code>{}</code>. You can access the value associated with a key by using the key in square brackets. A missing key is an error; the <code>get()</code> method returns a default value instead (<code>None</code> if no default is given):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d[<span class="st">'name'</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">'John'</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d[<span class="st">'email'</span>]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  File <span class="st">"&lt;stdin&gt;"</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="pp">KeyError</span>: <span class="st">'email'</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.get(<span class="st">'email'</span>, <span class="st">'unknown'</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">'unknown'</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d.get(<span class="st">'name'</span>, <span class="st">'unknown'</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">'John'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>in</code> operator checks whether a key (not a value) is in the dictionary:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">'age'</span> <span class="kw">in</span> d</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">'John'</span> <span class="kw">in</span> d</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="va">False</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can add a new key-value pair by assigning a value to a new key; assigning to an existing key replaces its value. The <code>del</code> statement removes a pair:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d[<span class="st">'married'</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d[<span class="st">'age'</span>] <span class="op">=</span> <span class="dv">31</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>{<span class="st">'name'</span>: <span class="st">'John'</span>, <span class="st">'age'</span>: <span class="dv">31</span>, <span class="st">'city'</span>: <span class="st">'New York'</span>, <span class="st">'married'</span>: <span class="va">True</span>}</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="kw">del</span> d[<span class="st">'city'</span>]</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> d</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>{<span class="st">'name'</span>: <span class="st">'John'</span>, <span class="st">'age'</span>: <span class="dv">31</span>, <span class="st">'married'</span>: <span class="va">True</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here is an example of how to store the frequency of each character of a string in a dictionary:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> text <span class="op">=</span> <span class="st">'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> freq <span class="op">=</span> {}</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> char <span class="kw">in</span> text:</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">if</span> char <span class="kw">in</span> freq:</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>...         freq[char] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>...     <span class="cf">else</span>:</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>...         freq[char] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> freq</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>{<span class="st">'L'</span>: <span class="dv">1</span>, <span class="st">'o'</span>: <span class="dv">4</span>, <span class="st">'r'</span>: <span class="dv">3</span>, <span class="st">'e'</span>: <span class="dv">5</span>, <span class="st">'m'</span>: <span class="dv">3</span>, <span class="st">' '</span>: <span class="dv">7</span>, <span class="st">'i'</span>: <span class="dv">6</span>, <span class="st">'p'</span>: <span class="dv">2</span>, <span class="st">'s'</span>: <span class="dv">4</span>, <span class="st">'u'</span>: <span class="dv">2</span>, <span class="st">'d'</span>: <span class="dv">2</span>, <span class="st">'l'</span>: <span class="dv">2</span>, <span class="st">'t'</span>: <span class="dv">5</span>, <span class="st">'a'</span>: <span class="dv">2</span>, <span class="st">','</span>: <span class="dv">1</span>, <span class="st">'c'</span>: <span class="dv">3</span>, <span class="st">'n'</span>: <span class="dv">2</span>, <span class="st">'g'</span>: <span class="dv">1</span>, <span class="st">'.'</span>: <span class="dv">1</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>With <code>get()</code>, the body of the loop is a single line: <code>freq[char] = freq.get(char, 0) + 1</code>.</p>
+<p>Accessing the keys, values, and key-value pairs of a dictionary can be done using the <code>keys()</code>, <code>values()</code>, and <code>items()</code> methods, respectively:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> freq.keys()</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>dict_keys([<span class="st">'L'</span>, <span class="st">'o'</span>, <span class="st">'r'</span>, <span class="st">'e'</span>, <span class="st">'m'</span>, <span class="st">' '</span>, <span class="st">'i'</span>, <span class="st">'p'</span>, <span class="st">'s'</span>, <span class="st">'u'</span>, <span class="st">'d'</span>, <span class="st">'l'</span>, <span class="st">'t'</span>, <span class="st">'a'</span>, <span class="st">','</span>, <span class="st">'c'</span>, <span class="st">'n'</span>, <span class="st">'g'</span>, <span class="st">'.'</span>])</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> freq.values()</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>dict_values([<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> freq.items()</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>dict_items([(<span class="st">'L'</span>, <span class="dv">1</span>), (<span class="st">'o'</span>, <span class="dv">4</span>), (<span class="st">'r'</span>, <span class="dv">3</span>), (<span class="st">'e'</span>, <span class="dv">5</span>), (<span class="st">'m'</span>, <span class="dv">3</span>), (<span class="st">' '</span>, <span class="dv">7</span>), (<span class="st">'i'</span>, <span class="dv">6</span>), (<span class="st">'p'</span>, <span class="dv">2</span>), (<span class="st">'s'</span>, <span class="dv">4</span>), (<span class="st">'u'</span>, <span class="dv">2</span>), (<span class="st">'d'</span>, <span class="dv">2</span>), (<span class="st">'l'</span>, <span class="dv">2</span>), (<span class="st">'t'</span>, <span class="dv">5</span>), (<span class="st">'a'</span>, <span class="dv">2</span>), (<span class="st">','</span>, <span class="dv">1</span>), (<span class="st">'c'</span>, <span class="dv">3</span>), (<span class="st">'n'</span>, <span class="dv">2</span>), (<span class="st">'g'</span>, <span class="dv">1</span>), (<span class="st">'.'</span>, <span class="dv">1</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A <code>for</code> loop over a dictionary goes over its keys; to get both the key and the value, iterate over <code>items()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">for</span> key, value <span class="kw">in</span> d.items():</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>key<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>name: John</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>age: <span class="dv">31</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>married: <span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="tuples-and-sorting" class="level3">
+<h3 class="anchored" data-anchor-id="tuples-and-sorting">Tuples and sorting</h3>
+<p>The pairs returned by <code>items()</code>, such as <code>('L', 1)</code>, are <em>tuples</em>. A tuple is an immutable sequence, written in round brackets: it can be indexed and sliced like a list, but not modified. A tuple can be <em>unpacked</em> into several variables, <code>key, value = ('L', 1)</code>, which is what happens in <code>for key, value in d.items()</code> (and in <code>for i, c in enumerate(...)</code> from Lab 3). Tuples are compared lexicographically, like strings: first by the first element, and if these are equal, by the second, and so on:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">2</span>, <span class="st">'b'</span>) <span class="op">&lt;</span> (<span class="dv">3</span>, <span class="st">'a'</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> (<span class="dv">2</span>, <span class="st">'b'</span>) <span class="op">&lt;</span> (<span class="dv">2</span>, <span class="st">'c'</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Assume we want to see the characters of the text sorted by frequency. To this end, we can swap the keys and values, store them in a list, and then sort the list:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> freq_list <span class="op">=</span> [(value, key) <span class="cf">for</span> key, value <span class="kw">in</span> freq.items()]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> freq_list.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> freq_list</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>[(<span class="dv">7</span>, <span class="st">' '</span>), (<span class="dv">6</span>, <span class="st">'i'</span>), (<span class="dv">5</span>, <span class="st">'t'</span>), (<span class="dv">5</span>, <span class="st">'e'</span>), (<span class="dv">4</span>, <span class="st">'s'</span>), (<span class="dv">4</span>, <span class="st">'o'</span>), (<span class="dv">3</span>, <span class="st">'r'</span>), (<span class="dv">3</span>, <span class="st">'m'</span>), (<span class="dv">3</span>, <span class="st">'c'</span>), (<span class="dv">2</span>, <span class="st">'u'</span>), (<span class="dv">2</span>, <span class="st">'p'</span>), (<span class="dv">2</span>, <span class="st">'n'</span>), (<span class="dv">2</span>, <span class="st">'l'</span>), (<span class="dv">2</span>, <span class="st">'d'</span>), (<span class="dv">2</span>, <span class="st">'a'</span>), (<span class="dv">1</span>, <span class="st">'g'</span>), (<span class="dv">1</span>, <span class="st">'L'</span>), (<span class="dv">1</span>, <span class="st">'.'</span>), (<span class="dv">1</span>, <span class="st">','</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Here:</p>
+<ul>
+<li><code>[(value, key) for key, value in freq.items()]</code> is a list comprehension that creates a list of tuples <code>(value, key)</code> from the key-value pairs in the dictionary <code>freq</code>.</li>
+<li><code>freq_list.sort(reverse=True)</code> sorts the list in place in descending order (the default is ascending order). Since the tuples are compared lexicographically, they are sorted by frequency first; characters with the same frequency are sorted by the character, also in descending order: <code>(5, 't')</code> comes before <code>(5, 'e')</code>.</li>
+</ul>
+<p>The built-in function <code>sorted()</code> works like <code>sort()</code>, but returns a new sorted list and leaves the original unchanged. More about sorting in Lab 7.</p>
+<div id="exercise-4-6" class="callout callout-style-default callout-tip callout-titled" title="Exercise 4.6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 4.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <code>prices = {'apple': 2.5, 'bread': 4.0, 'milk': 3.2}</code>. Predict the result of each of the following, then check in the shell (each line starts from the original <code>prices</code>):</p>
+<ul>
+<li><code>prices['milk']</code>, <code>prices['eggs']</code>, <code>prices.get('eggs')</code>, <code>prices.get('eggs', 0)</code></li>
+<li><code>'bread' in prices</code>, <code>4.0 in prices</code>, <code>4.0 in prices.values()</code></li>
+<li><code>len(prices)</code> after <code>prices['apple'] = 3.0</code>, and after <code>prices['eggs'] = 1.2</code></li>
+<li><code>sum(prices.values())</code>, <code>max(prices.values())</code></li>
+<li><code>[name for name, price in prices.items() if price &gt; 3]</code></li>
+<li><code>{1: 'a', 1.0: 'b', True: 'c'}</code> (why?)</li>
+<li><code>{[1, 2]: 'a'}</code> (why?)</li>
+</ul>
+<p>Then write an expression that returns the total cost of the shopping list <code>cart = {'apple': 4, 'milk': 2}</code> (product and quantity) with the prices from <code>prices</code>.</p>
+</div>
+</div>
+<div id="exercise-4-7" class="callout callout-style-default callout-tip callout-titled" title="Exercise 4.7">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 4.7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>frequency_table.py</code>. The program asks the user for the name of a text file and its encoding. Then the program creates a frequency table of the English letters in the file (upper and lower case are counted alike). The table should have the form of a Markdown table with two columns, the letter and its frequency, sorted in descending order of frequency; letters with the same frequency should be sorted alphabetically.</p>
+<p>For example, for a file containing the text <code>Abracadabra</code>, the table should look as follows:</p>
+<pre><code>| Letter | Frequency |
+|--------|-----------|
+| a      |         5 |
+| b      |         2 |
+| r      |         2 |
+| c      |         1 |
+| d      |         1 |</code></pre>
+<p><em>Hint</em>: sorting <code>(value, key)</code> pairs in reverse order puts letters with the same frequency in reverse alphabetical order. Sort <code>(-value, key)</code> pairs in ascending order instead. Align the columns with f-strings.</p>
+<p>Check the program on some simple text files and on the <code>three_musketeers.txt</code> file. Which letter is the most frequent in the novel?</p>
+<p>You may paste the table into an online Markdown previewer like <a href="https://markdownlivepreview.com/">this one</a>.</p>
+</div>
+</div>
+<div id="exercise-4-8" class="callout callout-style-default callout-tip callout-titled" title="Exercise 4.8">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 4.8
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>word_frequency.py</code>. The program asks the user for the name and encoding of a text file and a number <code>n</code>. It counts how many times each word occurs in the file, prints the <code>n</code> most frequent words with their counts, and writes the full table of all words, in the format of Exercise 4.7, to the file <code>word_frequency.md</code>.</p>
+<p>Words are separated by whitespace. Before counting, convert a word to lowercase and remove the punctuation at its beginning and end with <code>word.strip(chars)</code>, which removes all the characters in the string <code>chars</code> from both ends of <code>word</code>. The string <code>string.punctuation</code> from the <code>string</code> module contains the ASCII punctuation characters:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> string</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> string.punctuation</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">'!"#$%&amp;</span><span class="ch">\'</span><span class="co">()*+,-./:;&lt;=&gt;?@[</span><span class="ch">\\</span><span class="co">]^_`{|}~'</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="st">'"Hello!",'</span>.strip(string.punctuation)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">'Hello'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Skip the words that become empty after stripping.</p>
+<p>Run the program on <code>three_musketeers.txt</code>. The novel uses typographic quotation marks and dashes (<code>“ ” ‘ ’ —</code>), which are not in <code>string.punctuation</code>; check what happens to the words next to them and correct the program. Which of the four heroes, d’Artagnan, Athos, Porthos and Aramis, is mentioned most often?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="challenge-optional" class="level2">
+<h2 class="anchored" data-anchor-id="challenge-optional">6. Challenge (optional)</h2>
+<div id="exercise-4-9" class="callout callout-style-default callout-tip callout-titled" title="Exercise 4.9 (challenge)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 4.9 (challenge)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Exercise 3.12 broke the Caesar cipher by counting the letter <code>e</code> alone, which fails on short texts. A better method compares the frequencies of all letters with those of a typical English text.</p>
+<ol type="1">
+<li>Write a program <code>caesar_file.py</code> that reads a file name, its encoding, a key <code>n</code> and the name of an output file, and writes the Caesar encoding (Exercise 3.10) of the whole file to the output file. Encode a few paragraphs of <code>three_musketeers.txt</code> with a key of your choice.</li>
+<li>Write a program <code>break_caesar_file.py</code> that reads an encrypted file and finds the key. As the reference, compute the relative frequency <span class="math inline">\(p_c\)</span> of each letter <span class="math inline">\(c\)</span> in <code>three_musketeers.txt</code> (its count divided by the number of all letters). For each of the 26 candidate keys, decode the text and compute the score <span class="math inline">\(\sum_c n_c \, p_c\)</span>, where <span class="math inline">\(n_c\)</span> is the number of occurrences of letter <span class="math inline">\(c\)</span> in the decoded text. The key with the largest score is the most probable one. Print the key and write the decoded text to a file.</li>
+<li>Compare the method with the one from Exercise 3.12 on short texts, e.g.&nbsp;single sentences. How short can the text be for the method to still work?</li>
+</ol>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/rodakt\.github\.io\/ItP\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
