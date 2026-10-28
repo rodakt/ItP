@@ -1,0 +1,497 @@
+---
+title: "Lab 5: Functions"
+subtitle: "Introduction to Python for Data Science"
+author: "Tomasz Rodak"
+---
+
+## 1. Defining functions
+
+A function is a named block of code that performs a computation. You have already used many built-in functions, such as `print()`, `len()` or `range()`; now you will write your own.
+
+A function is defined with the `def` keyword, followed by the name of the function, the list of its *parameters* in round brackets and a colon. The body of the function is the indented block below. The `return` statement ends the function and gives back a value to the caller:
+
+```python
+>>> def add(a, b):
+...     return a + b
+...
+>>> add(2, 3)
+5
+>>> add('abc', 'def')
+'abcdef'
+>>> add([1, 2], [3])
+[1, 2, 3]
+```
+
+Unlike in C, C++ and Java, neither the parameters nor the result have declared types: `add()` works for any values that can be added with `+`. There are no prototypes or header files either. `def` is an ordinary statement, executed when the program reaches it, and it creates a function object bound to the name `add`. So a function must be defined before the line that *calls* it is executed, but it may call other functions that are defined later in the file.
+
+The `return` statement does not have to be the last statement of the body; it may occur anywhere, also inside a loop, and the function ends as soon as it is executed. A function that ends without `return` (or with a bare `return`) returns the special value `None`. The shell does not display `None`:
+
+```python
+>>> def greet(name):
+...     print(f'Hello, {name}!')
+...
+>>> greet('Ann')
+Hello, Ann!
+>>> result = greet('Ann')
+Hello, Ann!
+>>> print(result)
+None
+>>> result is None
+True
+```
+
+::: {.callout-warning title="`print()` is not `return`"}
+
+`greet()` *prints* a value, it does not *return* it. In the shell the two look alike, since the shell displays the value of an expression you type, but a printed value cannot be used in further computation: `greet('Ann') + '!'` is an error. Unless an exercise asks you to print something, the functions in this lab should **return** their results and print nothing.
+
+:::
+
+::: {.callout-tip #exercise-5-1 title="Exercise 5.1"}
+
+Write the following functions in a file `functions.py`, run the file in Thonny (this executes the `def` statements) and test the functions in the shell:
+
+1. `increment(x)`, which returns its argument increased by 1;
+2. `is_even(x)`, which returns `True` if the integer `x` is even and `False` otherwise. The body should be a single `return` statement, without `if` (see the note before Exercise 1.8);
+3. `sign(x)`, which returns `-1`, `0` or `1` depending on the sign of the number `x`.
+
+```python
+>>> increment(3)
+4
+>>> is_even(-4)
+True
+>>> sign(-2.5)
+-1
+```
+
+Then write a function `print_sign(x)` that prints the sign instead of returning it, and predict the results of `sign(3) + 1` and `print_sign(3) + 1`.
+
+:::
+
+::: {.callout-tip #exercise-5-2 title="Exercise 5.2"}
+
+Write a function `is_prime(n)` that returns `True` if the integer `n` is prime and `False` otherwise. Since `return` ends the function immediately, you need neither a flag nor the loop `else` from Lab 2: return `False` as soon as you find a divisor, and `True` after the loop.
+
+```python
+>>> is_prime(2)
+True
+>>> is_prime(1)
+False
+>>> is_prime(91)
+False
+>>> [n for n in range(30) if is_prime(n)]
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+```
+
+Check also `is_prime(22801763573)`. If it takes too long, you check too many candidate divisors: as in Lab 2, it is enough to check `d` with `d * d <= n`.
+
+:::
+
+::: {.callout-tip #exercise-5-3 title="Exercise 5.3"}
+
+1. Write a function `is_triangle(a, b, c)` that returns `True` if a triangle with sides of lengths `a`, `b` and `c` exists, and `False` otherwise (compare Exercise 2.4).
+2. Write a function `triangle_area(a, b, c)` that returns the area of the triangle computed with Heron's formula (Exercise 1.4), or `None` if the triangle does not exist. Use `is_triangle()` inside `triangle_area()`.
+
+```python
+>>> is_triangle(3, 4, 5)
+True
+>>> is_triangle(1, 1, 3)
+False
+>>> triangle_area(3, 4, 5)
+6.0
+>>> triangle_area(1, 1, 3) is None
+True
+```
+
+Why is `is None` used in the last line, instead of just `triangle_area(1, 1, 3)`?
+
+:::
+
+::: {.callout-tip #exercise-5-4 title="Exercise 5.4"}
+
+In Exercise 1.6 you wrote expressions for XOR and implication. Turn them into functions of two Boolean arguments, each with a one-line body:
+
+1. `implies(p, q)`: the implication $p \Rightarrow q$,
+2. `xor(p, q)`: the exclusive disjunction,
+3. `iff(p, q)`: the equivalence $p \Leftrightarrow q$,
+4. `nand(p, q)`: the negation of the conjunction, `not (p and q)`.
+
+Then use nested `for` loops over `[False, True]` to print the truth table of all four functions:
+
+```
+p     q     implies xor   iff   nand
+False False True    False True  True
+False True  True    True  False True
+True  False False   True  False True
+True  True  True    False True  False
+```
+
+:::
+
+::: {.callout-tip #exercise-5-5 title="Exercise 5.5"}
+
+DNA is a sequence of nucleotides represented by the letters `A`, `C`, `G` and `T`. It is built of two complementary strands, in which `A` pairs with `T` and `C` pairs with `G`. Write a function `complementary(dna)` that returns the complementary strand of the DNA sequence given as a string. If the string contains characters other than `A`, `C`, `G` and `T`, the function should return `None`.
+
+```python
+>>> complementary('ACGT')
+'TGCA'
+>>> complementary('AACGTT')
+'TTGCAA'
+>>> complementary('ACGTX')
+>>> complementary('ACGTX') is None
+True
+```
+
+Note that the shell shows nothing after the third call. *Hint*: store the pairs in a dictionary, `{'A': 'T', 'C': 'G', ...}`.
+
+:::
+
+## 2. Returning several values
+
+A function returns a single object, but that object may be a tuple (Lab 4). Together with tuple unpacking, this lets a function return several values. For example, the built-in function `divmod(a, b)` returns the quotient and the remainder of integer division:
+
+```python
+>>> divmod(17, 5)
+(3, 2)
+>>> q, r = divmod(17, 5)
+>>> q
+3
+```
+
+The round brackets around a returned tuple may be omitted:
+
+```python
+>>> def min_max(numbers):
+...     return min(numbers), max(numbers)
+...
+>>> low, high = min_max([3, 1, 4, 1, 5, 9, 2, 6])
+>>> low, high
+(1, 9)
+```
+
+In C you would return such results through pointer parameters, in Java through an array or a small class.
+
+::: {.callout-tip #exercise-5-6 title="Exercise 5.6"}
+
+1. Write a function `counter(seq)` that returns a dictionary with the number of occurrences of each element of the sequence `seq` (compare the frequency dictionary of Lab 4).
+2. Write a function `most_common(seq)` that returns a tuple `(element, count)` with the most frequent element of `seq` and its number of occurrences; if there are several, any of them. Use `counter()` inside.
+
+```python
+>>> counter([1, 2, 3, 1, 2, 3, 1, 2, 1])
+{1: 4, 2: 3, 3: 2}
+>>> counter('abracadabra')
+{'a': 5, 'b': 2, 'r': 2, 'c': 1, 'd': 1}
+>>> most_common('abracadabra')
+('a', 5)
+>>> letter, count = most_common('mississippi')
+>>> count
+4
+```
+
+What should `most_common('')` return? Decide and implement it.
+
+:::
+
+## 3. Arguments
+
+### Keyword arguments and default values
+
+An argument can be passed by *position* or by the *name* of the parameter, as a *keyword argument*. Keyword arguments may come in any order, but after all the positional ones:
+
+```python
+>>> def describe(name, age, city):
+...     return f'{name}, {age}, from {city}'
+...
+>>> describe('John', 30, 'Boston')
+'John, 30, from Boston'
+>>> describe('John', city='Boston', age=30)
+'John, 30, from Boston'
+```
+
+A parameter may have a *default value*, used when the argument is omitted. Parameters with default values must come after those without:
+
+```python
+>>> def power(x, exponent=2):
+...     return x ** exponent
+...
+>>> power(5)
+25
+>>> power(5, 3)
+125
+>>> power(x=2, exponent=10)
+1024
+```
+
+You have already used both features: `print(x, end='')` (Lab 3) passes the keyword argument `end`, whose default value is `'\n'`, and `list.sort(reverse=True)` (Lab 4) passes `reverse`, whose default is `False`. Keyword arguments make a call readable: `sort(reverse=True)` says more than a bare `True` would.
+
+### Passing objects to functions
+
+In Python, a variable is a name for an object (Lab 1), and passing an argument binds the parameter to the *same* object, without copying it. If the function modifies a mutable object, such as a list or a dictionary, the change is visible to the caller. If the function assigns a new object to the parameter, only the local name changes:
+
+```python
+>>> def append_zero(lst):
+...     lst.append(0)
+...
+>>> def replace(lst):
+...     lst = [0]
+...
+>>> numbers = [1, 2]
+>>> append_zero(numbers)
+>>> numbers
+[1, 2, 0]
+>>> replace(numbers)
+>>> numbers
+[1, 2, 0]
+```
+
+This works like passing references to objects in Java, or pointers in C: through the pointer you can change the pointed-to object, but assigning a new address to the pointer parameter does not affect the caller. Immutable objects, such as numbers, strings and tuples, cannot be changed at all, so for them the result is as if they were passed by value.
+
+::: {.callout-warning title="Mutable default values"}
+
+A default value is computed once, when the `def` statement is executed, not at every call. A mutable default, such as `def add_item(item, items=[])`, is therefore a single list shared by all the calls that use the default, and it grows from call to call. Use `None` as the default instead and create the list inside the function: `if items is None: items = []`.
+
+:::
+
+### Local and global variables
+
+A variable assigned inside a function, including a parameter, is *local*: it exists only while the function runs and is not visible outside it. A function can read the variables of the file (*global* variables), but an assignment to a name anywhere in a function makes that name local in the whole body of the function:
+
+```python
+>>> x = 10
+>>> def show():
+...     print(x)
+...
+>>> show()
+10
+>>> def change():
+...     print(x)
+...     x = 1
+...
+>>> change()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 2, in change
+UnboundLocalError: cannot access local variable 'x' where it is not associated with a value
+```
+
+To assign to a global variable inside a function, declare it with `global x` at the beginning of the body. Do this sparingly: a function that communicates only through its parameters and its return value is easier to understand and to test.
+
+::: {.callout-tip #exercise-5-7 title="Exercise 5.7"}
+
+Predict what each of the following programs prints, then check:
+
+```python
+def f(a, b=1, c=2):
+    return a + 10 * b + 100 * c
+
+print(f(1), f(1, 2), f(1, c=3), f(c=1, a=2, b=3))
+```
+
+```python
+def double_all(numbers):
+    for i in range(len(numbers)):
+        numbers[i] *= 2
+
+def double_all_copy(numbers):
+    numbers = [2 * x for x in numbers]
+    return numbers
+
+a = [1, 2, 3]
+double_all(a)
+b = double_all_copy(a)
+print(a, b)
+```
+
+```python
+def add_item(item, items=[]):
+    items.append(item)
+    return items
+
+print(add_item(1), add_item(2), add_item(3, []))
+```
+
+```python
+counter = 0
+
+def tick():
+    global counter
+    counter += 1
+    return counter
+
+tick()
+tick()
+print(counter, tick())
+```
+
+Fix `add_item()` as described in the warning above. Which calls are errors: `f()`, `f(1, a=2)`, `f(b=2, 1)`? Read the error messages.
+
+:::
+
+## 4. Recursion
+
+A function may call itself. Such a function is *recursive*. A recursive definition needs a *base case*, solved directly, and a *recursive case*, which reduces the problem to a smaller instance of the same problem. A classic example is the factorial, $n! = 1$ for $n = 0$ and $n! = n \cdot (n-1)!$ for $n > 0$:
+
+```python
+>>> def factorial(n):
+...     if n == 0:
+...         return 1
+...     return n * factorial(n - 1)
+...
+>>> factorial(5)
+120
+>>> factorial(30)
+265252859812191058636308480000000
+```
+
+Each call waiting for the result of a recursive call occupies a frame on the call stack. To prevent a stack overflow, which in C ends with a crash, Python limits the depth of recursion, by default to about 1000 calls; `factorial(5000)` ends with `RecursionError: maximum recursion depth exceeded`. Python also does not optimise tail calls. So recursion in Python is fine for problems that are naturally recursive and not too deep, but a simple loop is usually better written as a loop.
+
+::: {.callout-tip #exercise-5-8 title="Exercise 5.8"}
+
+The greatest common divisor of two non-negative integers `a` and `b` can be computed with the Euclidean algorithm: if `b` is zero, then $\gcd(a, b) = a$; otherwise $\gcd(a, b) = \gcd(b, a \bmod b)$.
+
+1. Write a recursive function `gcd(a, b)` that follows this definition.
+2. Write an iterative version `gcd_loop(a, b)` with a `while` loop. *Hint*: the assignment `a, b = b, a % b` does one step of the algorithm.
+3. Write a function `lcm(a, b)` that returns the least common multiple of positive integers, using `gcd()`.
+
+```python
+>>> gcd(12, 15)
+3
+>>> gcd(15, 12)
+3
+>>> gcd(12, 0)
+12
+>>> gcd(1234567890, 1234567891)
+1
+>>> lcm(4, 6)
+12
+```
+
+Why is the result of the last `gcd()` call 1, without any computation?
+
+:::
+
+::: {.callout-tip #exercise-5-9 title="Exercise 5.9"}
+
+The Fibonacci numbers are defined by
+
+$$
+F_0 = 0, \qquad F_1 = 1, \qquad F_n = F_{n-1} + F_{n-2} \quad \text{for } n \geq 2.
+$$
+
+1. Write a recursive function `fibonacci(n)` that follows the definition directly. Check `fibonacci(20)` (should be `6765`), then `fibonacci(30)` and `fibonacci(35)`. Why does it get so slow? Count how many times the function is called for `n = 20`, using a global counter as in Exercise 5.7.
+2. Write an iterative version `fibonacci_loop(n)` that remembers only the last two numbers. Check that `fibonacci_loop(100)` is `354224848179261915075`.
+3. The recursive version computes the same values over and over. *Memoization* removes the repetition: computed values are stored in a dictionary, and the function first looks up its argument there. Write `fibonacci_memo(n)` using a global dictionary `memo = {0: 0, 1: 1}`. Compute `fibonacci_memo(100)` and count the calls again. What happens for `fibonacci_memo(5000)` called right after the program starts, and what for `fibonacci_memo(5000)` after `fibonacci_memo(900)`, `fibonacci_memo(1800)`, ...?
+
+:::
+
+## 5. Docstrings and the `doctest` module
+
+A *docstring* is a string literal that is the first statement of a function (or of a file, or of a class). It documents what the function does. By convention it is written in triple double quotes, which allow several lines: the first line is a short summary, followed by an empty line and the details. The docstring is shown by `help()`:
+
+```python
+>>> def add(a, b):
+...     """Return the sum of a and b."""
+...     return a + b
+...
+>>> help(add)
+Help on function add in module __main__:
+
+add(a, b)
+    Return the sum of a and b.
+```
+
+A docstring may contain examples written as a shell session. The `doctest` module finds such examples, executes them and checks that the results are exactly as shown. So the examples document the function and test it at the same time. Save the following program as `add.py` and run it:
+
+```python
+def add(a, b):
+    """Return the sum of a and b.
+
+    >>> add(2, 3)
+    5
+    >>> add('abc', 'def')
+    'abcdef'
+    """
+    return a + b
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod(verbose=True)
+```
+
+The program prints each example it tries, whether it passed, and a summary ending with `Test passed.` Without `verbose=True`, `testmod()` prints nothing when all the tests pass, and only reports the failures. Change `5` to `6` in the docstring and run the program again to see a failure report.
+
+The condition `__name__ == '__main__'` is true when the file is run as a program, and false when it is imported as a module by another file; so the tests are run only when you run the file itself. Lab 6 makes use of this.
+
+::: {.callout-note title="What a doctest compares"}
+
+`doctest` compares the *text* the shell would display, character by character. So the expected value of a string is written with quotes, `'abcdef'`; a result `None` is written as nothing at all; and a dictionary must be written with its keys in insertion order. A float result such as `0.1 + 0.2` is displayed as `0.30000000000000004`; test `round(x, 2)` or `abs(x - y) < 1e-9` instead.
+
+:::
+
+::: {.callout-tip #exercise-5-10 title="Exercise 5.10"}
+
+In Exercises 3.10 and 3.11 you wrote the Caesar cipher and ROT13 as programs. Turn them into functions in a file `ciphers.py`:
+
+```python
+def caesar(text, shift):
+    """Return text encoded with the Caesar cipher with the given shift.
+
+    Each letter is replaced with the letter shift positions further in
+    the alphabet, wrapping around from z to a. The case of letters is
+    preserved and other characters are left unchanged.
+
+    >>> caesar('abc', 1)
+    'bcd'
+    >>> caesar('xyz', 1)
+    'yza'
+    >>> caesar('Hello, World!', 3)
+    'Khoor, Zruog!'
+    >>> caesar(caesar('The quick brown fox jumps over the lazy dog.', 8), -8)
+    'The quick brown fox jumps over the lazy dog.'
+    """
+    pass
+
+
+def rot13(text):
+    """Return text encoded with the ROT13 cipher.
+
+    >>> rot13('Hello, World!')
+    'Uryyb, Jbeyq!'
+    >>> rot13('The quick brown fox jumps over the lazy dog.')
+    'Gur dhvpx oebja sbk whzcf bire gur ynml qbt.'
+    """
+    pass
+```
+
+Replace `pass` (a statement that does nothing) with the implementations; `rot13()` should be a single call to `caesar()`. A helper function `shift_letter(c, shift)` for a single character makes `caesar()` short. Run the doctests as shown above until all of them pass.
+
+Then give the parameter `shift` of `caesar()` the default value 13 and add a doctest showing that `caesar(text)` and `rot13(text)` agree.
+
+:::
+
+::: {.callout-tip #exercise-5-11 title="Exercise 5.11"}
+
+Collect the functions `is_prime()`, `gcd()`, `fibonacci_loop()` and `counter()` from the previous exercises in a file `my_functions.py`. Write a docstring for each of them, with a one-line summary and at least three examples, including the edge cases (e.g. `is_prime(0)`, `is_prime(1)`, `gcd(0, 0)`, `fibonacci_loop(0)`, `counter([])`). Run the doctests.
+
+Then introduce a bug into each function, e.g. replace `d * d <= n` with `d * d < n` in `is_prime()`. Do your examples detect each bug? If not, add an example that does.
+
+:::
+
+## 6. Challenge (optional)
+
+::: {.callout-tip #exercise-5-12 title="Exercise 5.12 (challenge)"}
+
+In how many ways can you pay an amount with coins of given values? For example, 5 gr can be paid with Polish coins of 1, 2 and 5 gr in 4 ways: 5, 2+2+1, 2+1+1+1 and 1+1+1+1+1 (the order of the coins does not matter).
+
+Let `ways(amount, coins)` be the number of ways to pay `amount` with the coins in the tuple `coins`. Split the ways into those that use at least one coin `coins[0]` and those that use none, to get the recursion
+
+```
+ways(amount, coins) = ways(amount - coins[0], coins) + ways(amount, coins[1:])
+```
+
+1. Find the base cases: what is `ways(0, coins)`? What if `amount < 0`, or `coins` is empty? Write the recursive function, with doctests for small amounts that you can check by hand.
+2. Polish coins have the values `(500, 200, 100, 50, 20, 10, 5, 2, 1)` in grosze. Check that 1 zł can be paid in 4563 ways. How long does it take to compute the number of ways for 2 zł and 3 zł? Count the calls.
+3. Add memoization with a dictionary, as in Exercise 5.9. What can serve as the key? Check that 5 zł can be paid in 6295435 ways.
+4. Compute the number of ways for 10 zł with the coins in descending order, as above, and in ascending order, `(1, 2, 5, ..., 500)`. One of them ends with `RecursionError`. Which one, and why? How large an amount can you compute with the other one?
+
+:::
