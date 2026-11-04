@@ -292,12 +292,11 @@ The expression after `with` must return a *context manager*, an object with two 
 
 Write a program `file_size.py` that reads the name of a file from the user and prints its size in bytes. To compute the size:
 
-* open the file in binary mode, `'rb'`, without the `with` statement,
+* open the file in binary mode, `'rb'`, with the `with` statement,
 * read the whole file with the `read()` method (in binary mode, it returns the contents as a `bytes` object, Lab 4),
-* use the `len()` function,
-* close the file in a `finally` clause.
+* use the `len()` function.
 
-If the file cannot be opened, the program prints an error message depending on the exception: `FileNotFoundError`, `IsADirectoryError`, `PermissionError`, or any other `OSError`.
+If the file cannot be opened, the program prints an error message depending on the exception: `FileNotFoundError`, `IsADirectoryError`, `PermissionError`, or any other `OSError`. Where must the `try` statement be placed relative to the `with` statement?
 
 Example (on Linux):
 
@@ -318,11 +317,7 @@ Error: permission denied
 
 On Windows, opening a directory raises `PermissionError` instead. Compare the result with `os.path.getsize()`.
 
-:::
-
-::: {.callout-tip #exercise-6-8 title="Exercise 6.8"}
-
-Rewrite the program from the previous exercise using the `with` statement.
+Finally, consider the version without `with`, as at the beginning of this section, with `close()` in a `finally` clause. Why must `open()` be called before the `try ... finally` statement and not inside its `try` block?
 
 :::
 
@@ -382,7 +377,7 @@ def triangle_area(a, b, c):
     """
 ```
 
-::: {.callout-tip #exercise-6-9 title="Exercise 6.9"}
+::: {.callout-tip #exercise-6-8 title="Exercise 6.8"}
 
 Modify the functions `triangle_area()` (Exercise 5.3) and `complementary()` (Exercise 5.5) to raise `ValueError` instead of returning `None`. The message of `complementary()` should name the first invalid character:
 
@@ -436,7 +431,7 @@ When a module is imported for the first time, all its code is executed, so it sh
 
 A test function calls the tested function and checks the result with `assert`. A test that expects an exception uses a `try` statement: it fails if no exception, or a different one, is raised. The test program runs all its test functions; if any of them fails, the program stops with an `AssertionError`, and the traceback shows which test failed.
 
-::: {.callout-tip #exercise-6-10 title="Exercise 6.10"}
+::: {.callout-tip #exercise-6-9 title="Exercise 6.9"}
 
 The code below contains unit tests for a module `mean.py`. Copy it to the file `test_mean.py`. Then write the module `mean.py` in the same directory, so that all the tests pass. The tests are the specification: read them carefully to find out which functions the module should define, which arguments they take, what they return and which exceptions they raise, with which messages. The geometric mean of $x_1, \ldots, x_n$ is $\sqrt[n]{x_1 x_2 \cdots x_n}$; the product of the elements of a list is computed by `math.prod()`.
 
@@ -559,7 +554,7 @@ Writing tests is a common practice in software development, and there are librar
 
 [Here](https://github.com/rodakt/ItP/blob/2026-27/tests/lab_6/test_mean.py) you can find the tests of the previous exercise written with `unittest`.
 
-::: {.callout-tip #exercise-6-11 title="Exercise 6.11"}
+::: {.callout-tip #exercise-6-10 title="Exercise 6.10"}
 
 Save the `unittest` version of the tests as `test_mean.py` in the directory of your `mean.py`, replacing the previous file, and run it. Then break `mean.py` again in two different places and compare the report with the one of the previous exercise.
 
@@ -567,7 +562,7 @@ The geometric mean is defined only for non-negative numbers. What does your `geo
 
 :::
 
-::: {.callout-tip #exercise-6-12 title="Exercise 6.12"}
+::: {.callout-tip #exercise-6-11 title="Exercise 6.11"}
 
 Write a file `test_my_functions.py` with `unittest` tests for the functions `is_prime()`, `gcd()` and `fibonacci_loop()` from the file `my_functions.py` of Exercise 5.11. Test the edge cases, and use a loop to compare `gcd()` with `math.gcd()` for all pairs of arguments from 0 to 50. Make `gcd()` and `fibonacci_loop()` raise `ValueError` for a negative argument, and test this as well.
 
@@ -575,7 +570,7 @@ Write a file `test_my_functions.py` with `unittest` tests for the functions `is_
 
 ## 8. Challenge (optional)
 
-::: {.callout-tip #exercise-6-13 title="Exercise 6.13 (challenge)"}
+::: {.callout-tip #exercise-6-12 title="Exercise 6.12 (challenge)"}
 
 A teacher keeps the grades in a text file, one student per line, in the form `surname;grade`. The valid grades are `2`, `3`, `3.5`, `4`, `4.5` and `5`. The file was typed by hand and contains mistakes, e.g.:
 
