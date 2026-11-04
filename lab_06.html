@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tomasz Rodak">
+
+<title>Lab 6: Exceptions and testing – Introduction to Python for Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-cec3fa0c02eace5643b7c7d4552d2e15.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lab_01.html">Labs</a></li><li class="breadcrumb-item"><a href="./lab_06.html">Lab 6: Exceptions and testing</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to Python for Data Science</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Python for Data Science</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Labs</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 1: Basic types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 2: Control flow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 3: Loops and strings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 4: Files and dictionaries</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lab 5: Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lab_06.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lab 6: Exceptions and testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#exceptions" id="toc-exceptions" class="nav-link active" data-scroll-target="#exceptions">1. Exceptions</a></li>
+  <li><a href="#handling-exceptions" id="toc-handling-exceptions" class="nav-link" data-scroll-target="#handling-exceptions">2. Handling exceptions</a></li>
+  <li><a href="#the-else-and-finally-clauses" id="toc-the-else-and-finally-clauses" class="nav-link" data-scroll-target="#the-else-and-finally-clauses">3. The <code>else</code> and <code>finally</code> clauses</a></li>
+  <li><a href="#how-the-with-statement-works" id="toc-how-the-with-statement-works" class="nav-link" data-scroll-target="#how-the-with-statement-works">4. How the <code>with</code> statement works</a></li>
+  <li><a href="#raising-exceptions" id="toc-raising-exceptions" class="nav-link" data-scroll-target="#raising-exceptions">5. Raising exceptions</a></li>
+  <li><a href="#the-assert-statement" id="toc-the-assert-statement" class="nav-link" data-scroll-target="#the-assert-statement">6. The <code>assert</code> statement</a></li>
+  <li><a href="#unit-tests" id="toc-unit-tests" class="nav-link" data-scroll-target="#unit-tests">7. Unit tests</a>
+  <ul class="collapse">
+  <li><a href="#modules" id="toc-modules" class="nav-link" data-scroll-target="#modules">Modules</a></li>
+  <li><a href="#tests-with-assert-and-try" id="toc-tests-with-assert-and-try" class="nav-link" data-scroll-target="#tests-with-assert-and-try">Tests with <code>assert</code> and <code>try</code></a></li>
+  <li><a href="#the-unittest-module" id="toc-the-unittest-module" class="nav-link" data-scroll-target="#the-unittest-module">The <code>unittest</code> module</a></li>
+  </ul></li>
+  <li><a href="#challenge-optional" id="toc-challenge-optional" class="nav-link" data-scroll-target="#challenge-optional">8. Challenge (optional)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lab_01.html">Labs</a></li><li class="breadcrumb-item"><a href="./lab_06.html">Lab 6: Exceptions and testing</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Lab 6: Exceptions and testing</h1>
+<p class="subtitle lead">Introduction to Python for Data Science</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tomasz Rodak </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="exceptions" class="level2">
+<h2 class="anchored" data-anchor-id="exceptions">1. Exceptions</h2>
+<p>Errors detected during the execution of a Python program are called <em>exceptions</em>. You have already seen many of them:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">int</span>(<span class="st">'abc'</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">"&lt;stdin&gt;"</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: invalid literal <span class="cf">for</span> <span class="bu">int</span>() <span class="cf">with</span> base <span class="dv">10</span>: <span class="st">'abc'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>An exception is an object. Its type, here <code>ValueError</code>, says what kind of error occurred, and the message after the colon gives the details. If nothing handles the exception, the program stops and Python prints the <em>traceback</em>: the chain of calls that led to the error, from the outermost call down to the line where the exception was raised. Save the following program as <code>report.py</code> and run it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> average(numbers):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(numbers) <span class="op">/</span> <span class="bu">len</span>(numbers)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> report(numbers):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Average:'</span>, average(numbers))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>report([<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>report([])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>Average: 4.0
+Traceback (most recent call last):
+  File "/home/student/report.py", line 10, in &lt;module&gt;
+    report([])
+  File "/home/student/report.py", line 6, in report
+    print('Average:', average(numbers))
+  File "/home/student/report.py", line 2, in average
+    return sum(numbers) / len(numbers)
+ZeroDivisionError: division by zero</code></pre>
+<p>Read a traceback from the bottom: the last line says <em>what</em> went wrong, the lines above it say <em>where</em>. Recent versions of Python also underline the failing part of each line with <code>^</code> characters.</p>
+<p>C has no exceptions: a function reports an error with a special return value (such as <code>-1</code> or <code>NULL</code>) or with <code>errno</code>, and the caller can silently ignore it. C++ and Java have exceptions similar to Python’s, with <code>try</code>/<code>catch</code> instead of <code>try</code>/<code>except</code>. Unlike Java, Python has no <em>checked</em> exceptions: a function does not declare which exceptions it may raise, and the caller is never forced to handle them.</p>
+<p>Many exceptions are built into Python. They form an inheritance hierarchy, with <code>BaseException</code> at the top. Nearly all of them derive from <code>Exception</code>, among others:</p>
+<ul>
+<li><code>ValueError</code> – a function receives an argument of the correct type, but with an inappropriate value,</li>
+<li><code>TypeError</code> – an operation or function is applied to an object of an inappropriate type,</li>
+<li><code>NameError</code> – a local or global name is not found,</li>
+<li><code>IndexError</code> – a sequence index is out of range,</li>
+<li><code>KeyError</code> – a dictionary key is not found,</li>
+<li><code>ZeroDivisionError</code> – division or modulo by zero,</li>
+<li><code>FileNotFoundError</code> – a file or directory is requested but does not exist; together with <code>PermissionError</code>, <code>IsADirectoryError</code> and others, it is a subclass of <code>OSError</code>, the base class of errors reported by the operating system,</li>
+<li><code>RecursionError</code> – the maximum recursion depth is exceeded (Lab 5).</li>
+</ul>
+<p>The whole hierarchy is shown in the <a href="https://docs.python.org/3/library/exceptions.html#exception-hierarchy">documentation</a>. The few exceptions that do not derive from <code>Exception</code> are not errors: for example, <code>KeyboardInterrupt</code> is raised when the user stops the program with <code>Ctrl+C</code> (in Thonny, the <em>Stop</em> button).</p>
+<div id="exercise-6-1" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>For each of the first seven exceptions listed above, write a single expression or statement that raises it, and run it in the shell. Each must be a different situation from the examples in this section.</li>
+<li>Call the function <code>factorial()</code> from Lab 5 with the argument <code>5000</code>. How long is the traceback, and how does Python shorten it?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="handling-exceptions" class="level2">
+<h2 class="anchored" data-anchor-id="handling-exceptions">2. Handling exceptions</h2>
+<p>Exceptions are handled with the <code>try</code> statement. Its basic form is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># code that may raise an exception</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> SomeException:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># code that handles the exception</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>It works as follows:</p>
+<ol type="1">
+<li>The block after <code>try</code> is executed.</li>
+<li>If no exception occurs, the <code>except</code> block is skipped, and the <code>try</code> statement is finished.</li>
+<li>If an exception occurs, the rest of the <code>try</code> block is skipped. If the type of the exception matches the type named after <code>except</code> (it is that class or its subclass), the <code>except</code> block is executed, and the program continues after the <code>try</code> statement. Otherwise, the exception passes to the function that called the current one, and so on up the call stack. If no handler is found, the program stops with a traceback.</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">try</span>:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>...     x <span class="op">=</span> <span class="bu">int</span>(<span class="st">'abc'</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">'This line is not executed'</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>... <span class="cf">except</span> <span class="pp">ValueError</span>:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">'Not a number'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>Not a number</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A <code>try</code> statement may have several <code>except</code> clauses, for different exceptions. The first one that matches is executed, so a clause for a subclass, such as <code>FileNotFoundError</code>, must come before a clause for its base class, <code>OSError</code>. A clause can also handle several exceptions given as a tuple. With <code>as</code>, the exception object is assigned to a variable; <code>str(e)</code> is its message:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">try</span>:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>...     d <span class="op">=</span> {<span class="st">'a'</span>: <span class="dv">1</span>}</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(d[<span class="st">'b'</span>])</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>... <span class="cf">except</span> (<span class="pp">KeyError</span>, <span class="pp">IndexError</span>) <span class="im">as</span> e:</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">'Missing:'</span>, e)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>... <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>...     <span class="bu">print</span>(<span class="st">'Something else went wrong:'</span>, <span class="bu">type</span>(e).<span class="va">__name__</span>, e)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Missing: <span class="st">'b'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Do not catch everything">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Do not catch everything
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>An <code>except</code> clause without an exception type, or <code>except Exception</code>, catches all errors, including the ones you did not expect: a typo in a variable name (<code>NameError</code>) or a wrong argument (<code>TypeError</code>) in the <code>try</code> block would be reported as, say, invalid user input. Catch only the exceptions you know how to handle, and keep the <code>try</code> block short. A bare <code>except:</code> catches even <code>KeyboardInterrupt</code>, so the program cannot be stopped with <code>Ctrl+C</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Ask forgiveness, not permission">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Ask forgiveness, not permission
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In C you would check that a string consists of digits before converting it. In Python it is common to simply try the operation and handle the exception if it fails. This style is called EAFP (<em>easier to ask forgiveness than permission</em>), in contrast to LBYL (<em>look before you leap</em>). The checks are often harder to get right than they seem: <code>'-3'.isdigit()</code> is <code>False</code>, although <code>int('-3')</code> works, and <code>'²'.isdigit()</code> is <code>True</code>, although <code>int('²')</code> fails.</p>
+</div>
+</div>
+<div id="exercise-6-2" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>square.py</code> that reads a floating-point number from the user and prints its square. If the user enters a string that cannot be converted to a number, the program should print an error message.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run square.py
+Enter a number: 5
+25.0
+&gt;&gt;&gt; %Run square.py
+Enter a number: -3.5
+12.25
+&gt;&gt;&gt; %Run square.py
+Enter a number: abc
+Error: invalid input</code></pre>
+<p>What does the program print for the inputs <code>7</code>, <code>1e3</code>, <code>1e200</code>, <code>inf</code> and <code>nan</code>? Are all of them errors?</p>
+</div>
+</div>
+<div id="exercise-6-3" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>quotient.py</code> that reads two integers from the user and prints the result of their integer division (<code>//</code>). The program should handle two types of exceptions:</p>
+<ul>
+<li><code>ValueError</code>, if the user enters a string that is not an integer,</li>
+<li><code>ZeroDivisionError</code>, if the user enters 0 as the divisor,</li>
+</ul>
+<p>and print an error message appropriate to the type of the exception.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run quotient.py
+Enter the dividend: 10
+Enter the divisor: 3
+The quotient is 3
+&gt;&gt;&gt; %Run quotient.py
+Enter the dividend: 10
+Enter the divisor: 0
+Error: division by zero
+&gt;&gt;&gt; %Run quotient.py
+Enter the dividend: abc
+Enter the divisor: 2
+Error: invalid input</code></pre>
+</div>
+</div>
+<div id="exercise-6-4" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.4">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.4
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>average.py</code>. The program reads a sequence of integers separated by spaces or tabs from the user and prints the sum and the arithmetic mean of the sequence. If the input is invalid, the program prints an error message and asks for the data again, until the user enters a valid sequence. An empty sequence is also invalid: the mean is not defined.</p>
+<p>Use the <code>try</code> statement. Process the string with the <code>split()</code> method and the <code>int()</code> function.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run average.py
+Numbers: 4 3 2 1 5
+Sum: 15
+Average: 3.0
+&gt;&gt;&gt; %Run average.py
+Numbers: 4 3 2 1 abc 5
+Error: invalid input
+Numbers:
+Error: invalid input
+Numbers: 4 3 2 1 5
+Sum: 15
+Average: 3.0</code></pre>
+</div>
+</div>
+<div id="exercise-6-5" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.5">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.5
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>average2.py</code>, a modification of the program from the previous exercise. The program gives the user three chances to enter valid data. If the user does not enter valid data in three attempts, the program prints an error message and ends.</p>
+<p>Example:</p>
+<pre><code>&gt;&gt;&gt; %Run average2.py
+Numbers: 4 3 2 1 abc 5
+Error: invalid input
+Numbers: 4 3 2 1 abc 5
+Error: invalid input
+Numbers: 4 3 2 1 abc 5
+Error: invalid input
+You have exceeded the number of attempts
+&gt;&gt;&gt; %Run average2.py
+Numbers: 4 3 2 1 5
+Sum: 15
+Average: 3.0</code></pre>
+<p><em>Hint</em>: a <code>for</code> loop with <code>break</code> and <code>else</code> (Lab 3) does it without any extra variable.</p>
+</div>
+</div>
+</section>
+<section id="the-else-and-finally-clauses" class="level2">
+<h2 class="anchored" data-anchor-id="the-else-and-finally-clauses">3. The <code>else</code> and <code>finally</code> clauses</h2>
+<p>After the <code>except</code> clauses, a <code>try</code> statement may have an <code>else</code> and a <code>finally</code> clause:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># code that may raise an exception</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> SomeException:</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># code that handles the exception</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># code executed if no exception was raised in the try block</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="cf">finally</span>:</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># code that is always executed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>At least one <code>except</code> or <code>finally</code> clause must be present.</p>
+<ul>
+<li>The <code>else</code> block is executed if the <code>try</code> block raised no exception. Code that should run only after a success belongs here rather than at the end of the <code>try</code> block: an exception raised by it is not caught by mistake by the <code>except</code> clauses meant for the <code>try</code> block.</li>
+<li>The <code>finally</code> block is executed always, as the last part of the <code>try</code> statement: after the <code>try</code> block finished normally, after an exception was handled, and also when an exception was not handled, or when the <code>try</code> statement is left by <code>return</code>, <code>break</code> or <code>continue</code>. It is used to release resources, such as files or network connections, whatever happens.</li>
+</ul>
+<p>The <code>finally</code> clause is not known in C++ (where destructors release resources); Java has it, with the same meaning.</p>
+<div id="exercise-6-6" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.6">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.6
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Predict what the following function prints and returns for <code>divide(1, 2)</code>, <code>divide(1, 0)</code> and <code>divide(1, 'a')</code>. Then check your predictions in the shell.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> divide(a, b):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> a <span class="op">/</span> b</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ZeroDivisionError</span>:</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'division by zero'</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'no exception'</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">finally</span>:</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'finally'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="how-the-with-statement-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-the-with-statement-works">4. How the <code>with</code> statement works</h2>
+<p>In Lab 4 you opened files with the <code>with</code> statement, which closes the file even if an error occurs. Without <code>with</code>, the same effect is achieved with <code>finally</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="bu">open</span>(<span class="st">'example.txt'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> f.read()</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># further processing of the file</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">finally</span>:</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    f.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note that <code>open()</code> is called before the <code>try</code> statement: if it fails, there is no file to close, and the variable <code>f</code> does not even exist.</p>
+<p>The <code>with</code> statement packs this pattern into a single line:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'example.txt'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> f:</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> f.read()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># further processing of the file</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The expression after <code>with</code> must return a <em>context manager</em>, an object with two special methods: <code>__enter__()</code>, called at the beginning of the block (its result is assigned to the variable after <code>as</code>; for a file, it is the file itself), and <code>__exit__()</code>, called when the block ends, in any way, also by an exception. The <code>__exit__()</code> method of a file closes it.</p>
+<p><code>with</code> releases the resource, but it does not handle the exception: an error raised by <code>open()</code> or by the code in the block still has to be caught by a <code>try</code> statement around the <code>with</code> statement.</p>
+<div id="exercise-6-7" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.7">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.7
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a program <code>file_size.py</code> that reads the name of a file from the user and prints its size in bytes. To compute the size:</p>
+<ul>
+<li>open the file in binary mode, <code>'rb'</code>, without the <code>with</code> statement,</li>
+<li>read the whole file with the <code>read()</code> method (in binary mode, it returns the contents as a <code>bytes</code> object, Lab 4),</li>
+<li>use the <code>len()</code> function,</li>
+<li>close the file in a <code>finally</code> clause.</li>
+</ul>
+<p>If the file cannot be opened, the program prints an error message depending on the exception: <code>FileNotFoundError</code>, <code>IsADirectoryError</code>, <code>PermissionError</code>, or any other <code>OSError</code>.</p>
+<p>Example (on Linux):</p>
+<pre><code>&gt;&gt;&gt; %Run file_size.py
+Enter the file name: file_size.py
+The size of the file is 512 bytes
+&gt;&gt;&gt; %Run file_size.py
+Enter the file name: no_such_file.txt
+Error: file not found
+&gt;&gt;&gt; %Run file_size.py
+Enter the file name: .
+Error: it is a directory
+&gt;&gt;&gt; %Run file_size.py
+Enter the file name: /etc/shadow
+Error: permission denied</code></pre>
+<p>On Windows, opening a directory raises <code>PermissionError</code> instead. Compare the result with <code>os.path.getsize()</code>.</p>
+</div>
+</div>
+<div id="exercise-6-8" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.8">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.8
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Rewrite the program from the previous exercise using the <code>with</code> statement.</p>
+</div>
+</div>
+</section>
+<section id="raising-exceptions" class="level2">
+<h2 class="anchored" data-anchor-id="raising-exceptions">5. Raising exceptions</h2>
+<p>An exception is raised with the <code>raise</code> statement, followed by an exception object, usually created with a message:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">'invalid value'</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">"&lt;stdin&gt;"</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="pp">ValueError</span>: invalid value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In Lab 5, the function <code>triangle_area()</code> returned <code>None</code> for sides that do not form a triangle. Such a result is easy to overlook, and the error shows up later, far from its cause:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="dv">2</span> <span class="op">*</span> triangle_area(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  File <span class="st">"&lt;stdin&gt;"</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="pp">TypeError</span>: unsupported operand <span class="bu">type</span>(s) <span class="cf">for</span> <span class="op">*</span>: <span class="st">'int'</span> <span class="kw">and</span> <span class="st">'NoneType'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A function that cannot compute its result usually raises an exception instead. It stops the computation at once, the message explains the cause, and the caller may handle the error if it knows how to:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> triangle_area(a, b, c):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> is_triangle(a, b, c):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f'no triangle with sides </span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The built-in functions behave the same way: <code>int('abc')</code> raises <code>ValueError</code> rather than returning a special value.</p>
+<p>Inside an <code>except</code> clause, <code>raise</code> without an argument raises the handled exception again. This is useful when you want to react to the error, e.g.&nbsp;print a message, but leave handling it to the caller:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Invalid data, giving up'</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A doctest may check that a function raises an exception. The expected output starts with the first line of the traceback and ends with the exception type and message; the lines in between are replaced with <code>...</code>, since <code>doctest</code> ignores them:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> triangle_area(a, b, c):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Return the area of the triangle with sides a, b and c.</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">    &gt;&gt;&gt; triangle_area(3, 4, 5)</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">    6.0</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">    &gt;&gt;&gt; triangle_area(1, 1, 5)</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Traceback (most recent call last):</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">        ...</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">    ValueError: no triangle with sides 1, 1, 5</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="exercise-6-9" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.9">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.9
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Modify the functions <code>triangle_area()</code> (Exercise 5.3) and <code>complementary()</code> (Exercise 5.5) to raise <code>ValueError</code> instead of returning <code>None</code>. The message of <code>complementary()</code> should name the first invalid character:</p>
+<p><code>complementary('ACGT')</code> returns <code>'TGCA'</code>, while <code>complementary('ACxGT')</code> raises <code>ValueError: invalid nucleotide: 'x'</code>.</p>
+<p>Add doctests for both the valid and the invalid arguments. Then write a program that reads DNA sequences from the user in a loop and prints their complementary strands. For an invalid sequence, the program prints the message of the exception and continues; an empty line ends the program.</p>
+</div>
+</div>
+</section>
+<section id="the-assert-statement" class="level2">
+<h2 class="anchored" data-anchor-id="the-assert-statement">6. The <code>assert</code> statement</h2>
+<p>The <code>assert</code> statement checks a condition that should always be true if the program is correct:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> condition, message</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the condition is false, the <code>AssertionError</code> exception is raised with the given message (the message is optional). Otherwise nothing happens:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> x <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="cf">assert</span> x <span class="op">&gt;=</span> <span class="dv">0</span>, <span class="st">'x must be non-negative'</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Traceback (most recent call last):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  File <span class="st">"&lt;stdin&gt;"</span>, line <span class="dv">1</span>, <span class="kw">in</span> <span class="op">&lt;</span>module<span class="op">&gt;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="pp">AssertionError</span>: x must be non<span class="op">-</span>negative</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>As the <code>assert</code> macro in C, which is removed by <code>NDEBUG</code>, Python’s assertions can be switched off: when Python is run with the <code>-O</code> option, <code>assert</code> statements are not executed. (In Java they are off by default.) So use <code>assert</code> to state facts about your own code and in tests, but never to check user input or the arguments of a function; raise an exception for those.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="`assert` is not a function">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span><code>assert</code> is not a function
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>assert (x &gt;= 0, 'x must be non-negative')</code> never fails: the condition is a non-empty tuple, which is always true. Python warns about it with <code>SyntaxWarning: assertion is always true, perhaps remove parentheses?</code>.</p>
+</div>
+</div>
+</section>
+<section id="unit-tests" class="level2">
+<h2 class="anchored" data-anchor-id="unit-tests">7. Unit tests</h2>
+<p>A <em>unit test</em> checks a small part of a program, typically a single function, by calling it with known arguments and comparing the result with the expected one. The doctests of Lab 5 are unit tests, written in the docstrings. Larger test suites are kept in separate files.</p>
+<section id="modules" class="level3">
+<h3 class="anchored" data-anchor-id="modules">Modules</h3>
+<p>Every <code>.py</code> file is a <em>module</em>: another program in the same directory can import it by its name, without the extension, and use its functions. For example, if the file <code>geometry.py</code> defines <code>triangle_area()</code>, then a program in the same directory can use</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> geometry <span class="im">import</span> triangle_area</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When a module is imported for the first time, all its code is executed, so it should only define functions. Code that you use to try the functions out goes under <code>if __name__ == '__main__':</code>, where it runs only when the file is run as a program (Lab 5).</p>
+</section>
+<section id="tests-with-assert-and-try" class="level3">
+<h3 class="anchored" data-anchor-id="tests-with-assert-and-try">Tests with <code>assert</code> and <code>try</code></h3>
+<p>A test function calls the tested function and checks the result with <code>assert</code>. A test that expects an exception uses a <code>try</code> statement: it fails if no exception, or a different one, is raised. The test program runs all its test functions; if any of them fails, the program stops with an <code>AssertionError</code>, and the traceback shows which test failed.</p>
+<div id="exercise-6-10" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.10">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.10
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The code below contains unit tests for a module <code>mean.py</code>. Copy it to the file <code>test_mean.py</code>. Then write the module <code>mean.py</code> in the same directory, so that all the tests pass. The tests are the specification: read them carefully to find out which functions the module should define, which arguments they take, what they return and which exceptions they raise, with which messages. The geometric mean of <span class="math inline">\(x_1, \ldots, x_n\)</span> is <span class="math inline">\(\sqrt[n]{x_1 x_2 \cdots x_n}\)</span>; the product of the elements of a list is computed by <code>math.prod()</code>.</p>
+<p>Run <code>test_mean.py</code> and fix <code>mean.py</code> until the program prints <code>All tests passed</code>. Then introduce some bugs into <code>mean.py</code>, e.g.&nbsp;a wrong message or a missing exception, and check which tests detect them.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># test_mean.py</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mean <span class="im">import</span> arithmetic_mean, geometric_mean, mean</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_arithmetic_mean():</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> arithmetic_mean([<span class="dv">7</span>]) <span class="op">==</span> <span class="dv">7</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> arithmetic_mean([<span class="fl">2.34</span>, <span class="op">-</span><span class="fl">2.34</span>]) <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> math.isclose(arithmetic_mean([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]), <span class="fl">3.0</span>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_arithmetic_mean_empty():</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>        arithmetic_mean([])</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> <span class="bu">str</span>(e) <span class="op">==</span> <span class="st">"The sequence is empty"</span>, <span class="st">"Error message is incorrect"</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">AssertionError</span>(<span class="st">"The sequence is empty, but the exception is incorrect"</span>)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">AssertionError</span>(<span class="st">"The sequence is empty, but no exception was raised"</span>)</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_geometric_mean():</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 5-th root of 1 is 1</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> geometric_mean([<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>]) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 5-th root of 2**5 is 2</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> math.isclose(geometric_mean([<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>]), <span class="fl">2.0</span>)</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_geometric_mean_empty():</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>        geometric_mean([])</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> <span class="bu">str</span>(e) <span class="op">==</span> <span class="st">"The sequence is empty"</span>, <span class="st">"Error message is incorrect"</span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">AssertionError</span>(<span class="st">"The sequence is empty, but the exception is incorrect"</span>)</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">AssertionError</span>(<span class="st">"The sequence is empty, but no exception was raised"</span>)</span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_mean():</span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> mean([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>], <span class="st">"arithmetic"</span>) <span class="op">==</span> <span class="fl">3.0</span></span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> math.isclose(</span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>        mean([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>], <span class="st">"geometric"</span>), (<span class="dv">1</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">4</span> <span class="op">*</span> <span class="dv">5</span>) <span class="op">**</span> (<span class="dv">1</span> <span class="op">/</span> <span class="dv">5</span>)</span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_mean_empty():</span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>        mean([], <span class="st">"arithmetic"</span>)</span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
+<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> <span class="bu">str</span>(e) <span class="op">==</span> <span class="st">"The sequence is empty"</span>, <span class="st">"Error message is incorrect"</span></span>
+<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">AssertionError</span>(<span class="st">"The sequence is empty, but the exception is incorrect"</span>)</span>
+<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">AssertionError</span>(<span class="st">"The sequence is empty, but no exception was raised"</span>)</span>
+<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a>        mean([], <span class="st">"geometric"</span>)</span>
+<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
+<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> <span class="bu">str</span>(e) <span class="op">==</span> <span class="st">"The sequence is empty"</span>, <span class="st">"Error message is incorrect"</span></span>
+<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb24-63"><a href="#cb24-63" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">AssertionError</span>(<span class="st">"The sequence is empty, but the exception is incorrect"</span>)</span>
+<span id="cb24-64"><a href="#cb24-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-65"><a href="#cb24-65" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">AssertionError</span>(<span class="st">"The sequence is empty, but no exception was raised"</span>)</span>
+<span id="cb24-66"><a href="#cb24-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-67"><a href="#cb24-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-68"><a href="#cb24-68" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_mean_incorrect_type():</span>
+<span id="cb24-69"><a href="#cb24-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb24-70"><a href="#cb24-70" aria-hidden="true" tabindex="-1"></a>        mean([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>], <span class="st">"abc"</span>)</span>
+<span id="cb24-71"><a href="#cb24-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ValueError</span> <span class="im">as</span> e:</span>
+<span id="cb24-72"><a href="#cb24-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> <span class="bu">str</span>(e) <span class="op">==</span> <span class="st">"Incorrect type of mean"</span>, <span class="st">"Error message is incorrect"</span></span>
+<span id="cb24-73"><a href="#cb24-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb24-74"><a href="#cb24-74" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">AssertionError</span>(<span class="st">"Incorrect type of mean, but the exception is incorrect"</span>)</span>
+<span id="cb24-75"><a href="#cb24-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-76"><a href="#cb24-76" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">AssertionError</span>(<span class="st">"Incorrect type of mean, but no exception was raised"</span>)</span>
+<span id="cb24-77"><a href="#cb24-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-78"><a href="#cb24-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_mean_default_type():</span>
+<span id="cb24-80"><a href="#cb24-80" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb24-81"><a href="#cb24-81" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> mean([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb24-82"><a href="#cb24-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb24-83"><a href="#cb24-83" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">AssertionError</span>(</span>
+<span id="cb24-84"><a href="#cb24-84" aria-hidden="true" tabindex="-1"></a>            <span class="st">"The default type of mean is arithmetic, but an exception was raised"</span></span>
+<span id="cb24-85"><a href="#cb24-85" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb24-86"><a href="#cb24-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-87"><a href="#cb24-87" aria-hidden="true" tabindex="-1"></a>        <span class="cf">assert</span> math.isclose(x, <span class="fl">3.0</span>)</span>
+<span id="cb24-88"><a href="#cb24-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-89"><a href="#cb24-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-90"><a href="#cb24-90" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb24-91"><a href="#cb24-91" aria-hidden="true" tabindex="-1"></a>    test_arithmetic_mean()</span>
+<span id="cb24-92"><a href="#cb24-92" aria-hidden="true" tabindex="-1"></a>    test_arithmetic_mean_empty()</span>
+<span id="cb24-93"><a href="#cb24-93" aria-hidden="true" tabindex="-1"></a>    test_geometric_mean()</span>
+<span id="cb24-94"><a href="#cb24-94" aria-hidden="true" tabindex="-1"></a>    test_geometric_mean_empty()</span>
+<span id="cb24-95"><a href="#cb24-95" aria-hidden="true" tabindex="-1"></a>    test_mean()</span>
+<span id="cb24-96"><a href="#cb24-96" aria-hidden="true" tabindex="-1"></a>    test_mean_empty()</span>
+<span id="cb24-97"><a href="#cb24-97" aria-hidden="true" tabindex="-1"></a>    test_mean_incorrect_type()</span>
+<span id="cb24-98"><a href="#cb24-98" aria-hidden="true" tabindex="-1"></a>    test_mean_default_type()</span>
+<span id="cb24-99"><a href="#cb24-99" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"All tests passed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Why do the tests compare floats with <code>math.isclose()</code> rather than with <code>==</code>? Which of the comparisons with <code>==</code> are nevertheless safe, and why?</p>
+</div>
+</div>
+</section>
+<section id="the-unittest-module" class="level3">
+<h3 class="anchored" data-anchor-id="the-unittest-module">The <code>unittest</code> module</h3>
+<p>Writing tests is a common practice in software development, and there are libraries that make it easier. The standard library provides the <code>unittest</code> module (similar to JUnit in Java); <a href="https://docs.pytest.org/">pytest</a> is a popular external library. With <code>unittest</code>:</p>
+<ul>
+<li>the tests are methods of a class derived from <code>unittest.TestCase</code>; their names start with <code>test_</code> and they take the parameter <code>self</code> (classes are the topic of Lab 9; for now, follow the template),</li>
+<li>the checks are made with methods such as <code>self.assertEqual(a, b)</code>, <code>self.assertAlmostEqual(a, b)</code> (for floats) and <code>self.assertTrue(x)</code>, which print both values when they fail,</li>
+<li><code>with self.assertRaises(ValueError):</code> checks that the block raises the exception, replacing the <code>try</code> statements of the previous exercise,</li>
+<li><code>unittest.main()</code> finds and runs all the tests, and prints a report. Unlike the program of the previous exercise, it does not stop at the first failed test.</li>
+</ul>
+<p><a href="https://github.com/rodakt/ItP/blob/2026-27/tests/lab_6/test_mean.py">Here</a> you can find the tests of the previous exercise written with <code>unittest</code>.</p>
+<div id="exercise-6-11" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.11">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.11
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Save the <code>unittest</code> version of the tests as <code>test_mean.py</code> in the directory of your <code>mean.py</code>, replacing the previous file, and run it. Then break <code>mean.py</code> again in two different places and compare the report with the one of the previous exercise.</p>
+<p>The geometric mean is defined only for non-negative numbers. What does your <code>geometric_mean([-8, 1, 1])</code> return? Add a test that requires <code>geometric_mean()</code> (and <code>mean(..., 'geometric')</code>) to raise <code>ValueError</code> with the message <code>"Negative numbers are not allowed"</code>. Run the tests and see the new test fail; only then change <code>mean.py</code> so that all the tests pass. Writing the test before the code is called <em>test-driven development</em>.</p>
+</div>
+</div>
+<div id="exercise-6-12" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.12">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.12
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a file <code>test_my_functions.py</code> with <code>unittest</code> tests for the functions <code>is_prime()</code>, <code>gcd()</code> and <code>fibonacci_loop()</code> from the file <code>my_functions.py</code> of Exercise 5.11. Test the edge cases, and use a loop to compare <code>gcd()</code> with <code>math.gcd()</code> for all pairs of arguments from 0 to 50. Make <code>gcd()</code> and <code>fibonacci_loop()</code> raise <code>ValueError</code> for a negative argument, and test this as well.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="challenge-optional" class="level2">
+<h2 class="anchored" data-anchor-id="challenge-optional">8. Challenge (optional)</h2>
+<div id="exercise-6-13" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.13 (challenge)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.13 (challenge)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A teacher keeps the grades in a text file, one student per line, in the form <code>surname;grade</code>. The valid grades are <code>2</code>, <code>3</code>, <code>3.5</code>, <code>4</code>, <code>4.5</code> and <code>5</code>. The file was typed by hand and contains mistakes, e.g.:</p>
+<pre><code>Kowalski;4.5
+Nowak;5
+Wiśniewski 3
+
+Zieliński;6
+Wójcik;3,5
+Kamiński;
+Lewandowski;4</code></pre>
+<ol type="1">
+<li>Write a function <code>parse_line(line)</code> that returns the pair <code>(surname, grade)</code>, with the grade as a <code>float</code>, or raises <code>ValueError</code> with a message describing the problem: a missing separator, a missing surname, a grade that is not a number, or a grade outside the scale.</li>
+<li>Write a test file for <code>parse_line()</code> with <code>unittest</code>, covering each kind of mistake.</li>
+<li>Write a program <code>grade_report.py</code> that reads the name of the file, skips empty lines, prints a message with the line number for each invalid line, e.g.&nbsp;<code>Line 5: invalid grade '6'</code>, and prints the number of valid grades and their arithmetic mean, computed with your module <code>mean.py</code>. If the file cannot be opened or contains no valid grades, the program prints an error message instead of a traceback.</li>
+</ol>
+<p>Where is each error best handled: in <code>parse_line()</code>, in the loop over the lines, or in the main program?</p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/rodakt\.github\.io\/ItP\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

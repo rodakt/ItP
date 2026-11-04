@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rodakt.github.io/ItP/lab_05.html</loc>
-    <lastmod>2026-10-28T07:27:15.949Z</lastmod>
+    <loc>https://rodakt.github.io/ItP/lab_06.html</loc>
+    <lastmod>2026-11-03T22:29:06.287Z</lastmod>
   </url>
   <url>
-    <loc>https://rodakt.github.io/ItP/lab_03.html</loc>
-    <lastmod>2026-10-14T05:29:53.171Z</lastmod>
+    <loc>https://rodakt.github.io/ItP/lab_04.html</loc>
+    <lastmod>2026-10-19T18:42:30.479Z</lastmod>
   </url>
   <url>
-    <loc>https://rodakt.github.io/ItP/lab_01.html</loc>
+    <loc>https://rodakt.github.io/ItP/lab_02.html</loc>
     <lastmod>2026-10-06T20:53:43.509Z</lastmod>
   </url>
   <url>
@@ -17,11 +17,15 @@
     <lastmod>2026-09-25T08:42:59.959Z</lastmod>
   </url>
   <url>
-    <loc>https://rodakt.github.io/ItP/lab_02.html</loc>
+    <loc>https://rodakt.github.io/ItP/lab_01.html</loc>
     <lastmod>2026-10-06T20:53:43.509Z</lastmod>
   </url>
   <url>
-    <loc>https://rodakt.github.io/ItP/lab_04.html</loc>
-    <lastmod>2026-10-19T18:42:30.479Z</lastmod>
+    <loc>https://rodakt.github.io/ItP/lab_03.html</loc>
+    <lastmod>2026-10-14T05:29:53.171Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rodakt.github.io/ItP/lab_05.html</loc>
+    <lastmod>2026-10-28T07:27:15.949Z</lastmod>
   </url>
 </urlset>
