@@ -573,12 +573,11 @@ Average: 3.0</code></pre>
 <div class="callout-body-container callout-body">
 <p>Write a program <code>file_size.py</code> that reads the name of a file from the user and prints its size in bytes. To compute the size:</p>
 <ul>
-<li>open the file in binary mode, <code>'rb'</code>, without the <code>with</code> statement,</li>
+<li>open the file in binary mode, <code>'rb'</code>, with the <code>with</code> statement,</li>
 <li>read the whole file with the <code>read()</code> method (in binary mode, it returns the contents as a <code>bytes</code> object, Lab 4),</li>
-<li>use the <code>len()</code> function,</li>
-<li>close the file in a <code>finally</code> clause.</li>
+<li>use the <code>len()</code> function.</li>
 </ul>
-<p>If the file cannot be opened, the program prints an error message depending on the exception: <code>FileNotFoundError</code>, <code>IsADirectoryError</code>, <code>PermissionError</code>, or any other <code>OSError</code>.</p>
+<p>If the file cannot be opened, the program prints an error message depending on the exception: <code>FileNotFoundError</code>, <code>IsADirectoryError</code>, <code>PermissionError</code>, or any other <code>OSError</code>. Where must the <code>try</code> statement be placed relative to the <code>with</code> statement?</p>
 <p>Example (on Linux):</p>
 <pre><code>&gt;&gt;&gt; %Run file_size.py
 Enter the file name: file_size.py
@@ -593,19 +592,7 @@ Error: it is a directory
 Enter the file name: /etc/shadow
 Error: permission denied</code></pre>
 <p>On Windows, opening a directory raises <code>PermissionError</code> instead. Compare the result with <code>os.path.getsize()</code>.</p>
-</div>
-</div>
-<div id="exercise-6-8" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.8">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 6.8
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Rewrite the program from the previous exercise using the <code>with</code> statement.</p>
+<p>Finally, consider the version without <code>with</code>, as at the beginning of this section, with <code>close()</code> in a <code>finally</code> clause. Why must <code>open()</code> be called before the <code>try ... finally</code> statement and not inside its <code>try</code> block?</p>
 </div>
 </div>
 </section>
@@ -644,13 +631,13 @@ Error: permission denied</code></pre>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">        ...</span></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">    ValueError: no triangle with sides 1, 1, 5</span></span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="exercise-6-9" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.9">
+<div id="exercise-6-8" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.8">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 6.9
+<span class="screen-reader-only">Tip</span>Exercise 6.8
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -697,13 +684,13 @@ Error: permission denied</code></pre>
 <section id="tests-with-assert-and-try" class="level3">
 <h3 class="anchored" data-anchor-id="tests-with-assert-and-try">Tests with <code>assert</code> and <code>try</code></h3>
 <p>A test function calls the tested function and checks the result with <code>assert</code>. A test that expects an exception uses a <code>try</code> statement: it fails if no exception, or a different one, is raised. The test program runs all its test functions; if any of them fails, the program stops with an <code>AssertionError</code>, and the traceback shows which test failed.</p>
-<div id="exercise-6-10" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.10">
+<div id="exercise-6-9" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.9">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 6.10
+<span class="screen-reader-only">Tip</span>Exercise 6.9
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -822,6 +809,20 @@ Error: permission denied</code></pre>
 <li><code>unittest.main()</code> finds and runs all the tests, and prints a report. Unlike the program of the previous exercise, it does not stop at the first failed test.</li>
 </ul>
 <p><a href="https://github.com/rodakt/ItP/blob/2026-27/tests/lab_6/test_mean.py">Here</a> you can find the tests of the previous exercise written with <code>unittest</code>.</p>
+<div id="exercise-6-10" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.10">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Exercise 6.10
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Save the <code>unittest</code> version of the tests as <code>test_mean.py</code> in the directory of your <code>mean.py</code>, replacing the previous file, and run it. Then break <code>mean.py</code> again in two different places and compare the report with the one of the previous exercise.</p>
+<p>The geometric mean is defined only for non-negative numbers. What does your <code>geometric_mean([-8, 1, 1])</code> return? Add a test that requires <code>geometric_mean()</code> (and <code>mean(..., 'geometric')</code>) to raise <code>ValueError</code> with the message <code>"Negative numbers are not allowed"</code>. Run the tests and see the new test fail; only then change <code>mean.py</code> so that all the tests pass. Writing the test before the code is called <em>test-driven development</em>.</p>
+</div>
+</div>
 <div id="exercise-6-11" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.11">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -832,20 +833,6 @@ Error: permission denied</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Save the <code>unittest</code> version of the tests as <code>test_mean.py</code> in the directory of your <code>mean.py</code>, replacing the previous file, and run it. Then break <code>mean.py</code> again in two different places and compare the report with the one of the previous exercise.</p>
-<p>The geometric mean is defined only for non-negative numbers. What does your <code>geometric_mean([-8, 1, 1])</code> return? Add a test that requires <code>geometric_mean()</code> (and <code>mean(..., 'geometric')</code>) to raise <code>ValueError</code> with the message <code>"Negative numbers are not allowed"</code>. Run the tests and see the new test fail; only then change <code>mean.py</code> so that all the tests pass. Writing the test before the code is called <em>test-driven development</em>.</p>
-</div>
-</div>
-<div id="exercise-6-12" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.12">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 6.12
-</div>
-</div>
-<div class="callout-body-container callout-body">
 <p>Write a file <code>test_my_functions.py</code> with <code>unittest</code> tests for the functions <code>is_prime()</code>, <code>gcd()</code> and <code>fibonacci_loop()</code> from the file <code>my_functions.py</code> of Exercise 5.11. Test the edge cases, and use a loop to compare <code>gcd()</code> with <code>math.gcd()</code> for all pairs of arguments from 0 to 50. Make <code>gcd()</code> and <code>fibonacci_loop()</code> raise <code>ValueError</code> for a negative argument, and test this as well.</p>
 </div>
 </div>
@@ -853,13 +840,13 @@ Error: permission denied</code></pre>
 </section>
 <section id="challenge-optional" class="level2">
 <h2 class="anchored" data-anchor-id="challenge-optional">8. Challenge (optional)</h2>
-<div id="exercise-6-13" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.13 (challenge)">
+<div id="exercise-6-12" class="callout callout-style-default callout-tip callout-titled" title="Exercise 6.12 (challenge)">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Exercise 6.13 (challenge)
+<span class="screen-reader-only">Tip</span>Exercise 6.12 (challenge)
 </div>
 </div>
 <div class="callout-body-container callout-body">
