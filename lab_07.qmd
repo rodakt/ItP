@@ -1,0 +1,419 @@
+---
+title: "Lab 7: Higher-order functions"
+subtitle: "Introduction to Python for Data Science"
+author: "Tomasz Rodak"
+---
+
+## 1. Functions are objects
+
+In Lab 5 you saw that `def` creates a function object and binds it to a name. A function is an object like any other: it can be bound to another name, stored in a list or a dictionary, passed as an argument to another function and returned from a function. The name of a function, without round brackets, refers to the function object; the brackets *call* it:
+
+```python
+>>> len
+<built-in function len>
+>>> size = len
+>>> size('abc')
+3
+>>> data = [3, 1, 4, 1, 5]
+>>> for f in [min, max, sum, len]:
+...     print(f.__name__, f(data))
+...
+min 1
+max 5
+sum 14
+len 5
+```
+
+A function that takes another function as an argument, or returns a function as its result, is called a *higher-order function*. This lab is about the higher-order functions of the standard library, which take a function as an argument; in Lab 8 you will write your own.
+
+In C you would pass a pointer to a function, as in the comparison function of `qsort()`; in Java, an object implementing an interface such as `Comparator`, usually written as a lambda expression. In Python no special syntax is needed: you pass the function itself.
+
+::: {.callout-warning title="Pass the function, not its result"}
+
+`key=len` passes the function `len`; `key=len()` calls `len` without arguments, which is an error, and `key=len(word)` passes a number. The function you pass is called *by* the higher-order function, as many times as it needs.
+
+:::
+
+## 2. `max()` and `min()` with a key function
+
+The `max()` and `min()` functions return the largest and the smallest element of an iterable. The optional keyword argument `key` is a function of one argument. If it is given, the elements are compared by the values `key(element)` instead of by themselves, but the element itself is returned:
+
+```python
+>>> def neg(x):
+...     return -x
+...
+>>> max([1, 2, 3, 4, 5])
+5
+>>> max([1, 2, 3, 4, 5], key=neg)
+1
+>>> words = 'Lorem ipsum dolor sit amet'.split()
+>>> max(words)
+'sit'
+>>> max(words, key=len)
+'Lorem'
+>>> max(words, key=str.lower)
+'sit'
+>>> min(words, key=str.lower)
+'amet'
+```
+
+The result of `max(words)` is `'sit'`, because strings are compared by the codes of their characters (Lab 3) and lowercase letters come after uppercase ones; `key=str.lower` compares the words ignoring case. If several elements have the same largest key, `max()` returns the first of them: here `'Lorem'`, `'ipsum'` and `'dolor'` all have length 5.
+
+For an empty iterable, `max()` and `min()` raise `ValueError`. The keyword argument `default` gives the value to be returned in that case instead: `max([], default=None)` is `None`.
+
+In the exercises of this lab, `names` is the list of the code names of Debian releases, in release order, with `sid`, the name of the unstable branch, at the end:
+
+```python
+>>> names = ['buzz', 'rex', 'bo', 'hamm', 'slink', 'potato', 'woody', 'sarge',
+...          'etch', 'lenny', 'squeeze', 'wheezy', 'jessie', 'stretch', 'buster',
+...          'bullseye', 'bookworm', 'trixie', 'forky', 'duke', 'sid']
+```
+
+::: {.callout-tip #exercise-7-1 title="Exercise 7.1"}
+
+1. Write a function `count_vowels(s)` that returns the number of vowels (`a`, `e`, `i`, `o`, `u`) in the string `s`. Use it with `max()` to find the name in `names` with the most vowels.
+2. Find the smallest number of vowels in a name, and then all the names with that number of vowels. Can `min()` alone find all of them?
+3. Rewrite the function `most_common(seq)` of Exercise 5.6 with `max()` and a key function applied to the keys of the dictionary returned by `counter(seq)`. *Hint*: the method `get` of a dictionary `counts`, written `counts.get`, is a function of one argument. What does your function return for an empty `seq` now?
+
+:::
+
+## 3. Sorting with a key function
+
+The built-in function `sorted()` returns a new sorted list of the elements of any iterable; the method `list.sort()` sorts a list in place and returns `None` (Lab 4). Both accept the keyword arguments `key`, with the same meaning as in `max()`, and `reverse`, which sorts in descending order when `True`:
+
+```python
+>>> sorted([3, 1, 2])
+[1, 2, 3]
+>>> sorted([3, 1, 2], key=neg)
+[3, 2, 1]
+>>> sorted(words)
+['Lorem', 'amet', 'dolor', 'ipsum', 'sit']
+>>> sorted(words, key=str.lower)
+['amet', 'dolor', 'ipsum', 'Lorem', 'sit']
+>>> sorted(words, key=len)
+['sit', 'amet', 'Lorem', 'ipsum', 'dolor']
+>>> sorted(words, key=len, reverse=True)
+['Lorem', 'ipsum', 'dolor', 'amet', 'sit']
+>>> a = [1, 3, 2, 5, 4]
+>>> a.sort(key=neg)
+>>> a
+[5, 4, 3, 2, 1]
+```
+
+The key function is called exactly once for each element, and the elements are then sorted by the computed keys. If a key is a tuple, the elements are sorted by its first component, then by the second, and so on (Lab 4), which makes it easy to sort by several criteria at once.
+
+Sorting in Python is *stable*: elements with equal keys keep their original relative order. That is why `'Lorem'`, `'ipsum'` and `'dolor'` above are in the order in which they occur in `words`, with `reverse=True` too: `reverse` reverses the comparisons, not the result, so it is not the same as reversing the sorted list.
+
+::: {.callout-note title="Key functions instead of comparison functions"}
+
+The comparison function of C's `qsort()` or of Java's `Comparator` takes two elements and tells which of them comes first. Python's `sorted()` takes a key function of one element instead, which is simpler to write and calls the function $n$ times rather than $O(n \log n)$ times. If you really have a comparison function, `functools.cmp_to_key()` converts it into a key function.
+
+:::
+
+::: {.callout-tip #exercise-7-2 title="Exercise 7.2"}
+
+1. Use `sorted()` and `count_vowels()` to sort `names` by the number of vowels. In which order are the names with the same number of vowels, and why?
+2. Sort `names` in place with `list.sort()` by length, and the names of the same length alphabetically. *Hint*: the key function may return a tuple.
+3. Explain the difference between `sorted(names)` and `names.sort()`. What is the value of `names` after `names = names.sort()`?
+
+:::
+
+::: {.callout-tip #exercise-7-3 title="Exercise 7.3"}
+
+In Exercise 4.8 you printed the most frequent words of a file. To sort them in descending order of frequency, and the words with the same frequency alphabetically, you had to build a list of `(-count, word)` pairs. Write a key function `by_frequency(item)` for the pairs `(word, count)` returned by `items()`, so that the table is simply
+
+```python
+sorted(freq.items(), key=by_frequency)
+```
+
+Change `word_frequency.py` to use it.
+
+:::
+
+::: {.callout-tip #exercise-7-4 title="Exercise 7.4"}
+
+Points on the plane are represented as tuples `(x, y)`. Complete the following functions; each body should be a single `return` statement, using a key function `distance2(point)` that returns the square of the distance of `point` from the origin, $x^2 + y^2$. Why is it enough to compare the squares of the distances?
+
+```python
+def farthest_point(points):
+    """Return the point of points farthest from the origin.
+
+    >>> farthest_point([(1, 1), (2, 3), (3, -3), (-4, 4)])
+    (-4, 4)
+    >>> farthest_point([(0, 0)])
+    (0, 0)
+    """
+    pass
+
+
+def sort_by_distance(points, ascending=True):
+    """Return a list of points sorted by the distance from the origin.
+
+    The order is ascending if ascending is True, and descending otherwise.
+
+    >>> sort_by_distance([(1, 1), (-10, 10), (3, 3), (4, 4)])
+    [(1, 1), (3, 3), (4, 4), (-10, 10)]
+    >>> sort_by_distance([(1, 1), (-10, 10), (3, 3), (4, 4)], ascending=False)
+    [(-10, 10), (4, 4), (3, 3), (1, 1)]
+    >>> sort_by_distance([(0, 5), (3, 4), (-5, 0)])
+    [(0, 5), (3, 4), (-5, 0)]
+    """
+    pass
+```
+
+Run the doctests as in Lab 5.
+
+:::
+
+::: {.callout-tip #exercise-7-5 title="Exercise 7.5"}
+
+A rhyming dictionary lists words sorted by their endings, so that rhyming words are next to each other. Complete the function `sort_by_reversed(seq, ascending=True)`, which sorts a sequence of strings, tuples or lists lexicographically, but comparing each element as if it were reversed. *Hint*: reverse with slicing (Lab 1).
+
+```python
+def sort_by_reversed(seq, ascending=True):
+    """Return a list of the elements of seq sorted by their reversals.
+
+    >>> sort_by_reversed(['Lorem', 'ipsum', 'dolor', 'sit', 'amet'])
+    ['Lorem', 'ipsum', 'dolor', 'amet', 'sit']
+    >>> sort_by_reversed(['Lorem', 'ipsum', 'dolor', 'sit', 'amet'], ascending=False)
+    ['sit', 'amet', 'dolor', 'ipsum', 'Lorem']
+    >>> sort_by_reversed([(1, 2, 3), (3, 2, 1), (2, 3, 1), (1, 3, 2)])
+    [(3, 2, 1), (2, 3, 1), (1, 3, 2), (1, 2, 3)]
+    """
+    pass
+```
+
+Sort `names` with it. Which names rhyme?
+
+:::
+
+## 4. `filter()` and `map()`
+
+The function `filter(function, iterable)` gives the elements of `iterable` for which `function(element)` is true (in the sense of Lab 1, so any truthy value counts). The function `map(function, iterable)` gives the results `function(element)` for all the elements:
+
+```python
+>>> def is_even(x):
+...     return x % 2 == 0
+...
+>>> list(filter(is_even, range(10)))
+[0, 2, 4, 6, 8]
+>>> list(filter(None, [0, 1, '', 'a', [], [0]]))
+[1, 'a', [0]]
+>>> list(map(len, words))
+[5, 5, 5, 3, 4]
+>>> list(map(str.upper, words))
+['LOREM', 'IPSUM', 'DOLOR', 'SIT', 'AMET']
+```
+
+With `None` instead of a function, `filter()` keeps the truthy elements. Given several iterables, `map()` calls a function of several arguments with one element of each: `list(map(pow, [2, 3, 4], [3, 2, 1]))` is `[8, 9, 4]`.
+
+Unlike `sorted()`, neither `filter()` nor `map()` returns a list. They return *iterators*, objects that compute the next element only when it is requested, e.g. by a `for` loop, by `list()` or by `sum()`. An iterator can be traversed only once:
+
+```python
+>>> lengths = map(len, words)
+>>> lengths
+<map object at 0x7f1c2a3b4e50>
+>>> sum(lengths)
+22
+>>> sum(lengths)
+0
+```
+
+More about iterators in Lab 11.
+
+The same results can be obtained with list comprehensions (Lab 1): `[x for x in range(10) if is_even(x)]` and `[len(w) for w in words]`. Comprehensions are usually preferred when the function would have to be written just for that purpose; `map()` and `filter()` are handy when it already exists, as `len` or `str.upper` above. A common idiom reads several numbers from one line:
+
+```python
+>>> numbers = list(map(int, input('Numbers: ').split()))
+Numbers: 3 1 4 1 5
+>>> numbers
+[3, 1, 4, 1, 5]
+```
+
+::: {.callout-tip #exercise-7-6 title="Exercise 7.6"}
+
+Using `filter()` with a named predicate function, create the list of the names in `names` that contain the letter `o`, and the list of the names of even length. Then use `map()` to create the list of the lengths of all names. Do the same with list comprehensions. Which version do you find more readable?
+
+:::
+
+::: {.callout-tip #exercise-7-7 title="Exercise 7.7"}
+
+1. Predict, then check what the following lines print, and explain:
+
+   ```python
+   long_names = filter(lambda s: len(s) > 5, names)
+   print('potato' in long_names, 'potato' in long_names)
+   lengths = map(len, names)
+   print(sum(lengths), max(lengths, default=None))
+   ```
+
+   (`lambda s: len(s) > 5` is a function, see the next section.)
+
+2. Simplify the program `average.py` of Exercise 6.4: convert the input line into a list of integers with `map()`, in a single line. Which exception does `list(map(int, ...))` raise for invalid input, and when exactly: when `map()` is called, or when `list()` requests the elements?
+
+:::
+
+## 5. `lambda` expressions
+
+Key functions and predicates are often so short that defining them with `def` is cumbersome. A `lambda` expression creates a function without a name:
+
+```python
+>>> sorted(words, key=lambda w: w[-1])
+['Lorem', 'ipsum', 'dolor', 'sit', 'amet']
+>>> list(filter(lambda n: n % 3 == 0, range(20)))
+[0, 3, 6, 9, 12, 15, 18]
+>>> points = [(1, 5), (3, 2), (2, 8)]
+>>> max(points, key=lambda p: p[1])
+(2, 8)
+```
+
+`lambda x, y: x + y` is a function of two parameters that returns `x + y`, equivalent to
+
+```python
+def add(x, y):
+    return x + y
+```
+
+The body of a `lambda` is a single *expression*, whose value is returned; it cannot contain statements such as assignments, `if` or `for` statements, or `return`. A conditional expression (Lab 1) is allowed: `lambda x: x if x >= 0 else -x`.
+
+Use `lambda` where a function is passed as an argument. Do not assign a `lambda` to a name: `square = lambda x: x ** 2` works, but `def square(x): return x ** 2` does the same, gives the function a name shown in tracebacks instead of `<lambda>`, and allows a docstring (the PEP 8 style guide recommends `def` here).
+
+::: {.callout-tip #exercise-7-8 title="Exercise 7.8"}
+
+Repeat Exercises 7.3, 7.4 and 7.6 with `lambda` expressions instead of the named key functions and predicates. In which cases is the named function better, and why?
+
+:::
+
+::: {.callout-tip #exercise-7-9 title="Exercise 7.9"}
+
+Let `students` be a list of tuples `(name, group, points)`, e.g.
+
+```python
+students = [('Kowalski', 2, 17), ('Nowak', 1, 23), ('Wiśniewska', 2, 23),
+            ('Wójcik', 1, 17), ('Kamińska', 2, 20), ('Lewandowski', 1, 23)]
+```
+
+Using `sorted()`, `max()`, `min()` and `filter()` with `lambda` expressions, compute:
+
+1. the list sorted by points in descending order, and the students with the same points by name;
+2. the list sorted by group, and within each group by points in descending order;
+3. the student with the most points in group 2 (one expression);
+4. the names of the students with fewer than 20 points.
+
+:::
+
+## 6. `functools.reduce()`
+
+The function `reduce(function, iterable[, initial])` of the `functools` module combines the elements of an iterable into a single value with a function of two arguments. It applies the function to the first two elements, then to the result and the third element, and so on, from left to right:
+
+```python
+>>> from functools import reduce
+>>> def add(x, y):
+...     return x + y
+...
+>>> reduce(add, [1, 2, 3, 4, 5])
+15
+>>> reduce(add, [1, 2, 3, 4, 5], 100)
+115
+>>> reduce(lambda x, y: 10 * x + y, [1, 2, 3, 4])
+1234
+```
+
+The first call computes `add(add(add(add(1, 2), 3), 4), 5)`, the last `((1 * 10 + 2) * 10 + 3) * 10 + 4`. If the third argument `initial` is given, it is placed before the elements, and it is the result for an empty iterable; without it, `reduce()` of an empty iterable raises `TypeError`. The [documentation](https://docs.python.org/3/library/functools.html#functools.reduce) shows the equivalent pure Python code.
+
+`reduce()` is general, but rarely the most readable choice. For the most common reductions there are dedicated functions: `sum()`, `max()`, `min()`, `any()`, `all()`, `math.prod()` and `str.join()`.
+
+::: {.callout-tip #exercise-7-10 title="Exercise 7.10"}
+
+Write a function `product(seq)` that returns the product of the numbers in `seq`, in three versions: with a `for` loop, with `reduce()` and a named function `multiply(x, y)`, and with `reduce()` and a `lambda` expression. The product of an empty sequence should be 1, as for `math.prod()`:
+
+```python
+>>> product([1, 2, 3, 4, 5])
+120
+>>> product([2.5, 4])
+10.0
+>>> product([])
+1
+```
+
+:::
+
+::: {.callout-tip #exercise-7-11 title="Exercise 7.11"}
+
+Complete the following functions. Each body should be a single `return` statement with `reduce()` and a `lambda` expression; do not use loops, `max()`, `str.join()` or other functions that would make the task trivial.
+
+```python
+def concatenate(seq):
+    """Return the concatenation of the strings in seq.
+
+    >>> concatenate(['Lorem', 'ipsum', 'dolor', 'sit', 'amet'])
+    'Loremipsumdolorsitamet'
+    >>> concatenate([])
+    ''
+    """
+    pass
+
+
+def join(seq, sep=''):
+    """Return the strings in seq joined with the separator sep.
+
+    >>> join(['Lorem', 'ipsum', 'dolor', 'sit', 'amet'])
+    'Loremipsumdolorsitamet'
+    >>> join(['Lorem', 'ipsum', 'dolor', 'sit', 'amet'], ' ')
+    'Lorem ipsum dolor sit amet'
+    >>> join(['a', 'b', 'c', 'd', 'e'], '-')
+    'a-b-c-d-e'
+    >>> join(['a'], '-')
+    'a'
+    """
+    pass
+
+
+def longest_string(seq):
+    """Return the longest string in seq; the first one if there are several.
+
+    >>> longest_string(['Lorem', 'ipsum', 'dolor', 'sit', 'amet'])
+    'Lorem'
+    >>> longest_string(['a', 'ab', 'abc', 'abcd', 'abcde'])
+    'abcde'
+    """
+    pass
+
+
+def maximum(seq):
+    """Return the largest element of a non-empty sequence.
+
+    >>> maximum([3, 1, 4, 1, 5])
+    5
+    >>> maximum('Lorem ipsum dolor sit amet'.split())
+    'sit'
+    """
+    pass
+
+
+def flatten(seq):
+    """Return the concatenation of the lists or tuples in seq.
+
+    >>> flatten([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    >>> flatten([(1, 2, 3), (4, 5, 6), (7, 8, 9)])
+    (1, 2, 3, 4, 5, 6, 7, 8, 9)
+    """
+    pass
+```
+
+Why does `concatenate()` need the argument `initial`, while `join()` must not use it? What do `join([])` and `flatten([])` return, and what would be better?
+
+:::
+
+## 7. Challenge (optional)
+
+::: {.callout-tip #exercise-7-12 title="Exercise 7.12 (challenge)"}
+
+Files with numbers in their names are sorted badly: `sorted(['img10.png', 'img2.png', 'img1.png'])` gives `['img1.png', 'img10.png', 'img2.png']`, because strings are compared character by character. A *natural sort* compares the runs of digits as numbers.
+
+1. Write a key function `natural_key(s)` that splits a string into alternating runs of non-digits and digits and returns a tuple in which the runs of digits are converted to `int`. Make the tuple always start with a string, possibly empty, so that `natural_key('img10.png')` is `('img', 10, '.png')` and `natural_key('10x')` is `('', 10, 'x')`. Why is the empty string needed? What would happen when comparing `natural_key('10x')` with `natural_key('x10')` without it? *Hint*: `str.isdigit()`.
+2. Write doctests, among others for `sorted(['img10.png', 'img2.png', 'img1.png', 'img2b.png', 'IMG3.png'], key=natural_key)`. Should `'IMG3.png'` be placed among the other `img` files? Change the key so that the case of letters is ignored.
+3. Sort the names of the files in a directory of your computer naturally, with `os.listdir()` of the `os` module.
+
+:::
