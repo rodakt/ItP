@@ -1,0 +1,433 @@
+---
+title: "Lab 8: Custom higher-order functions"
+subtitle: "Introduction to Python for Data Science"
+author: "Tomasz Rodak"
+---
+
+## 1. Functions as arguments
+
+In Lab 7 you passed functions to the higher-order functions of the standard library, such as `sorted()`, `max()` and `map()`. Writing your own is just as easy: a parameter may be bound to a function, and the function is called with round brackets like any other. Consider the sums
+
+$$
+\sum_{k=1}^{n} k, \qquad \sum_{k=1}^{n} k^2, \qquad \sum_{k=1}^{n} \frac{8}{(4k-3)(4k-1)}.
+$$
+
+The three loops that compute them would differ only in the expression added at each step. That expression can be made a parameter, a function `term` of one argument:
+
+```python
+def summation(n, term):
+    total = 0
+    for k in range(1, n + 1):
+        total += term(k)
+    return total
+```
+
+```python
+>>> def identity(k):
+...     return k
+...
+>>> summation(100, identity)
+5050
+>>> summation(100, lambda k: k * k)
+338350
+```
+
+The function `summation()` expresses the general idea of a sum, and `term` its particular terms, just as `sorted()` expresses sorting and `key` the particular order. Mathematically, `summation` is a function that takes a function as an argument, like the operator $\sum$ itself, or the derivative and the definite integral.
+
+::: {.callout-tip #exercise-8-1 title="Exercise 8.1"}
+
+1. Write the function `summation(n, term)` above with a docstring and doctests, including `n = 0`. Check that $\sum_{k=1}^{n} k^3 = \left(\frac{n(n+1)}{2}\right)^2$ for all $n$ from 0 to 100.
+2. Compute the third sum above for $n = 10, 100, 1000$. Which number does it approach? *Hint*: write $\frac{8}{(4k-3)(4k-1)} = 4\left(\frac{1}{4k-3} - \frac{1}{4k-1}\right)$.
+3. Write the analogous function `product(n, term)` and use it to define `factorial(n)` in a single `return` statement. What do `summation()` and `product()` still have in common? Write a function `accumulate(combine, start, n, term)` that generalizes both, so that `summation(n, term)` is `accumulate(add, 0, n, term)`, where `add` is a function of two arguments. Compare it with `functools.reduce()` (Lab 7).
+
+:::
+
+::: {.callout-tip #exercise-8-2 title="Exercise 8.2"}
+
+If a continuous function $f$ has values of opposite signs at the ends of an interval $[a, b]$, it has a root in that interval. The [bisection method](https://en.wikipedia.org/wiki/Bisection_method) halves the interval, keeping the half at whose ends $f$ still has opposite signs, until the interval is shorter than a given tolerance.
+
+Complete the function `find_root(f, a, b, abs_tol=1e-6)`. Assume that $a < b$. If $f(a)$ and $f(b)$ are both positive or both negative, the function raises `ValueError` with the message `the function does not change sign at the ends of the interval`. If $f$ is zero at an end of the interval or at a midpoint, that point is returned at once.
+
+```python
+def find_root(f, a, b, abs_tol=1e-6):
+    """Return an approximate root of f in [a, b], found by bisection.
+
+    The result differs from a root of f by at most abs_tol.
+
+    >>> from math import cos, pi, isclose
+    >>> isclose(find_root(lambda x: x, -100, 200), 0, abs_tol=1e-6)
+    True
+    >>> isclose(find_root(cos, 0, pi), pi / 2, abs_tol=1e-6)
+    True
+    >>> root = find_root(lambda x: x**3 - x - 2, 0, 2, abs_tol=1e-11)
+    >>> isclose(root, 1.52137970680457, abs_tol=1e-11)
+    True
+    >>> find_root(lambda x: x * x - 4, 0, 2)
+    2
+    >>> find_root(lambda x: 1 + x**2, 1, 100)
+    Traceback (most recent call last):
+        ...
+    ValueError: the function does not change sign at the ends of the interval
+    """
+    pass
+```
+
+Then answer:
+
+1. How many times does the loop run for the interval $[a, b]$ and the tolerance `abs_tol`? Why is the result within `abs_tol` of a root, although the loop stops only when the interval is shorter than `abs_tol`?
+2. What happens for `find_root(lambda x: x * x - 2, 0, 2, abs_tol=1e-20)`, and why? *Hint*: how many floats are there between `1.414213562373095` and `1.4142135623730951`? Protect the function against this case.
+3. What does `find_root(lambda x: 1 / x, -1, 2)` return? Which assumption of the method is not satisfied?
+
+:::
+
+## 2. Functions returning functions
+
+A `def` statement may appear inside the body of another function. It creates a new function object each time the outer function runs, and that object can be returned:
+
+```python
+>>> def make_power(exponent):
+...     def power(x):
+...         return x ** exponent
+...     return power
+...
+>>> square = make_power(2)
+>>> cube = make_power(3)
+>>> square(5), cube(2)
+(25, 8)
+>>> square
+<function make_power.<locals>.power at 0x7f3a1c2b5d80>
+```
+
+The inner function `power` uses the variable `exponent` of the enclosing function. The call `make_power(2)` has long finished when `square(5)` is called, but `square` still remembers `exponent = 2`, and `cube` its own `exponent = 3`. A function together with the variables of the enclosing functions that it uses is called a *closure*. The body of `make_power` could equally be `return lambda x: x ** exponent`.
+
+A name used in a function is looked up in this order: the local variables, the variables of the enclosing functions, the global variables and the built-in names (the *LEGB* rule: Local, Enclosing, Global, Built-in).
+
+::: {.callout-note title="Closures in C, C++ and Java"}
+
+Standard C has no nested functions; a function can keep values between calls only in `static` or global variables, shared by all its callers. C++ lambdas list the variables they capture, by value (`[=]`) or by reference (`[&]`); a lambda that captures a local variable by reference and outlives the function leaves a dangling reference. Java lambdas may capture only local variables that are effectively final. In Python a closure keeps the variables it uses alive as long as it exists itself.
+
+:::
+
+::: {.callout-warning title="A closure remembers variables, not values"}
+
+The inner function sees the *current* value of the variable when it is called, not the value at the moment it was created:
+
+```python
+>>> powers = [lambda x: x ** k for k in range(4)]
+>>> [p(2) for p in powers]
+[8, 8, 8, 8]
+```
+
+All four functions use the same variable `k`, whose value is 3 after the comprehension has finished. Creating the functions with `make_power(k)` gives each of them its own variable; so does the idiom `lambda x, k=k: x ** k`, since a default value is computed when the function is created (Lab 5).
+
+:::
+
+::: {.callout-tip #exercise-8-3 title="Exercise 8.3"}
+
+Write a function `adder_factory(term)` that returns a function of one argument `n` computing the sum of the first `n` terms defined by `term`. The body should be a single `return` statement that uses `summation()` of Exercise 8.1.
+
+```python
+def adder_factory(term):
+    """Return a function of n that returns the sum of term(k) for k = 1, ..., n.
+
+    >>> sum_of_squares = adder_factory(lambda k: k * k)
+    >>> sum_of_squares(0)
+    0
+    >>> sum_of_squares(2)
+    5
+    >>> sum_of_squares(100)
+    338350
+    >>> adder_factory(lambda k: k)(100)
+    5050
+    """
+    pass
+```
+
+Predict, then check what the following lines print, and explain:
+
+```python
+adders = []
+for c in [1, 10, 100]:
+    adders.append(adder_factory(lambda k: c))
+print([f(3) for f in adders])
+```
+
+Fix the loop with each of the two methods described in the warning above.
+
+:::
+
+::: {.callout-tip #exercise-8-4 title="Exercise 8.4"}
+
+Write a function `compose(f, g)` that returns the composition $f \circ g$ of the functions `f` and `g` of one argument, i.e. the function $x \mapsto f(g(x))$.
+
+```python
+def compose(f, g):
+    """Return the composition of f and g: the function x -> f(g(x)).
+
+    >>> inc = lambda x: x + 1
+    >>> double = lambda x: x * 2
+    >>> compose(inc, double)(1)
+    3
+    >>> compose(double, inc)(1)
+    4
+    >>> compose(inc, inc)(1)
+    3
+    >>> s = 'cba'
+    >>> compose(str.upper, str.lower)(s)
+    'CBA'
+    >>> first = lambda seq: seq[0]
+    >>> compose(first, str.upper)(s)
+    'C'
+    >>> compose(first, sorted)(s)
+    'a'
+    """
+    pass
+```
+
+Then:
+
+1. Use `compose()` to create a function `clean(word)` that removes the whitespace from both ends of a string and converts it to lowercase (Lab 3), without `def` or `lambda`. Apply it with `map()` to `['  Lorem', 'IPSUM ', ' dolor\n']`. Does the order of the arguments of `compose()` matter here?
+2. Write a function `twice(f)` that returns $f \circ f$, using `compose()`. What is `twice(twice)(lambda x: x + 1)(0)`? Explain.
+
+:::
+
+## 3. The `nonlocal` statement
+
+A closure can not only read the variables of the enclosing function, but also keep a state between its calls. An assignment makes a name local in the whole body of a function (Lab 5), so to assign to a variable of the enclosing function, declare it with `nonlocal`, just as `global` declares a global variable:
+
+```python
+>>> def make_counter():
+...     count = 0
+...     def counter():
+...         nonlocal count
+...         count += 1
+...         return count
+...     return counter
+...
+>>> c = make_counter()
+>>> c(), c(), c()
+(1, 2, 3)
+>>> d = make_counter()
+>>> d(), c()
+(1, 4)
+```
+
+Each call of `make_counter()` creates a new variable `count`, so the counters `c` and `d` are independent. Without `nonlocal`, `count += 1` raises `UnboundLocalError`. Unlike the global counter of Exercise 5.7, the state is hidden: no other code can change `count`.
+
+`nonlocal` is needed only to assign to the name. Modifying a mutable object that the name refers to, e.g. `values.append(x)` for a list `values` of the enclosing function, is not an assignment and needs no declaration.
+
+::: {.callout-tip #exercise-8-5 title="Exercise 8.5"}
+
+1. Write a function `running_avg()` without parameters that returns a function of one number. The returned function adds the number to those it has received so far and returns the arithmetic mean of all of them. Write two versions: one keeps the sum and the count of the numbers with `nonlocal`, the other stores the numbers in a list without `nonlocal`. Which one uses less memory?
+
+   ```python
+   def running_avg():
+       """Return a function that returns the mean of all the numbers passed to it.
+
+       >>> avg = running_avg()
+       >>> avg(-10)
+       -10.0
+       >>> avg(10)
+       0.0
+       >>> avg(5)
+       1.6666666666666667
+       >>> avg(200)
+       51.25
+       """
+       pass
+   ```
+
+2. In data analysis, a *moving average* is the mean of the last `window` values of a series, used to smooth it. Write a function `moving_avg(window)` that returns a function like the one above, but returning the mean of the last `window` numbers received (of all of them, while there are fewer than `window`). Write doctests. Does this version need `nonlocal`?
+
+:::
+
+## 4. Variable number of arguments
+
+`print()` and `max()` accept any number of positional arguments. A parameter written with a star, by convention `*args`, collects all the remaining positional arguments into a tuple; a parameter written with two stars, by convention `**kwargs`, collects all the remaining keyword arguments into a dictionary:
+
+```python
+>>> def show(*args, **kwargs):
+...     print(args, kwargs)
+...
+>>> show()
+() {}
+>>> show(1, 'a', [2], color='red', size=3)
+(1, 'a', [2]) {'color': 'red', 'size': 3}
+>>> def total(*numbers):
+...     result = 0
+...     for x in numbers:
+...         result += x
+...     return result
+...
+>>> total(1, 2, 3), total()
+(6, 0)
+```
+
+The parameters come in the order: ordinary parameters, `*args`, *keyword-only* parameters, `**kwargs`. A parameter after `*args` can be passed only by name; that is why you write `print(a, b, sep='')`, whose signature is `print(*objects, sep=' ', end='\n', file=None, flush=False)`.
+
+The stars also work in the opposite direction, in a call: `f(*seq)` passes the elements of `seq` as separate positional arguments, and `f(**d)` passes the items of the dictionary `d` as keyword arguments:
+
+```python
+>>> numbers = [3, 1, 4]
+>>> print(*numbers, sep=', ')
+3, 1, 4
+>>> options = {'sep': '-', 'end': '!\n'}
+>>> print(*numbers, **options)
+3-1-4!
+```
+
+A function `def wrapper(*args, **kwargs): return f(*args, **kwargs)` therefore passes any arguments on to `f` unchanged, which you will need in the next section.
+
+In C, a function with a variable number of arguments, such as `printf()`, reads them with the macros of `<stdarg.h>` and must learn their number and types from other arguments, e.g. from the format string. In Java, a parameter `int... numbers` collects the arguments into an array, like `*numbers` in Python; Java has no counterpart of `**kwargs`.
+
+::: {.callout-tip #exercise-8-6 title="Exercise 8.6"}
+
+Write a function `compose_all(*functions)` that returns the composition of any number of functions of one argument: `compose_all(f, g, h)` is the function $x \mapsto f(g(h(x)))$, and `compose_all()` is the identity function. Write two versions: with a loop, and with `functools.reduce()` and `compose()` of Exercise 8.4. Write doctests.
+
+:::
+
+::: {.callout-tip #exercise-8-7 title="Exercise 8.7"}
+
+Create a module `lottery_machine.py` with a function `lottery_machine(replacement=True, **balls)` that returns a function without parameters, `lottery()`, simulating drawing balls from an urn.
+
+* `balls` are keyword arguments `color=quantity`, where `color` is the colour of the balls and `quantity` their number in the urn, a non-negative integer. For a negative quantity, `lottery_machine()` raises `ValueError`.
+* `replacement` says whether a drawn ball is put back into the urn (`True`, the default) or not (`False`).
+* Each call of `lottery()` draws one ball, each ball in the urn with the same probability, and returns a *new* list of the colours of all the balls drawn so far, in the order in which they were drawn.
+* If the urn is empty, `lottery()` raises `LookupError` with the message `The urn is empty`.
+
+```python
+>>> from lottery_machine import lottery_machine
+>>> lottery = lottery_machine(replacement=False, red=2, blue=1)
+>>> lottery()
+['red']
+>>> lottery()
+['red', 'blue']
+>>> lottery()
+['red', 'blue', 'red']
+>>> lottery()
+Traceback (most recent call last):
+    ...
+LookupError: The urn is empty
+```
+
+(The colours you draw will differ.) Use the module `random` (Labs 2 and 3): `random.choice(seq)` returns a random element of a non-empty sequence, `random.randrange(n)` a random integer from `0` to `n - 1`.
+
+[Here](https://github.com/rodakt/ItP/blob/2026-27/tests/lab_8/test_lottery_machine.py) you can find `unittest` tests of the module (Lab 6). Save them as `test_lottery_machine.py` in the directory of your `lottery_machine.py` and run them.
+
+Why should `lottery()` return a new list rather than the list it keeps the drawn colours in? Can there be balls of the colour `replacement`?
+
+:::
+
+## 5. Decorators
+
+A function that takes a function and returns a new function, usually an extended version of its argument, is called a *decorator*. The following decorator prints each call of a function before making it:
+
+```python
+def trace(f):
+    def wrapper(*args, **kwargs):
+        arguments = ', '.join(map(repr, args))
+        print(f'{f.__name__}({arguments})')
+        return f(*args, **kwargs)
+    return wrapper
+
+
+def factorial(n):
+    return 1 if n == 0 else n * factorial(n - 1)
+
+factorial = trace(factorial)
+```
+
+```python
+>>> factorial(3)
+factorial(3)
+factorial(2)
+factorial(1)
+factorial(0)
+6
+```
+
+The traced function replaces the original one under the same name, so the recursive calls inside `factorial` go through `wrapper` as well. This is so common that Python has a special syntax for it: writing `@trace` in the line before `def factorial(n):` has the same effect as the assignment `factorial = trace(factorial)` after the definition.
+
+```python
+@trace
+def factorial(n):
+    return 1 if n == 0 else n * factorial(n - 1)
+```
+
+The function returned by a decorator is a different function: its name, `factorial.__name__`, is `'wrapper'`, and its docstring is that of `wrapper`, i.e. none. The doctests of a decorated function are then silently lost, since `doctest` does not see them. The decorator `functools.wraps` copies the name, the docstring and other attributes of `f` to `wrapper`, and every decorator should use it:
+
+```python
+import functools
+
+def trace(f):
+    @functools.wraps(f)
+    def wrapper(*args, **kwargs):
+        arguments = ', '.join(map(repr, args))
+        print(f'{f.__name__}({arguments})')
+        return f(*args, **kwargs)
+    return wrapper
+```
+
+::: {.callout-tip #exercise-8-8 title="Exercise 8.8"}
+
+In Exercise 5.9 you memoized `fibonacci_memo(n)` with a global dictionary. A decorator can memoize any function. Write a decorator `memoize(f)` that returns a version of `f` storing the results of the calls in a dictionary keyed by the tuple of the positional arguments; if the result for the given arguments is in the dictionary, it is returned without calling `f`. Assume that the arguments are hashable, i.e. can be dictionary keys, and that there are no keyword arguments.
+
+```python
+def memoize(f):
+    """Return a memoized version of f.
+
+    >>> calls = []
+    >>> @memoize
+    ... def square(n):
+    ...     calls.append(n)
+    ...     return n * n
+    ...
+    >>> square(5), square(5), square(10)
+    (25, 25, 100)
+    >>> calls
+    [5, 10]
+    >>> @memoize
+    ... def fib(n):
+    ...     return n if n < 2 else fib(n - 1) + fib(n - 2)
+    ...
+    >>> fib(100)
+    354224848179261915075
+    """
+    pass
+```
+
+1. Where is the dictionary kept, and how is it better than the global dictionary of Exercise 5.9?
+2. Define `fib()` without the decorator and set `fast_fib = memoize(fib)`. How long does `fast_fib(35)` take, and how long `fast_fib(35)` called again? Explain why memoization does not help the first call here.
+3. What happens for `fib(5000)` with the decorator, and why (Lab 5)?
+4. The standard library provides the decorator `functools.cache`, which does the same. Check that `@functools.cache` gives the same results.
+
+:::
+
+::: {.callout-tip #exercise-8-9 title="Exercise 8.9"}
+
+1. Write a decorator `count_calls(f)` that counts the calls of the decorated function. A function is an object and may have attributes: keep the count in the attribute `calls` of the returned function, so that `fib.calls` is the number of calls of `fib`. Use `functools.wraps`, and check that the doctests of a decorated function are still run.
+2. Use it to count the calls of the recursive `fib(20)` of the previous exercise without memoization, as in Exercise 5.9, and with memoization. Does the result depend on the order of the decorators,
+
+   ```python
+   @count_calls
+   @memoize
+   def fib(n):
+       ...
+   ```
+
+   versus `@memoize` above `@count_calls`? Explain. *Hint*: write both versions as assignments, keeping a name for the function returned by `count_calls()`. What is `fib.calls` in the second version if `memoize()` uses `functools.wraps`, and what if it does not?
+
+:::
+
+## 6. Challenge (optional)
+
+::: {.callout-tip #exercise-8-10 title="Exercise 8.10 (challenge)"}
+
+Newton's method finds a root of a differentiable function $f$ by starting from a guess $x_0$ and repeating $x_{k+1} = x_k - f(x_k)/f'(x_k)$.
+
+1. Write a function `derivative(f, h=1e-7)` that returns an approximation of the derivative of `f`, the function $x \mapsto \frac{f(x + h) - f(x - h)}{2h}$. Compare `derivative(math.sin)(x)` with `math.cos(x)` for several `x`. What happens to the error for `h = 1e-3` and for `h = 1e-12`, and why?
+2. Write a function `newton(f, x0, abs_tol=1e-12, max_steps=100)` that repeats the step of Newton's method, with the derivative from `derivative()`, until two successive approximations differ by less than `abs_tol`, and returns the last one. If this does not happen within `max_steps` steps, or the derivative is zero, it raises `ArithmeticError`.
+3. Use `newton()` to write `sqrt(a)` and `cube_root(a)` in a single `return` statement each, and to find the root of $x^3 - x - 2$ of Exercise 8.2.
+4. Using `count_calls()` of Exercise 8.9, compare how many times `find_root()` and `newton()` evaluate the function $x^3 - x - 2$ to find its root with the tolerance `1e-12`. What does `newton()` do for $f(x) = x^{1/3}$, written as `math.copysign(abs(x) ** (1/3), x)`, starting from $x_0 = 1$?
+
+:::
