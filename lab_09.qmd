@@ -1,0 +1,465 @@
+---
+title: "Lab 9: Classes"
+subtitle: "Introduction to Python for Data Science"
+author: "Tomasz Rodak"
+---
+
+## 1. Classes and instances
+
+From the Python [tutorial](https://docs.python.org/3/tutorial/classes.html):
+
+> Classes provide a means of bundling data and functionality together. Creating a new class creates a new type of object, allowing new instances of that type to be made. Each class instance can have attributes attached to it for maintaining its state. Class instances can also have methods (defined by its class) for modifying its state.
+
+You have been using classes since Lab 1: `type(42)` is `<class 'int'>`, and every list, string, dictionary or file object is an *instance* of a class. A class of your own is defined with the `class` statement, followed by the name of the class and a colon; the indented body may contain assignments, function definitions and other statements:
+
+```python
+class ClassName:
+    <statement-1>
+    ...
+    <statement-N>
+```
+
+By convention (PEP 8), class names are written in `CapWords`, unlike the `lower_case` names of functions and variables. The simplest class has an empty body:
+
+```python
+>>> class MyClass:
+...     pass
+...
+```
+
+Like `def`, `class` is an ordinary statement: executed, it creates a *class object* and binds it to the name `MyClass`. Calling the class object, as if it were a function, creates a new instance of the class:
+
+```python
+>>> x = MyClass()
+>>> x
+<__main__.MyClass object at 0x7f3c5c2d3b50>
+>>> type(x)
+<class '__main__.MyClass'>
+>>> isinstance(x, MyClass), isinstance(42, MyClass)
+(True, False)
+```
+
+You may think of a class as a blueprint for creating objects. All instances of a class share the same structure (the same methods), but they are separate objects:
+
+```python
+>>> y = MyClass()
+>>> x is y    # two different objects in memory
+False
+```
+
+## 2. Attributes
+
+An *attribute* is a name attached to an object and written after a dot, as in `x.name`. Attributes assigned in the body of a class are *class attributes*, shared by all instances of the class:
+
+```python
+>>> class MyClass:
+...     class_attribute = 42
+...
+>>> x = MyClass()
+>>> y = MyClass()
+>>> x.class_attribute, y.class_attribute, MyClass.class_attribute
+(42, 42, 42)
+```
+
+An *instance attribute* belongs to one instance. It is created by an assignment to an attribute of the instance, usually in a method of the class (see below), but it can be done anywhere:
+
+```python
+>>> x.instance_attribute = 43
+>>> x.instance_attribute
+43
+>>> y.instance_attribute
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'MyClass' object has no attribute 'instance_attribute'
+>>> vars(x)    # the instance attributes of x, as a dictionary
+{'instance_attribute': 43}
+```
+
+When you read `x.name`, Python looks for `name` first among the instance attributes of `x`, then in its class. An assignment `x.name = ...` always creates or changes an instance attribute, so assigning to a class attribute through an instance does not change the class attribute, but hides it in that instance:
+
+```python
+>>> x.class_attribute = 0
+>>> x.class_attribute, y.class_attribute, MyClass.class_attribute
+(0, 42, 42)
+>>> MyClass.class_attribute = 1
+>>> x.class_attribute, y.class_attribute
+(0, 1)
+```
+
+::: {.callout-warning title="A mutable class attribute is shared"}
+
+A list or a dictionary assigned in the body of a class is one object, shared by all the instances. Appending to it through one instance is not an assignment, so it does not create an instance attribute (compare `nonlocal` in Lab 8), and the change is seen by all the instances:
+
+```python
+>>> class Basket:
+...     items = []    # a single list for all baskets
+...
+>>> a = Basket()
+>>> b = Basket()
+>>> a.items.append('apple')
+>>> b.items
+['apple']
+```
+
+Data that belongs to one instance must be created for each instance separately, in the method `__init__()` of Section 4.
+
+:::
+
+## 3. Methods
+
+A function defined in the body of a class is a *method*. It describes what the instances of the class can do:
+
+```python
+>>> class MyClass:
+...     def greet(self):
+...         return 'Hello, world!'
+...
+>>> x = MyClass()
+>>> x.greet()
+'Hello, world!'
+```
+
+The method has a parameter `self`, although the call `x.greet()` has no argument. The call `x.greet()` is translated into `MyClass.greet(x)`: the instance before the dot is passed as the first argument. The same holds for the methods of the built-in classes, e.g. `'abc'.upper()` is `str.upper('abc')`, which you used in Lab 8 with `compose(str.upper, str.lower)`. In general, if `x` is an instance of `MyClass`, then
+
+```python
+x.method(arg1, arg2)    # is the same as
+MyClass.method(x, arg1, arg2)
+```
+
+Through `self`, a method reads and changes the attributes of the instance it was called on. The name `self` is not a keyword, but a very strong convention. A method defined without it cannot be called on an instance:
+
+```python
+>>> class Broken:
+...     def greet():
+...         return 'Hello!'
+...
+>>> Broken().greet()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: Broken.greet() takes 0 positional arguments but 1 was given
+```
+
+A method is an attribute of the class, so `x.greet` without round brackets is an object, a *bound method*: a function that remembers the instance `x`. Like any function, it can be bound to a name or passed to a higher-order function (Lab 7):
+
+```python
+>>> words = []
+>>> add_word = words.append
+>>> add_word('lorem')
+>>> list(map(add_word, ['ipsum', 'dolor']))
+[None, None]
+>>> words
+['lorem', 'ipsum', 'dolor']
+```
+
+## 4. The `__init__()` method
+
+The instances of a class usually need their own attributes from the very beginning. One could write a method `initialize()` and remember to call it after creating each instance, but in the meantime the instance would exist without its attributes, and forgetting the call would end with an `AttributeError` far away from the cause. Instead, Python calls the method named `__init__()`, if the class defines it, automatically on every new instance; the arguments of the call of the class are passed to `__init__()` after `self`:
+
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def greet(self):
+        return f'Hello, my name is {self.name} and I am {self.age} years old.'
+
+    def have_birthday(self):
+        self.age += 1
+```
+
+```python
+>>> alice = Person('Alice', 25)
+>>> bob = Person(name='Bob', age=30)
+>>> alice.greet()
+'Hello, my name is Alice and I am 25 years old.'
+>>> alice.have_birthday()
+>>> alice.age, bob.age
+(26, 30)
+```
+
+`Person('Alice', 25)` creates an empty instance, calls `Person.__init__(instance, 'Alice', 25)` and returns the instance; `__init__()` itself returns `None`. `alice` and `bob` have separate attributes `name` and `age`, and share the methods of the class, which work on the attributes of the instance they are called on. Names that start and end with two underscores, such as `__init__`, are *special methods*, called by Python itself; Lab 10 shows more of them.
+
+A docstring may be placed at the beginning of a class and of each method, and `doctest` (Lab 5) runs the examples in all of them.
+
+::: {.callout-note title="Classes in C++ and Java"}
+
+* `self` is the explicit counterpart of the implicit `this` of C++ and Java. Inside a method, attributes are always written as `self.name`; a bare `name` is a local or a global variable.
+* Instance attributes are not declared in the class: they are created by assignments, usually in `__init__()`. Attributes can even be added to an instance from outside, as in Section 2.
+* `__init__()` is not quite a constructor: the instance already exists when it is called, and the method only *initializes* it, hence its name. A class has a single `__init__()`; instead of overloading constructors, use default argument values (Lab 5).
+* There are no `private` or `protected` attributes; Lab 10 shows the convention used instead. Getters and setters are not used for plain attributes: write `alice.age`, not `alice.get_age()`.
+* Instances are never deleted explicitly, as with `delete` in C++: as in Java, an object is freed automatically when it can no longer be reached.
+
+:::
+
+::: {.callout-tip #exercise-9-1 title="Exercise 9.1"}
+
+Write a class `Rectangle` with the instance attributes `width` and `height`, initialized in `__init__()`, and the methods:
+
+* `area()`, returning the area of the rectangle,
+* `perimeter()`, returning its perimeter,
+* `is_square()`, returning `True` if the rectangle is a square,
+* `scale(factor)`, multiplying both sides by `factor`; it returns nothing.
+
+```python
+>>> r = Rectangle(width=10, height=20)
+>>> r.area(), r.perimeter(), r.is_square()
+(200, 60, False)
+>>> r.scale(0.5)
+>>> r.width, r.height
+(5.0, 10.0)
+>>> Rectangle(3, 3).is_square()
+True
+```
+
+Why is the area a method rather than an attribute `self.area` computed in `__init__()`? What would `r.area` be after `r.scale(0.5)` then?
+
+:::
+
+::: {.callout-tip #exercise-9-2 title="Exercise 9.2"}
+
+Write a class `Point` whose instances represent points $(x, y)$ in the plane, with the methods:
+
+* `__init__(x=0, y=0)`, initializing the instance attributes `x` and `y`,
+* `move(dx, dy)`, moving the point by `dx` in the direction of the $x$-axis and by `dy` in the direction of the $y$-axis,
+* `distance(other)`, returning the Euclidean distance between the point and the point `other`.
+
+```python
+>>> p1 = Point()
+>>> p2 = Point(3, 4)
+>>> p1.distance(p2)
+5.0
+>>> p1.move(3, 4)
+>>> p1.distance(p2)
+0.0
+>>> p1 == p2
+False
+```
+
+Compute the distance with `math.hypot()`. Explain the result of the last comparison: what does `==` compare for instances of your class? (Lab 10 shows how to change it.)
+
+:::
+
+::: {.callout-tip #exercise-9-3 title="Exercise 9.3"}
+
+Write a class `BankAccount` whose instances have the attributes `number`, a string, and `balance`, and the methods:
+
+* `__init__(number, balance=0)`,
+* `deposit(amount)`, adding `amount` to the balance,
+* `withdraw(amount)`, subtracting `amount` from the balance,
+* `transfer(other, amount)`, moving `amount` from this account to the account `other`,
+* `describe()`, returning a string as in the example below.
+
+`deposit()`, `withdraw()` and `transfer()` raise `ValueError` (Lab 6) if `amount` is not positive; `withdraw()` and `transfer()` also raise it if the balance is smaller than `amount`. A transfer that raised an exception must leave both accounts unchanged.
+
+```python
+>>> a1 = BankAccount('1234567890', 1000)
+>>> a1.describe()
+'Account 1234567890, balance: 1000'
+>>> a1.deposit(500)
+>>> a1.withdraw(200)
+>>> a1.balance
+1300
+>>> a2 = BankAccount('0987654321')
+>>> a1.transfer(a2, 300)
+>>> a1.balance, a2.balance
+(1000, 300)
+>>> a2.withdraw(500)
+Traceback (most recent call last):
+    ...
+ValueError: insufficient funds
+>>> a2.balance
+300
+```
+
+Write `transfer()` with `withdraw()` and `deposit()`. Nothing prevents writing `a1.balance = 10**6`; which of the checks above does it bypass?
+
+:::
+
+::: {.callout-tip #exercise-9-4 title="Exercise 9.4"}
+
+In Exercise 8.5 you wrote `running_avg()`, a closure returning the mean of all the numbers passed to it. Write a class `RunningAverage` that does the same with instance attributes instead of `nonlocal` variables:
+
+```python
+class RunningAverage:
+    """Mean of all the numbers passed to add().
+
+    >>> avg = RunningAverage()
+    >>> avg.add(-10)
+    -10.0
+    >>> avg.add(10)
+    0.0
+    >>> avg.add(5)
+    1.6666666666666667
+    >>> avg.add(200)
+    51.25
+    >>> avg.count
+    4
+    >>> other = RunningAverage()
+    >>> other.add(1), avg.count
+    (1.0, 4)
+    """
+    pass
+```
+
+Which attributes does an instance need? Add a method `mean()` that returns the current mean without adding a number. What should it do before the first call of `add()`? Compare the class with the closure: what can the user of the class read or change that the user of the closure cannot? Write a class `MovingAverage(window)` corresponding to `moving_avg(window)` of Exercise 8.5 as well.
+
+:::
+
+::: {.callout-tip #exercise-9-5 title="Exercise 9.5"}
+
+The Fibonacci sequence $F_0 = 0$, $F_1 = 1$, $F_n = F_{n-1} + F_{n-2}$ for $n \geq 2$, can be generalized to any initial values $F_0 = a$ and $F_1 = b$. Write a class `Fib` with the methods:
+
+* `__init__(a=0, b=1)`, storing the initial values,
+* `term(n)`, returning $F_n$, computed recursively with memoization (Exercise 5.9): the computed terms are kept in a dictionary that is an attribute of the instance.
+
+```python
+>>> f = Fib()
+>>> f.term(0), f.term(10), f.term(100)
+(0, 55, 354224848179261915075)
+>>> g = Fib(2, 3)
+>>> g.term(0), g.term(3)
+(2, 8)
+>>> [Fib(2, -1).term(n) for n in range(8)]
+[2, -1, 1, 0, 1, 1, 2, 3]
+```
+
+1. Why must the dictionary be an instance attribute, created in `__init__()`, and not a class attribute? What goes wrong with a class attribute for `f` and `g` above?
+2. What happens for `Fib().term(5000)` called right after creating the instance, and what if `term(500)`, `term(1000)`, ..., `term(5000)` are called first, in this order? Explain. Why does even `term(1000)` fail on a new instance?
+
+:::
+
+::: {.callout-tip #exercise-9-6 title="Exercise 9.6"}
+
+A *stack* is a collection in which elements are added and removed at the same end, the top: the last element pushed is the first popped. Write a class `Stack` that keeps the elements in a list, with the methods:
+
+* `__init__()`, creating an empty stack,
+* `push(value)`, putting `value` on the top of the stack,
+* `pop()`, removing the top value and returning it,
+* `top()`, returning the top value without removing it,
+* `is_empty()`, returning `True` if the stack is empty and `False` otherwise,
+* `size()`, returning the number of elements.
+
+`pop()` and `top()` on an empty stack raise `IndexError` with the message `empty stack`.
+
+```python
+>>> s = Stack()
+>>> s.push(1)
+>>> s.push(2)
+>>> s.push(3)
+>>> s.top(), s.size()
+(3, 3)
+>>> s.pop(), s.pop(), s.is_empty()
+(3, 2, False)
+>>> s.pop(), s.is_empty()
+(1, True)
+>>> s.top()
+Traceback (most recent call last):
+    ...
+IndexError: empty stack
+```
+
+1. Which end of the list should be the top of the stack, and why? Compare the times of 100 000 pushes and pops at either end (`list.insert(0, x)` and `list.pop(0)` versus `append()` and `pop()`).
+2. Use `Stack` to write a function `is_balanced(text)` that checks whether the brackets `()`, `[]` and `{}` in `text` are correctly nested, e.g. `is_balanced('f(a[1], {2: (3)})')` is `True`, and `is_balanced('(]')` and `is_balanced('(()')` are `False`.
+
+:::
+
+## 5. Inheritance
+
+A class may be defined as an extension of an existing class, called its *base class* or *superclass*; the new class is a *subclass* or a *derived class*. The base class is given in round brackets after the name. The subclass *inherits* all the methods and class attributes of the base class, may add new ones and may *override* the inherited ones by defining a method of the same name:
+
+```python
+class Student(Person):
+    def __init__(self, name, age, university):
+        super().__init__(name, age)
+        self.university = university
+
+    def greet(self):
+        return super().greet() + f' I study at {self.university}.'
+```
+
+```python
+>>> carol = Student('Carol', 21, 'University of Lodz')
+>>> carol.greet()
+'Hello, my name is Carol and I am 21 years old. I study at University of Lodz.'
+>>> carol.have_birthday()    # inherited from Person
+>>> carol.age
+22
+>>> isinstance(carol, Student), isinstance(carol, Person), isinstance(alice, Student)
+(True, True, False)
+>>> issubclass(Student, Person)
+True
+```
+
+`super()` gives access to the methods of the base class, so that the overriding method can extend the original one instead of copying it. Here `Student.__init__()` lets `Person.__init__()` set `name` and `age`; without the call, a student would have no `name`. When a method is called, Python looks for it in the class of the instance, then in its base class, and so on. Every class that names no base class is derived from the built-in class `object`.
+
+A function that works with a `Person`, e.g. one that calls `greet()`, works with a `Student` as well, and calls the `greet()` of `Student` for it. Unlike in C++, there is nothing like `virtual`: as in Java, the method is always chosen by the class of the instance at run time.
+
+Inheritance explains two things you have used before. First, exceptions form a hierarchy of classes (Lab 6): `FileNotFoundError` is a subclass of `OSError`, so `except OSError` catches it. You can define your own exceptions as subclasses of a suitable built-in one; often the body of the class is just a docstring:
+
+```python
+>>> class NegativeNumberError(ValueError):
+...     """Raised when a negative number is not allowed."""
+...
+>>> try:
+...     raise NegativeNumberError('negative numbers are not allowed')
+... except ValueError as e:
+...     print(type(e).__name__, e)
+...
+NegativeNumberError negative numbers are not allowed
+```
+
+The new exception says more precisely what went wrong, and code that catches `ValueError` still handles it. Second, the tests of `unittest` (Lab 6) are methods of a subclass of `unittest.TestCase`. The methods `assertEqual()`, `assertRaises()` and the others are inherited from `TestCase`, which is why they are called on `self`; `unittest.main()` finds the subclasses of `TestCase` and runs their methods whose names start with `test_`.
+
+::: {.callout-tip #exercise-9-7 title="Exercise 9.7"}
+
+Extend the class `BankAccount` of Exercise 9.3.
+
+1. Define an exception `InsufficientFundsError`, a subclass of `ValueError`, and raise it instead of `ValueError` when the balance is too small. Why is `ValueError` a better base class than `Exception` here?
+2. Write a subclass `SavingsAccount` of `BankAccount` with an additional attribute `rate`, the annual interest rate, given to `__init__(number, rate, balance=0)`, and a method `add_interest()` that adds the interest for one year to the balance. Use `super().__init__()`. Which methods does `SavingsAccount` inherit, and does `transfer()` work between a `BankAccount` and a `SavingsAccount`?
+3. Move the classes into a module `bank.py`, and write a file `test_bank.py` with `unittest` tests of both classes, including the exceptions and a failed transfer. Use `assertRaises(ValueError)` and `assertRaises(InsufficientFundsError)`: which of them accepts which errors?
+
+:::
+
+::: {.callout-tip #exercise-9-8 title="Exercise 9.8"}
+
+Write a base class `Shape` with a method `describe()` that returns e.g. `'Rectangle with area 200 and perimeter 60'`, using the methods `area()` and `perimeter()`, which `Shape` itself does not define, and the name of the class, `type(self).__name__`. Then write the subclasses:
+
+* `Rectangle(width, height)`, as in Exercise 9.1,
+* `Square(side)`, a subclass of `Rectangle`, whose `__init__()` calls `super().__init__()`,
+* `Circle(radius)`.
+
+```python
+>>> shapes = [Rectangle(10, 20), Square(5), Circle(1)]
+>>> for shape in shapes:
+...     print(shape.describe())
+...
+Rectangle with area 200 and perimeter 60
+Square with area 25 and perimeter 20
+Circle with area 3.141592653589793 and perimeter 6.283185307179586
+>>> max(shapes, key=lambda shape: shape.area()).describe()
+'Rectangle with area 200 and perimeter 60'
+```
+
+1. What happens when `describe()` is called on `Shape()`? Make `Shape.area()` and `Shape.perimeter()` raise `NotImplementedError` with a helpful message.
+2. Why does `max(shapes, key=Shape.area)` not work, although `max(words, key=str.upper)` does? *Hint*: `x.area()` is `type(x).area(x)`, not `Shape.area(x)`.
+3. `Square` inherits `scale()` from `Rectangle`, and that is fine. Suppose `Rectangle` also had a method `set_width(width)`. What would it do to a `Square`? Is a square a rectangle in the sense of inheritance, i.e. can it be used everywhere a rectangle is expected?
+
+:::
+
+## 6. Challenge (optional)
+
+::: {.callout-tip #exercise-9-9 title="Exercise 9.9 (challenge)"}
+
+The sample variance of the numbers $x_1, \ldots, x_n$ is $s^2 = \frac{1}{n-1} \sum_{k=1}^{n} (x_k - \bar{x})^2$, where $\bar{x}$ is their mean. Equivalently, $s^2 = \frac{1}{n-1} \left( \sum x_k^2 - \frac{1}{n} \left( \sum x_k \right)^2 \right)$, which can be computed in one pass by keeping only $n$, $\sum x_k$ and $\sum x_k^2$.
+
+1. Write a class `RunningStats` with a method `add(x)` and the methods `mean()` and `variance()`, which keeps the three numbers above. `variance()` raises `ValueError` for fewer than two numbers.
+2. Add the numbers `1e9 + 4`, `1e9 + 7`, `1e9 + 13` and `1e9 + 16`. Their variance is 30 (why?). What does your class return? Explain the error; how many significant digits do $\sum x_k^2$ and $\frac{1}{n}(\sum x_k)^2$ have in common?
+3. *Welford's algorithm* keeps $n$, the current mean $m_n$ and $M_n = \sum_{k=1}^{n} (x_k - m_n)^2$, updated by
+   $$
+   m_n = m_{n-1} + \frac{x_n - m_{n-1}}{n}, \qquad M_n = M_{n-1} + (x_n - m_{n-1})(x_n - m_n),
+   $$
+   with $m_0 = M_0 = 0$. Prove the update formula for $M_n$, and write a subclass `WelfordStats` of `RunningStats` that overrides `add()`, `mean()` and `variance()` accordingly. Compare the two classes on the data of item 2 and on `random.gauss(1e9, 1)` for 100 000 numbers. Compare with `statistics.variance()`.
+4. Does it make sense for `WelfordStats` to be a subclass of `RunningStats`, if it overrides all its methods? What would be a better design?
+
+:::
